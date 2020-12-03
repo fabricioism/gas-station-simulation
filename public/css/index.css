@@ -1,0 +1,52 @@
+/* CSS GENERAL */
+
+.contenedor-navbar{
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 10vh;
+    padding: 0px;
+}
+
+.fila{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+}
+
+.titulo,.barras,.tiempo{
+    height: 100%;
+    /* border: 1px solid black; */
+}
+
+
+
+/* CSS DE LA ESTRUCTURA DE LAS COLUMNAS */
+.entradas{
+    height: 90vh;
+    /* border: 1px solid black; */
+}
+
+.bombas{
+    height: 55vh;
+    /* border: 1px solid black; */
+}
+
+.resumen{
+    height: 35vh;
+    /* border: 1px solid black; */
+}
+
+ /* Estilos a las columnas */
+
+.titulo,.entradas{
+    background-color:  #45b39d ;
+}
+
+.titulo,.entradas,.barras,.tiempo{
+    border-bottom: 0.15rem solid black;
+    border-right: 0.15rem solid black;
+}
+
+.resumen{
+    border-top:  0.15rem solid black;
+}
