@@ -3,6 +3,14 @@ const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
+const model = require("./model.js");
+
+var carro = new model.Carro();
+console.log(JSON.stringify(carro));
+carro = new model.Carro();
+console.log(JSON.stringify(carro));
+carro = new model.Carro();
+console.log(JSON.stringify(carro));
 
 app.use("/", express.static("front"));
 
