@@ -1,16 +1,31 @@
 {
-  "name": "gas-station-simulation-backend",
-  "version": "0.0.0",
-  "private": true,
+  "name": "gas-station-simulation",
+  "version": "1.0.0-b",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "devStart": "nodemon server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabricioism/gas-station-simulation-backend.git"
+  },
+  "keywords": [
+    "Gas",
+    "Station",
+    "SImulation"
+  ],
+  "author": "Fabricio Murillo, Josué Silva, Nelson Díaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fabricioism/gas-station-simulation-backend/issues"
+  },
+  "homepage": "https://github.com/fabricioism/gas-station-simulation-backend#readme",
   "dependencies": {
-    "cookie-parser": "^1.4.5",
-    "debug": "~2.6.9",
-    "express": "^4.16.4",
-    "http-errors": "^1.6.3",
-    "morgan": "^1.9.1",
-    "pug": "2.0.0-beta11"
+    "express": "^4.17.1",
+    "socket.io": "^3.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }
