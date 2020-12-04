@@ -7,7 +7,7 @@ class Carro {
   static diesel = 0;
   static gasolina = 1;
 
-  constructor(alto, ancho) {
+  constructor() {
     // Capacidad maxima del tanque, se genera de manera aleatoria segun el rango [capacidadMinTanque, capacidadMaxTanque]
     this.capacidadMaxima = Math.round(
       Math.random() * (capacidadMaxTanque - capacidadMinTanque) +
