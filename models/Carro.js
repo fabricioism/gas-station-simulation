@@ -25,12 +25,17 @@ class Carro {
       Math.random() < porcentajeGasolina ? Carro.gasolina : Carro.diesel;
   }
 
+  /** Getters y Setters */
   get getCapacidadMaxima() {
     return this.capacidadMaxima;
   }
 
   get getCapacidadOcupada() {
     return this.capacidadOcupada;
+  }
+
+  set setCapacidadOcupada(cantidad) {
+    this.capacidadOcupada += cantidad;
   }
 
   get getCantidadLlenar() {
