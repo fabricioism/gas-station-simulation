@@ -9,15 +9,15 @@ class Carro {
   static gasolina = 1;
 
   constructor() {
-    // Capacidad maxima del tanque, se genera de manera pseudo-pseudo-aleatoria según el rango [capacidadMinTanque, capacidadMaxTanque]
+    // Capacidad maxima del tanque, se genera de manera pseudo-aleatorio según el rango [capacidadMinTanque, capacidadMaxTanque]
     this.capacidadMaxima = Math.round(
       Math.random() * (capacidadMaxTanque - capacidadMinTanque) +
         capacidadMinTanque
     );
-    // Capacidad ocupada o llena del tanque, se genera de manera pseudo-aleatoria segun el rango [0, this.capacidadMaxima*porcentajeMaxOcupado)
+    // Capacidad ocupada o llena del tanque, se genera de manera pseudo-aleatorio segun el rango [0, this.capacidadMaxima*porcentajeMaxOcupado)
     this.capacidadOcupada =
       Math.random() * (this.capacidadMaxima * porcentajeMaxOcupado);
-    // Cantidad a llenar en la estación, se genera de manera pseudo-aleatoria segun el rango [0, this.capacidadMaxima-this.capacidadOcpada)
+    // Cantidad a llenar en la estación, se genera de manera pseudo-aleatorio segun el rango [0, this.capacidadMaxima-this.capacidadOcpada)
     this.cantidadLlenar =
       Math.random() * (this.capacidadMaxima - this.capacidadOcupada);
     // Tipo de combustible usado, generado de manera random, si se encuentra por debajo del porcentajeGasolina sera gasolina, sino diesel
