@@ -1,7 +1,7 @@
 const socket = io(`http://localhost:3000`);
 
 const btnIniciar = document.getElementById("btn-iniciar");
-
+/* iniciar, pausar, continuar, finalizar */
 btnIniciar.addEventListener("click", function (e) {
   console.log("Boton iniciar");
   socket.emit("iniciar", { data: "prueba" });

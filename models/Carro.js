@@ -16,6 +16,7 @@ class Carro {
     // Tipo de combustible usado, generado de manera random, si se encuentra por debajo del porcentajeGasolina sera gasolina, sino diesel
     this.tipoCombustible =
       Math.random() < utils.porcentajeGasolina ? utils.gasolina : utils.diesel;
+    this.cantidadLlenarInicial = this.cantidadLlenar;
   }
 
   /** Getters y Setters de capacidadMaxima */
