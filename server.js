@@ -6,6 +6,7 @@ const io = require("socket.io")(http);
 const carro = require("./models/Carro.js");
 const bomba = require("./models/Bomba");
 const cisterna = require("./models/Cisterna");
+const estacion = require("./models/Estacion");
 
 app.use("/", express.static("front"));
 
