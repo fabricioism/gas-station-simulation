@@ -1,18 +1,24 @@
 const carro = require("./Carro.js");
 const bomba = require("./Bomba.js");
 const cisterna = require("./Cisterna");
+const utils = require("./Utils");
 
 class Estacion {
   constructor(cantidadBombas, caudalBombas, nivelDiesel, nivelGasolina) {
     this.bombas = [];
     for (let i = 0; i < cantidadBombas; i++) {
-      let bomba = new bomba.Bomba(caudalBombas);
-      this.bombas.push(bomba);
+      this.bombas.push(new bomba.Bomba(caudalBombas));
     }
-    this.nivelDieselInicial = nivelDiesel;
-    this.nivelGasolinaInicial = nivelGasolina;
-    this.nivelDiesel = nivelDiesel;
-    this.nivelGasolina = nivelGasolina;
+    this.cisternaDiesel = new cisterna.Cisterna(
+      nivelDiesel,
+      nivelDiesel,
+      utils.diesel
+    );
+    this.cisternaGasolina = new cisterna.Cisterna(
+      nivelGasolina,
+      nivelGasolina,
+      utils.gasolina
+    );
   }
 
   /** Getters y Setters de cantidadBombas */
@@ -24,22 +30,22 @@ class Estacion {
     this.bombas = bombas;
   }
 
-  /** Getters y Setters de nivelDiesel */
-  get getNivelDiesel() {
-    return this.nivelDiesel;
+  /** Getters y Setters de cisternaDiesel */
+  get getCisternaDiesel() {
+    return this.cisternaDiesel;
   }
 
-  set setNivelDiesel(nivelDiesel) {
-    this.nivelDiesel = nivelDiesel;
+  set setCisternaDiesel(cisternaDiesel) {
+    this.cisternaDiesel = cisternaDiesel;
   }
 
-  /** Getters y Setters de nivelGasolina */
-  get getNivelGasolina() {
-    return this.nivelGasolina;
+  /** Getters y Setters de cisternaDiesel */
+  get getCisternaGasolina() {
+    return this.cisternaGasolina;
   }
 
-  set setNivelGasolina(nivelGasolina) {
-    this.nivelGasolina = nivelGasolina;
+  set setCisternaGasolina(cisternaGasolina) {
+    this.cisternaGasolina = cisternaGasolina;
   }
 
   /** Metodos adicionales */
@@ -53,19 +59,19 @@ class Estacion {
 
   agregarCarro() {
     let bombaMenorCantidadPorAtender = 0;
-    let menorCantidadPorAtender = this.bombas[0].getCantidadPorAtender();
+    let menorCantidadPorAtender = this.bombas[0].getCantidadPorAtender;
     let carroAsignado = false;
     for (let i = 0; i < this.bombas.length; i++) {
-      if (this.bombas[i].getDisponible()) {
+      if (this.bombas[i].getDisponible) {
         // Agregar a la primer bomba disponible
         this.bombas[i].agregarCarroPorAtender(new carro.Carro());
         carroAsignado = true;
         break;
       } else {
         // Si la bomba no esta disponible ir guardando cual tiene menor cola por si ninguna esta disponible
-        if (this.bombas[i].getCantidadPorAtender() < menorCantidadPorAtender) {
+        if (this.bombas[i].getCantidadPorAtender < menorCantidadPorAtender) {
           bombaMenorCantidadPorAtender = i;
-          menorCantidadPorAtender = this.bombas[i].getCantidadPorAtender();
+          menorCantidadPorAtender = this.bombas[i].getCantidadPorAtender;
         }
       }
     }

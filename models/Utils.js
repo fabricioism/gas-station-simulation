@@ -9,6 +9,10 @@ const gasolina = 1;
 const tiempoPreLLenado = 0.5;
 //Tiempo que toma retirar el carro de la bomba una vez que se le lleno combustible en minutos
 const tiempoPosLlenado = 1;
+//Tasa de tiempo de llegada maxima de carros a la estacion
+const tasaLlegada = 5;
+//La tasa a la que se simula el tiempo
+const tasaSimulacion = 20;
 
 module.exports.capacidadMaxTanque = capacidadMaxTanque;
 module.exports.capacidadMinTanque = capacidadMinTanque;
@@ -18,3 +22,5 @@ module.exports.diesel = diesel;
 module.exports.gasolina = gasolina;
 module.exports.tiempoPreLLenado = tiempoPreLLenado;
 module.exports.tiempoPosLlenado = tiempoPosLlenado;
+module.exports.tasaLlegada = tasaLlegada;
+module.exports.tasaSimulacion = tasaSimulacion;

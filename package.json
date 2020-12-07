@@ -23,6 +23,7 @@
   "homepage": "https://github.com/fabricioism/gas-station-simulation-backend#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "hypertimer": "^3.0.0",
     "socket.io": "^3.0.3"
   },
   "devDependencies": {

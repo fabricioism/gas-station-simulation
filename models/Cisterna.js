@@ -41,6 +41,10 @@ class Cisterna {
       return false;
     }
   }
+
+  get getPorcentajeOcupado() {
+    return (this.nivel / this.capacidad) * 100;
+  }
 }
 
 module.exports.Cisterna = Cisterna;

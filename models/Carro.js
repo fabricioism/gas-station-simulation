@@ -46,6 +46,15 @@ class Carro {
     this.cantidadLlenar = cantidadLlenar;
   }
 
+  /** Getters y Setters de cantidadLlenarInicial */
+  get getCantidadLlenarInicial() {
+    return this.cantidadLlenarInicial;
+  }
+
+  set setCantidadLlenarInicial(cantidadLlenarInicial) {
+    this.cantidadLlenarInicial = cantidadLlenarInicial;
+  }
+
   /** Getters y Setters de tipoCombustible */
   get getTipoCombustible() {
     return this.tipoCombustible;

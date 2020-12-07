@@ -1,9 +1,12 @@
+const carro = require("./Carro.js");
+
 class Bomba {
   constructor(caudal) {
     this.caudal = caudal; //Caudal del flujo de combustible de la bomba
     this.carrosAtendidos = []; //Coleccion de autos que se han atendido en la bomba
     this.carrosPorAtender = []; //Coleccion de autos que quieren servirse de la bomba
     this.disponible = true; // Estado de disponibilidad de la bomba
+    this.carroAtendiendo = null;
   }
 
   /** Getters y Setters de caudal */
@@ -42,9 +45,22 @@ class Bomba {
     this.disponible = disponible;
   }
 
+  /** Getters y Setters de carroAtendiendo */
+  get getCarroAtendiendo() {
+    return this.carroAtendiendo;
+  }
+
+  set setCarroAtendiendo(carroAtendiendo) {
+    this.carroAtendiendo = carroAtendiendo;
+  }
+
   /** Metodos adicionales */
-  agregarCarroPorAtender(carro) {
-    this.carrosPorAtender.push(carro);
+  obtenerTiempoAtencion(carroAtender) {
+    return carroAtender.getCantidadLlenarInicial / this.caudal;
+  }
+
+  agregarCarroPorAtender(carroAtender) {
+    this.carrosPorAtender.push(carroAtender);
   }
 
   obtenerCarroPorAtender() {
@@ -52,8 +68,8 @@ class Bomba {
     return carroAtender;
   }
 
-  agregarCarroAtendido(carro) {
-    this.carrosAtendidos.push(carro);
+  agregarCarroAtendido(carroAtender) {
+    this.carrosAtendidos.push(carroAtender);
   }
 
   get getCantidadPorAtender() {
