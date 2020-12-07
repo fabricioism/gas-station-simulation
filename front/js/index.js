@@ -17,4 +17,8 @@ socket.on("respuesta-iniciar", function (data) {
   console.log("Respuesta iniciar recibida", JSON.stringify(data));
 });
 
+socket.on("actualizacion", function (data) {
+  console.log("Actualizacion recibida", JSON.stringify(data));
+});
+
 // FIN MANEJO DE RESPUESTAS SOCKETS
