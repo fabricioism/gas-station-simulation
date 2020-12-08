@@ -12,7 +12,7 @@ const tiempoPosLlenado = 1;
 //Tasa de tiempo de llegada maxima de carros a la estacion
 const tasaLlegada = 5;
 //La tasa a la que se simula el tiempo
-const tasaSimulacion = 20;
+const tasaSimulacion = 10;
 
 module.exports.capacidadMaxTanque = capacidadMaxTanque;
 module.exports.capacidadMinTanque = capacidadMinTanque;

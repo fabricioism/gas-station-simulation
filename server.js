@@ -15,6 +15,7 @@ const timer = hypertimer({
 });
 
 app.use("/", express.static("front"));
+app.use("/hypertimer", express.static("node_modules/hypertimer/dist"));
 
 let simulando = false;
 let pausado = false;
@@ -24,7 +25,9 @@ let timeouts = [];
 io.on("connection", function (socket) {
   socket.on("iniciar", function (data) {
     console.log("Iniciando");
+    console.log(data);
     if (!simulando) {
+      timer.config({ rate: data.velocidad_simulacion });
       //Agregar a la sala simulando para enviarle actualizaciones
       socket.join("simulando");
       simulando = true;
@@ -62,6 +65,24 @@ io.on("connection", function (socket) {
       });
     }
   });
+  socket.on("continuar", function (data) {
+    console.log("Pausando");
+    if (pausado) {
+      pausado = false;
+      // Continuar la simulacion
+      // TODO
+      //Respuesta de vuelta al cliente
+      socket.emit("respuesta-continuar", {
+        exito: true,
+        mensaje: "Simulación pausada.",
+      });
+    } else {
+      socket.emit("respuesta-continuar", {
+        exito: false,
+        mensaje: "Parece que la simulación no está pausada.",
+      });
+    }
+  });
   socket.on("finalizar", function (data) {
     console.log("Finalizando");
     if (simulando) {
@@ -91,14 +112,10 @@ io.on("connection", function (socket) {
 
 function iniciar(data) {
   estacionSimulacion = new estacion.Estacion(
-    4,
-    50,
-    200,
-    200
-    /*data.cantidadBombas,
-    data.caudalBombas,
-    data.nivelDiesel,
-    data.nivelGasolina*/
+    data.cantidad_bombas,
+    data.flujo_bombas,
+    data.cantidad_diesel,
+    data.cantidad_gasolina
   );
   estacionSimulacion.agregarCarro();
   timeoutAgregarCarro();

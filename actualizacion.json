@@ -1,0 +1,28 @@
+{
+    "porcentajeDiesel":"75",
+    "porcentajeGasolina":"75",
+    "bombas":[
+        {
+            "atendidosCantidad":"50",
+            "atendidosLitros":"150",
+            "atendidosCantidadDiesel":"24",
+            "atendidosLitrosDiesel":"75",
+            "atendidosCantidadGasolina":"24",
+            "atendidosLitrosGasolina":"75",
+            "porAtender":"5"
+        },
+        {
+            "atendidosCantidad":"50",
+            "atendidosLitros":"150",
+            "atendidosCantidadDiesel":"24",
+            "atendidosLitrosDiesel":"75",
+            "atendidosCantidadGasolina":"24",
+            "atendidosLitrosGasolina":"75",
+            "porAtender":"5"
+        }
+    ],
+    "resumen":{
+        "datos":"data"
+    },
+    "finalizado":"false"
+}

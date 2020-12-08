@@ -1,14 +1,16 @@
 const socket = io(`http://localhost:3000`);
 
+// Hypertimer para simulacion de tiempo
+var hypertimer = hypertimer({ rate: 10 });
+hypertimer.config({ rate: 50 });
+
 const btnIniciar = document.getElementById("btn-iniciar");
 /* iniciar, pausar, continuar, finalizar */
 btnIniciar.addEventListener("click", function (e) {
   console.log("Boton iniciar");
-  socket.emit("iniciar", { data: "prueba" });
-  
-  obtenerInformacion()
-  gestionBombas(obtenerInformacion());
-
+  let data = obtenerInformacion();
+  socket.emit("iniciar", data);
+  gestionBombas(data);
 });
 
 // MANEJO DE RESPUESTAS SOCKETS
@@ -16,11 +18,18 @@ btnIniciar.addEventListener("click", function (e) {
  *   //manejo de respuesta a nombre-evento
  * });
  */
-
 socket.on("respuesta-iniciar", function (data) {
   console.log("Respuesta iniciar recibida", JSON.stringify(data));
 });
-
+socket.on("respuesta-pausar", function (data) {
+  //Manejo
+});
+socket.on("respuesta-continuar", function (data) {
+  //Manejo
+});
+socket.on("respuesta-finalizar", function (data) {
+  //Manejo
+});
 socket.on("actualizacion", function (data) {
   console.log("Actualizacion recibida", JSON.stringify(data));
 });
@@ -28,77 +37,76 @@ socket.on("actualizacion", function (data) {
 // FIN MANEJO DE RESPUESTAS SOCKETS
 
 // Gestion de la informacion
-
-let temporizador = document.getElementById('temporizador');
-let resetear = document.getElementById('resetear');
-let botones = document.getElementById('botones');
-let tiempo = 0, intervale = 0;
+let temporizador = document.getElementById("temporizador");
+let resetear = document.getElementById("resetear");
+let botones = document.getElementById("botones");
+let tiempo = 0,
+  intervale = 0;
 let verificador = false;
 
-resetear.disabled = 'disabled';
+resetear.disabled = "disabled";
 
-init()
+init();
 
-function init(){
-  btnIniciar.addEventListener('click',iniciarCronometro)
-  resetear.addEventListener('click',resetearCronometro)
+function init() {
+  btnIniciar.addEventListener("click", iniciarCronometro);
+  resetear.addEventListener("click", resetearCronometro);
 }
 
-function iniciarCronometro(){
-  if(verificador == false){
-    intervalo = setInterval(function(){
+function iniciarCronometro() {
+  if (verificador == false) {
+    intervalo = hypertimer.setInterval(function () {
       tiempo += 0.01;
       temporizador.innerHTML = `${tiempo.toFixed(2)}s`;
-    },10);
+    }, 10);
     verificador = true;
-    btnIniciar.innerHTML = ''
-    btnIniciar.className = 'btn btn-danger'
+    btnIniciar.innerHTML = "";
+    btnIniciar.className = "btn btn-danger";
     btnIniciar.innerHTML = ` 
        <b>Pausar</b>
      `;
 
-     resetear.disabled = false;
-
-  }else{
+    resetear.disabled = false;
+  } else {
     verificador = false;
-    clearInterval(intervalo)
-     btnIniciar.innerHTML = ''
-     btnIniciar.className = 'btn btn-info'
-     btnIniciar.innerHTML = `
+    hypertimer.clearInterval(intervalo);
+    btnIniciar.innerHTML = "";
+    btnIniciar.className = "btn btn-info";
+    btnIniciar.innerHTML = `
        <b>Iniciar</b>
      `;
   }
 }
 
-function resetearCronometro(){
+function resetearCronometro() {
   verificador = false;
-  tiempo = 0.00;
-  temporizador.innerHTML = `${tiempo}.00s`
-  clearInterval(intervalo);
+  tiempo = 0.0;
+  temporizador.innerHTML = `${tiempo}.00s`;
+  hypertimer.clearInterval(intervalo);
 }
 
-function obtenerInformacion(){
+function obtenerInformacion() {
   let Entradas = {
-    cantidad_bombas:document.getElementById("bombas").value,
-    cantidad_diesel:document.getElementById("diesel").value,
-    cantidad_gasolina:document.getElementById("gasolina").value,
-    flujo_bombas:document.getElementById("flujo").value,
-    velocidad_simulacion:document.getElementById("velocidad").value
-  }
+    cantidad_bombas: document.getElementById("bombas").value,
+    cantidad_diesel: document.getElementById("diesel").value,
+    cantidad_gasolina: document.getElementById("gasolina").value,
+    flujo_bombas: document.getElementById("flujo").value,
+    velocidad_simulacion: document.getElementById("velocidad").value,
+  };
 
-  console.log(Entradas)
+  console.log(Entradas);
 
   return Entradas;
 }
 
-function gestionBombas(data){
+function gestionBombas(data) {
   let contenedor_bombas = document.getElementById("contenedor_bombas");
-  contenedor_bombas.innerHTML = ''
-  
+  contenedor_bombas.innerHTML = "";
+
   for (let i = 0; i < data.cantidad_bombas; i++) {
     contenedor_bombas.innerHTML += `
         <div class="col-6 bomba">
-        <h5>BOMBA # ${i+1}</h5>
+        <h5>BOMBA # ${i + 1}</h5>
         <table class="table table-borderless">
           <thead>
             <tr>
@@ -129,6 +137,6 @@ function gestionBombas(data){
           </tbody>
         </table>
       </div>
-    `
+    `;
   }
 }

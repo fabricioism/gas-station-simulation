@@ -68,25 +68,53 @@
             <hr />
             <div class="form-group">
               <label for="bombas"><b>Bombas Disponibles</b></label>
-              <input type="number" class="form-control" min="2" max="6" placeholder="2" id="bombas" name="bombas" value="2"/>
+              <input
+                type="number"
+                class="form-control"
+                min="2"
+                max="6"
+                placeholder="2"
+                id="bombas"
+                name="bombas"
+                value="2"
+              />
             </div>
             <div class="form-group">
-              <label for="diesel"
-                ><b>Litros de Diesel en almacenaje</b></label
-              >
-              <input type="number" class="form-control" min="100" max="3000" placeholder="2" id="diesel" name="diesel" value="100"/>
+              <label for="diesel"><b>Litros de Diesel en almacenaje</b></label>
+              <input
+                type="number"
+                class="form-control"
+                min="100"
+                max="3000"
+                placeholder="2"
+                id="diesel"
+                name="diesel"
+                value="100"
+              />
             </div>
             <div class="form-group">
               <label for="gasolina"
                 ><b>Litros de Gasolina en almacenaje</b></label
               >
-              <input type="number" class="form-control" min="100" max="3000" placeholder="100" name="gasolina" id="gasolina" value="100"/>
+              <input
+                type="number"
+                class="form-control"
+                min="100"
+                max="3000"
+                placeholder="100"
+                name="gasolina"
+                id="gasolina"
+                value="100"
+              />
             </div>
             <div class="form-group">
-              <label for="flujo"
-                ><b>Flujo de las Bombas</b></label
+              <label for="flujo"><b>Flujo de las Bombas</b></label>
+              <select
+                class="form-select form-control"
+                aria-label="Default select example"
+                name="flujo"
+                id="flujo"
               >
-              <select class="form-select form-control" aria-label="Default select example" name="flujo" id="flujo">
                 <option selected value="50">50L/min</option>
                 <option value="80">80L/min</option>
                 <option value="140">140L/min</option>
@@ -94,10 +122,13 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="velocidad"
-                ><b>Velocidad de la simulación</b></label
+              <label for="velocidad"><b>Velocidad de la simulación</b></label>
+              <select
+                class="form-select form-control"
+                aria-label="Default select example"
+                name="velocidad"
+                id="velocidad"
               >
-              <select class="form-select form-control" aria-label="Default select example" name="velocidad" id="velocidad">
                 <option selected value="10">x10</option>
                 <option value="25">x25</option>
                 <option value="50">x50</option>
@@ -179,6 +210,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="socket.io/socket.io.js"></script>
+    <script src="hypertimer/hypertimer.min.js"></script>
     <script src="js/index.js"></script>
   </body>
 </html>
