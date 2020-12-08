@@ -53,7 +53,7 @@
         </div>
         <div class="col-2 tiempo" style="padding: 1%; text-align: center">
           <h6><b> TIEMPO</b></h6>
-          <h3>11:23 min</h3>
+          <h3 id="temporizador">0.00s</h3>
         </div>
       </div>
     </div>
@@ -67,36 +67,49 @@
             <h4><b>Datos de entrada</b></h4>
             <hr />
             <div class="form-group">
-              <label for="exampleInputEmail1"><b>Minutos a simular</b></label>
-              <input type="number" class="form-control" min="1" max="60" />
+              <label for="bombas"><b>Bombas Disponibles</b></label>
+              <input type="number" class="form-control" min="2" max="6" placeholder="2" id="bombas" name="bombas" value="2"/>
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1"><b>Carros que pasaran</b></label>
-              <input type="number" class="form-control" min="100" max="1000" />
-            </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1"><b>Bombas Disponibles</b></label>
-              <input type="number" class="form-control" min="2" max="6" />
-            </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1"
+              <label for="diesel"
                 ><b>Litros de Diesel en almacenaje</b></label
               >
-              <input type="number" class="form-control" min="1" max="60" />
+              <input type="number" class="form-control" min="100" max="3000" placeholder="2" id="diesel" name="diesel" value="100"/>
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1"
+              <label for="gasolina"
                 ><b>Litros de Gasolina en almacenaje</b></label
               >
-              <input type="number" class="form-control" min="1" max="60" />
+              <input type="number" class="form-control" min="100" max="3000" placeholder="100" name="gasolina" id="gasolina" value="100"/>
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1"><b>Flujo de Bombas</b></label>
-              <input type="number" class="form-control" min="1" max="60" />
+              <label for="flujo"
+                ><b>Flujo de las Bombas</b></label
+              >
+              <select class="form-select form-control" aria-label="Default select example" name="flujo" id="flujo">
+                <option selected value="50">50L/min</option>
+                <option value="80">80L/min</option>
+                <option value="140">140L/min</option>
+                <option value="200">200L/min</option>
+              </select>
             </div>
-            <div class="form-group iniciar">
+            <div class="form-group">
+              <label for="velocidad"
+                ><b>Velocidad de la simulación</b></label
+              >
+              <select class="form-select form-control" aria-label="Default select example" name="velocidad" id="velocidad">
+                <option selected value="10">x10</option>
+                <option value="25">x25</option>
+                <option value="50">x50</option>
+                <option value="100">x100</option>
+              </select>
+            </div>
+            <div class="form-group iniciar" id="botones">
               <button type="button" id="btn-iniciar" class="btn btn-info">
                 <b>Iniciar</b>
+              </button>
+              <button type="button" id="resetear" class="btn btn-warning mt-2">
+                <b>Resetear</b>
               </button>
             </div>
           </form>
@@ -105,167 +118,9 @@
         <div class="col-9">
           <div class="row">
             <div class="col-12 bombas">
-              <div class="row">
-                <div class="col-6 bomba">
-                  <h5>BOMBA #1</h5>
-                  <table class="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col" class="titulo-tabla">Atentidos</th>
-                        <th scope="col" class="titulo-tabla">Diesel</th>
-                        <th scope="col" class="titulo-tabla">Gasolina</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="cantidad-autos">50</td>
-                        <td class="cantidad-autos" style="color: #ffca2b">
-                          24
-                        </td>
-                        <td class="cantidad-autos" style="color: #dc3545">
-                          26
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="cantidad-litros">150 litros</td>
-                        <td class="cantidad-litros" style="color: #ffca2b">
-                          75 litros
-                        </td>
-                        <td class="cantidad-litros" style="color: #dc3545">
-                          75 litros
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="col-6 bomba">
-                  <h5>BOMBA #2</h5>
-                  <table class="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col" class="titulo-tabla">Atentidos</th>
-                        <th scope="col" class="titulo-tabla">Diesel</th>
-                        <th scope="col" class="titulo-tabla">Gasolina</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="cantidad-autos">50</td>
-                        <td class="cantidad-autos" style="color: #ffca2b">
-                          24
-                        </td>
-                        <td class="cantidad-autos" style="color: #dc3545">
-                          26
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="cantidad-litros">150 litros</td>
-                        <td class="cantidad-litros" style="color: #ffca2b">
-                          75 litros
-                        </td>
-                        <td class="cantidad-litros" style="color: #dc3545">
-                          75 litros
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="col-6 bomba">
-                  <h5>BOMBA #3</h5>
-                  <table class="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col" class="titulo-tabla">Atentidos</th>
-                        <th scope="col" class="titulo-tabla">Diesel</th>
-                        <th scope="col" class="titulo-tabla">Gasolina</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="cantidad-autos">50</td>
-                        <td class="cantidad-autos" style="color: #ffca2b">
-                          24
-                        </td>
-                        <td class="cantidad-autos" style="color: #dc3545">
-                          26
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="cantidad-litros">150 litros</td>
-                        <td class="cantidad-litros" style="color: #ffca2b">
-                          75 litros
-                        </td>
-                        <td class="cantidad-litros" style="color: #dc3545">
-                          75 litros
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="col-6 bomba">
-                  <h5>BOMBA #4</h5>
-                  <table class="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col" class="titulo-tabla">Atentidos</th>
-                        <th scope="col" class="titulo-tabla">Diesel</th>
-                        <th scope="col" class="titulo-tabla">Gasolina</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="cantidad-autos">50</td>
-                        <td class="cantidad-autos" style="color: #ffca2b">
-                          24
-                        </td>
-                        <td class="cantidad-autos" style="color: #dc3545">
-                          26
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="cantidad-litros">150 litros</td>
-                        <td class="cantidad-litros" style="color: #ffca2b">
-                          75 litros
-                        </td>
-                        <td class="cantidad-litros" style="color: #dc3545">
-                          75 litros
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="col-6 bomba">
-                  <h5>BOMBA #5</h5>
-                  <table class="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col" class="titulo-tabla">Atentidos</th>
-                        <th scope="col" class="titulo-tabla">Diesel</th>
-                        <th scope="col" class="titulo-tabla">Gasolina</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="cantidad-autos">50</td>
-                        <td class="cantidad-autos" style="color: #ffca2b">
-                          24
-                        </td>
-                        <td class="cantidad-autos" style="color: #dc3545">
-                          26
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="cantidad-litros">150 litros</td>
-                        <td class="cantidad-litros" style="color: #ffca2b">
-                          75 litros
-                        </td>
-                        <td class="cantidad-litros" style="color: #dc3545">
-                          75 litros
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+              <div class="row" id="contenedor_bombas">
+                <h3>INICIE LA SIMULACION</h3>
+                <!---GESTION BOMBAS-->
               </div>
             </div>
             <div class="col-12 resumen" style="background-color: #f2f4f4">

@@ -98,3 +98,11 @@
     font-size: 20px;
     font-weight: bolder;
 }
+
+#contenedor_bombas h3{
+    text-align: center;
+    padding-left: 40%;
+    padding-top: 20%;
+    color: #444444;
+    font-weight: bolder;
+}
