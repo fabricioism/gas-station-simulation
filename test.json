@@ -1,0 +1,24 @@
+
+{
+  "bombas": [
+    {
+    "caudal": 50,
+      "carrosAtendidos": [],
+      "carrosPorAtender": [],
+      "disponible": false,
+      "carroAtendiendo": []
+    },
+    {
+      "caudal": 50,
+      "carrosAtendidos": [],
+      "carrosPorAtender": [],
+      "disponible": true,
+      "carroAtendiendo": null
+    }
+  ],
+  "cisternaDiesel":  { "capacidad": 100, "nivel": 100, "tipoCombustible": 0 },
+  "cisternaGasolina":  {"capacidad": 100,
+    "nivel": 94.7482610382177,
+    "tipoCombustible": 1
+  }
+}

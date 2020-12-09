@@ -19,7 +19,7 @@ btnIniciar.addEventListener("click", function (e) {
  * });
  */
 socket.on("respuesta-iniciar", function (data) {
-  console.log("Respuesta iniciar recibida", JSON.stringify(data));
+  console.log("Respuesta iniciar recibida", data);
 });
 socket.on("respuesta-pausar", function (data) {
   //Manejo
@@ -31,7 +31,7 @@ socket.on("respuesta-finalizar", function (data) {
   //Manejo
 });
 socket.on("actualizacion", function (data) {
-  console.log("Actualizacion recibida", JSON.stringify(data));
+  console.log("Actualizacion recibida", data);
 });
 
 // FIN MANEJO DE RESPUESTAS SOCKETS
