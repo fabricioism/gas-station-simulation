@@ -82,6 +82,54 @@ class Estacion {
       );
     }
   }
+
+  obtenerActualizacionBombas() {
+    let bombas = this.bombas;
+    let cargaUtil = [];
+
+    for (const bomba of bombas) {
+      let atendidosLitrosGasolina = 0,
+        atendidosCantidadGasolina = 0,
+        atendidosLitrosDiesel = 0,
+        atendidosCantidadDiesel = 0;
+
+      for (let i = 0; i < bomba.carrosAtendidos.length; i++) {
+        const carro = bomba.carrosAtendidos[i];
+
+        let tipo = carro.getTipoCombustible;
+
+        switch (tipo) {
+          case utils.gasolina:
+            atendidosLitrosGasolina += carro.getCantidadLlenada;
+            atendidosCantidadGasolina++;
+            break;
+
+          case utils.diesel:
+            atendidosLitrosDiesel += carro.getCantidadLlenada;
+            atendidosCantidadDiesel++;
+            break;
+
+          default:
+            break;
+        }
+      }
+
+      // Solo tomando dos cifras despues del punto de los litros vendidos
+      atendidosLitrosGasolina = atendidosLitrosGasolina;
+      atendidosLitrosDiesel = atendidosLitrosDiesel;
+
+      cargaUtil.push({
+        atendidosCantidad: atendidosCantidadGasolina + atendidosCantidadDiesel,
+        atendidosLitros: atendidosLitrosGasolina + atendidosLitrosDiesel,
+        atendidosLitrosGasolina,
+        atendidosCantidadGasolina,
+        atendidosLitrosDiesel,
+        atendidosCantidadDiesel,
+        porAtender: bomba.getCarrosPorAtender.length,
+      });
+    }
+    return cargaUtil;
+  }
 }
 
 module.exports.Estacion = Estacion;

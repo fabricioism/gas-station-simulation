@@ -23,6 +23,7 @@ let ejemplo = {
  * });
  */
 socket.on("respuesta-iniciar", function (data) {
+
   if(data.exito){
     Swal.fire({
       position: "center",
@@ -54,7 +55,7 @@ socket.on("respuesta-finalizar", function (data) {
   //Manejo
 });
 socket.on("actualizacion", function (data) {
-  console.log("Actualizacion recibida", JSON.stringify(data));
+  console.log("Actualizacion recibida", data);
 });
 
 // FIN MANEJO DE RESPUESTAS SOCKETS

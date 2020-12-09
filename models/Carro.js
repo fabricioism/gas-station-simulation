@@ -17,6 +17,7 @@ class Carro {
     this.tipoCombustible =
       Math.random() < utils.porcentajeGasolina ? utils.gasolina : utils.diesel;
     this.cantidadLlenarInicial = this.cantidadLlenar;
+    this.cantidadLlenada = 0;
   }
 
   /** Getters y Setters de capacidadMaxima */
@@ -64,10 +65,15 @@ class Carro {
     this.tipoCombustible = tipoCombustible;
   }
 
+  get getCantidadLlenada() {
+    return this.cantidadLlenada;
+  }
+
   /** Metodos adicionales */
   llenar(cantidad) {
     this.capacidadOcupada += cantidad;
     this.cantidadLlenar -= cantidad;
+    this.cantidadLlenada = cantidad;
   }
 }
 

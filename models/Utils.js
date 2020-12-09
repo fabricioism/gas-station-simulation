@@ -10,7 +10,7 @@ const tiempoPreLLenado = 0.5;
 //Tiempo que toma retirar el carro de la bomba una vez que se le lleno combustible en minutos
 const tiempoPosLlenado = 1;
 //Tasa de tiempo de llegada maxima de carros a la estacion
-const tasaLlegada = 5;
+const tasaLlegada = 2;
 //La tasa a la que se simula el tiempo
 const tasaSimulacion = 10;
 
