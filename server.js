@@ -161,7 +161,7 @@ function atender() {
                 estacionSimulacion.getCisternaDiesel.getNivel >=
                 carroAtender.getCantidadLlenar
               ) {
-                console.log("Hay mas gasolina de la que pide");
+                console.log("Hay mas diesel de la que pide");
                 estacionSimulacion.getCisternaDiesel.bajarNivel(
                   carroAtender.getCantidadLlenar
                 );
@@ -169,7 +169,7 @@ function atender() {
               }
               //Se le abatecio solo lo que quedaba disponible
               else {
-                console.log("Hay menos gasolina que la que pide");
+                console.log("Hay menos diesel que la que pide");
                 carroAtender.llenar(
                   estacionSimulacion.getCisternaDiesel.getNivel
                 );
@@ -191,6 +191,8 @@ function atender() {
                 estacionSimulacion.getCisternaGasolina.getNivel >=
                 carroAtender.getCantidadLlenar
               ) {
+                console.log("Hay mas gasolina de la que pide");
+
                 estacionSimulacion.getCisternaGasolina.bajarNivel(
                   carroAtender.getCantidadLlenar
                 );
@@ -201,6 +203,8 @@ function atender() {
                 carroAtender.llenar(
                   estacionSimulacion.getCisternaGasolina.getNivel
                 );
+                console.log("Hay menos gasolina que la que pide");
+
                 estacionSimulacion.getCisternaGasolina.bajarNivel(
                   estacionSimulacion.getCisternaGasolina.getNivel
                 );
