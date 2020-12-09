@@ -1,17 +1,21 @@
 const socket = io(`http://localhost:3000`);
 
 // Hypertimer para simulacion de tiempo
-var hypertimer = hypertimer({ rate: 10 });
-hypertimer.config({ rate: 50 });
+var hypertimer = hypertimer({ rate: 5 });
+hypertimer.config({ rate: 5 });
 
 const btnIniciar = document.getElementById("btn-iniciar");
 /* iniciar, pausar, continuar, finalizar */
 btnIniciar.addEventListener("click", function (e) {
-  console.log("Boton iniciar");
+
   let data = obtenerInformacion();
   socket.emit("iniciar", data);
   gestionBombas(data);
 });
+
+let ejemplo = {
+  mensaje:'mensaje'
+}
 
 // MANEJO DE RESPUESTAS SOCKETS
 /* socket.on("nombre-evento", function (data) {
@@ -19,15 +23,34 @@ btnIniciar.addEventListener("click", function (e) {
  * });
  */
 socket.on("respuesta-iniciar", function (data) {
-  console.log("Respuesta iniciar recibida", JSON.stringify(data));
+  if(data.exito){
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: `${data.mensaje}`,
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  }
+
 });
 socket.on("respuesta-pausar", function (data) {
   //Manejo
+  console.log('pausado')
 });
 socket.on("respuesta-continuar", function (data) {
   //Manejo
 });
 socket.on("respuesta-finalizar", function (data) {
+  if(data.exito){
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: `${data.mensaje}`,
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  }
   //Manejo
 });
 socket.on("actualizacion", function (data) {
@@ -58,31 +81,43 @@ function iniciarCronometro() {
     intervalo = hypertimer.setInterval(function () {
       tiempo += 0.01;
       temporizador.innerHTML = `${tiempo.toFixed(2)}s`;
-    }, 10);
+    }, 5);
     verificador = true;
     btnIniciar.innerHTML = "";
-    btnIniciar.className = "btn btn-danger";
+    btnIniciar.className = "btn btn-warning";
     btnIniciar.innerHTML = ` 
        <b>Pausar</b>
      `;
-
+    console.log('continuar')
     resetear.disabled = false;
   } else {
     verificador = false;
     hypertimer.clearInterval(intervalo);
     btnIniciar.innerHTML = "";
-    btnIniciar.className = "btn btn-info";
+    btnIniciar.className = "btn btn-success";
     btnIniciar.innerHTML = `
-       <b>Iniciar</b>
+       <b>Continuar</b>
      `;
+    socket.emit("pausar",ejemplo)
   }
 }
 
 function resetearCronometro() {
+  btnIniciar.className = "btn btn-info";
+  btnIniciar.innerHTML = ` 
+       <b>Iniciar</b>
+     `;
   verificador = false;
   tiempo = 0.0;
   temporizador.innerHTML = `${tiempo}.00s`;
   hypertimer.clearInterval(intervalo);
+  resetear.disabled = "disabled";
+  document.getElementById("bombas").disabled = false;
+  document.getElementById("diesel").disabled = false;
+  document.getElementById("gasolina").disabled = false;
+  document.getElementById("flujo").disabled = false;
+  document.getElementById("velocidad").disabled = false;
+  socket.emit("finalizar",ejemplo)
 }
 
 function obtenerInformacion() {
@@ -94,8 +129,11 @@ function obtenerInformacion() {
     velocidad_simulacion: document.getElementById("velocidad").value,
   };
 
-  console.log(Entradas);
-
+  document.getElementById("bombas").disabled = "disabled";
+  document.getElementById("diesel").disabled = "disabled";
+  document.getElementById("gasolina").disabled = "disabled";
+  document.getElementById("flujo").disabled = "disabled";
+  document.getElementById("velocidad").disabled = "disabled";
   return Entradas;
 }
 
