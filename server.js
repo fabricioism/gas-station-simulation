@@ -256,9 +256,7 @@ function actualizar() {
 
   let data = { ...porcentajesCombustible, bombas };
   // console.log("estacionSimulacion", estacionSimulacion);
-  io.in("simulando").emit("actualizacion", {
-    data,
-  });
+  io.in("simulando").emit("actualizacion", data);
 }
 
 http.listen(puerto, function () {
