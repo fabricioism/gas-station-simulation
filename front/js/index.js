@@ -99,11 +99,12 @@ socket.on("actualizacion", function (data) {
 // Gestion de la informacion
 let temporizador = document.getElementById("temporizador");
 let resetear = document.getElementById("resetear");
+let pausar = document.getElementById('pausar');
+let continuar = document.getElementById('continuar');
 let botones = document.getElementById("botones");
 let tiempo = 0,
   intervale = 0;
 let verificador = false;
-let continuar = false;
 
 resetear.disabled = "disabled";
 
@@ -112,7 +113,6 @@ init();
 /* iniciar, pausar, continuar, finalizar */
 
 function init() {
-  if (!continuar) {
     btnIniciar.addEventListener("click", function (e) {
       let data = obtenerInformacion();
       hypertimer.config({ rate: parseInt(data.velocidad_simulacion) });
@@ -121,38 +121,24 @@ function init() {
       iniciarCronometro();
     });
     resetear.addEventListener("click", resetearCronometro);
-  } else {
-    continuar = false;
-    socket.emit("continuar", {});
-  }
+    pausar.addEventListener("click",pausarCronometro);
 }
 
 function iniciarCronometro() {
   data = obtenerInformacion();
-  if (verificador == false) {
     intervalo = hypertimer.setInterval(function () {
       tiempo += 0.01;
       temporizador.innerHTML = `${tiempo.toFixed(2)}min`;
     }, 600);
-    verificador = true;
-    btnIniciar.innerHTML = "";
-    btnIniciar.className = "btn btn-warning";
-    btnIniciar.innerHTML = ` 
-       <b>Pausar</b>
-     `;
-    console.log("CONTINUAR");
-    continuar = true;
     resetear.disabled = false;
-  } else {
-    verificador = false;
-    hypertimer.clearInterval(intervalo);
-    btnIniciar.innerHTML = "";
-    btnIniciar.className = "btn btn-success";
-    btnIniciar.innerHTML = `
-       <b>Continuar</b>
-     `;
-    socket.emit("pausar", {});
-  }
+    btnIniciar.style.display = 'none';
+    pausar.style.display = 'block';
+  } 
+}
+
+function pausarCronometro(){
+  hypertimer.clearInterval(intervalo);
+  socket.emit("pausar", {});
 }
 
 function resetearCronometro() {
