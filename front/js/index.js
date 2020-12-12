@@ -134,6 +134,14 @@ function iniciarCronometro() {
     btnIniciar.style.display = 'none';
     pausar.style.display = 'block';
   } 
+
+function continuarCronometro(){
+  intervalo = hypertimer.setInterval(function () {
+    tiempo += 0.01;
+    temporizador.innerHTML = `${tiempo.toFixed(2)}min`;
+  }, 600);
+  continuar.style.display = 'none';
+  pausar.style.display = 'block';
 }
 
 function pausarCronometro(){
