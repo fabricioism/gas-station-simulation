@@ -99,8 +99,8 @@ socket.on("actualizacion", function (data) {
 // Gestion de la informacion
 let temporizador = document.getElementById("temporizador");
 let resetear = document.getElementById("resetear");
-let pausar = document.getElementById('pausar');
-let continuar = document.getElementById('continuar');
+let pausar = document.getElementById("pausar");
+let continuar = document.getElementById("continuar");
 let botones = document.getElementById("botones");
 let tiempo = 0,
   intervale = 0;
@@ -113,50 +113,47 @@ init();
 /* iniciar, pausar, continuar, finalizar */
 
 function init() {
-    btnIniciar.addEventListener("click", function (e) {
-      let data = obtenerInformacion();
-      hypertimer.config({ rate: parseInt(data.velocidad_simulacion) });
-      socket.emit("iniciar", data);
-      gestionBombas(data);
-      iniciarCronometro();
-    });
-    resetear.addEventListener("click", resetearCronometro);
-    pausar.addEventListener("click",pausarCronometro);
+  btnIniciar.addEventListener("click", function (e) {
+    let data = obtenerInformacion();
+    hypertimer.config({ rate: parseInt(data.velocidad_simulacion) });
+    socket.emit("iniciar", data);
+    gestionBombas(data);
+    iniciarCronometro();
+  });
+  resetear.addEventListener("click", resetearCronometro);
+  pausar.addEventListener("click", pausarCronometro);
+  continuar.addEventListener("click", continuarCronometro);
 }
 
 function iniciarCronometro() {
   data = obtenerInformacion();
-    intervalo = hypertimer.setInterval(function () {
-      tiempo += 0.01;
-      temporizador.innerHTML = `${tiempo.toFixed(2)}min`;
-    }, 600);
-    resetear.disabled = false;
-    btnIniciar.style.display = 'none';
-    pausar.style.display = 'block';
-  } 
-
-function continuarCronometro(){
   intervalo = hypertimer.setInterval(function () {
     tiempo += 0.01;
     temporizador.innerHTML = `${tiempo.toFixed(2)}min`;
   }, 600);
-  continuar.style.display = 'none';
-  pausar.style.display = 'block';
+  resetear.disabled = false;
+  btnIniciar.style.display = "none";
+  pausar.style.display = "block";
 }
 
-function pausarCronometro(){
+function continuarCronometro() {
+  intervalo = hypertimer.setInterval(function () {
+    tiempo += 0.01;
+    temporizador.innerHTML = `${tiempo.toFixed(2)}min`;
+  }, 600);
+  continuar.style.display = "none";
+  pausar.style.display = "block";
+  socket.emit("continuar", {});
+}
+
+function pausarCronometro() {
   hypertimer.clearInterval(intervalo);
+  pausar.style.display = "none";
+  continuar.style.display = "block";
   socket.emit("pausar", {});
 }
 
 function resetearCronometro() {
-  btnIniciar.className = "btn btn-info";
-  btnIniciar.innerHTML = ` 
-       <b>Iniciar</b>
-     `;
-  verificador = false;
-  tiempo = 0.0;
-  temporizador.innerHTML = `${tiempo}.00min`;
   hypertimer.clearInterval(intervalo);
   resetear.disabled = "disabled";
   document.getElementById("bombas").disabled = false;
@@ -165,6 +162,8 @@ function resetearCronometro() {
   document.getElementById("flujo").disabled = false;
   document.getElementById("velocidad").disabled = false;
   socket.emit("finalizar", {});
+  btnIniciar.style.display = "block";
+  pausar.style.display = "none";
 }
 
 function obtenerInformacion() {

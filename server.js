@@ -52,6 +52,7 @@ io.on("connection", function (socket) {
       console.log("PAUSADO", pausado);
       // Pausar la simulacion
       // TODO
+      timer.pause();
       //Respuesta de vuelta al cliente
       socket.emit("respuesta-pausar", {
         exito: true,
@@ -69,8 +70,11 @@ io.on("connection", function (socket) {
     console.log("CONTINUANDO");
     if (pausado) {
       pausado = false;
+      simulando = true;
       // Continuar la simulacion
       // TODO
+      timer.continue();
+      timeoutAgregarCarro();
       //Respuesta de vuelta al cliente
       socket.emit("respuesta-continuar", {
         exito: true,

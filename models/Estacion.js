@@ -93,6 +93,25 @@ class Estacion {
         atendidosLitrosDiesel = 0,
         atendidosCantidadDiesel = 0;
 
+      if (!bomba.getDisponible) {
+        let carroActual = bomba.getCarroAtendiendo;
+        let tipo = carroActual.getTipoCombustible;
+        switch (tipo) {
+          case utils.gasolina:
+            atendidosLitrosGasolina += carroActual.getCantidadLlenada;
+            atendidosCantidadGasolina++;
+            break;
+
+          case utils.diesel:
+            atendidosLitrosDiesel += carroActual.getCantidadLlenada;
+            atendidosCantidadDiesel++;
+            break;
+
+          default:
+            break;
+        }
+      }
+
       for (let i = 0; i < bomba.carrosAtendidos.length; i++) {
         const carro = bomba.carrosAtendidos[i];
 
