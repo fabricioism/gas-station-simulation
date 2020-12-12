@@ -34,10 +34,11 @@ class Cisterna {
 
   /** Metodos adicionales */
   bajarNivel(cantidad) {
-    if (this.nivel > cantidad) {
+    if (this.nivel >= cantidad) {
       this.nivel -= cantidad;
       return true;
     } else {
+      this.nivel = 0;
       return false;
     }
   }

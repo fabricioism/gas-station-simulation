@@ -23,9 +23,8 @@ let timeouts = [];
 io.on("connection", function (socket) {
   socket.on("iniciar", function (data) {
     console.log("Iniciando");
-    // console.log(data);
     if (!simulando) {
-      timer.config({ rate: data.velocidad_simulacion });
+      timer.config({ rate: data.velocidad_simulacion }); //Configurando la tasa de velocidad de la simulación
       //Agregar a la sala simulando para enviarle actualizaciones
       socket.join("simulando");
       simulando = true;
@@ -42,12 +41,15 @@ io.on("connection", function (socket) {
         mensaje: "Parece que ya se está simulando.",
       });
     }
+    //Empezar a enviar actualizaciones al cliente
     actualizar();
   });
   socket.on("pausar", function (data) {
-    console.log("Pausando");
-    if (!pausado || !simulando) {
+    console.log("PAUSANDO");
+    if (!pausado || simulando) {
       pausado = true;
+      simulando = false;
+      console.log("PAUSADO", pausado);
       // Pausar la simulacion
       // TODO
       //Respuesta de vuelta al cliente
@@ -64,7 +66,7 @@ io.on("connection", function (socket) {
     }
   });
   socket.on("continuar", function (data) {
-    console.log("Pausando");
+    console.log("CONTINUANDO");
     if (pausado) {
       pausado = false;
       // Continuar la simulacion
@@ -72,7 +74,7 @@ io.on("connection", function (socket) {
       //Respuesta de vuelta al cliente
       socket.emit("respuesta-continuar", {
         exito: true,
-        mensaje: "Simulación pausada.",
+        mensaje: "Continuando con la simulación.",
       });
     } else {
       socket.emit("respuesta-continuar", {
@@ -86,6 +88,7 @@ io.on("connection", function (socket) {
     if (simulando) {
       simulando = false;
       pausado = false;
+      finalizado = true;
       // Finalizar la simulacion
       // TODO
       //Respuesta de vuelta al cliente
@@ -120,24 +123,23 @@ function iniciar(data) {
 }
 
 function timeoutAgregarCarro() {
-  console.log("Carro agregado");
-  timeouts["llegadaCarros"] = timer.setTimeout(function () {
-    estacionSimulacion.agregarCarro();
-    timeoutAgregarCarro();
-  }, Math.random() * utils.tasaLlegada * 60 * 1000);
-  atender();
+  if (!pausado && !finalizado) {
+    console.log("Carro agregado");
+    timeouts["llegadaCarros"] = timer.setTimeout(function () {
+      estacionSimulacion.agregarCarro();
+      timeoutAgregarCarro();
+    }, Math.random() * utils.tasaLlegada * 60 * 1000);
+    atender();
+  }
 }
 
+/** Funcion que se encarga de atender la llegada de un auto a la bomba, dentro de ella se hacen las actualizaciones */
 function atender() {
-  //Revisar si aun hay combustible en la estacion, aunque sea solo de un tiopo
-  console.log("diesel", estacionSimulacion.getCisternaDiesel.getNivel);
-  console.log("gasolina", estacionSimulacion.getCisternaGasolina.getNivel);
-
+  //Revisar si aun hay combustible en la estacion, aunque sea solo de un tipo
   if (
     estacionSimulacion.getCisternaDiesel.getNivel > 0 ||
     estacionSimulacion.getCisternaGasolina.getNivel > 0
   ) {
-    console.log("Aun hay combustible");
     //Recorrer todas las bombas
     for (let i = 0; i < estacionSimulacion.bombas.length; i++) {
       //Revisar las que tengan carros por atender y esten disponibles para poner a atender
@@ -156,12 +158,11 @@ function atender() {
             //El carro es diesel y hay diesel
             if (estacionSimulacion.getCisternaDiesel.getNivel > 0) {
               seraAtendido = true;
-              //Se le abatecio todo lo solicitado al carro
+              //Se le abastecerá todo lo solicitado al carro
               if (
                 estacionSimulacion.getCisternaDiesel.getNivel >=
                 carroAtender.getCantidadLlenar
               ) {
-                console.log("Hay mas diesel de la que pide");
                 estacionSimulacion.getCisternaDiesel.bajarNivel(
                   carroAtender.getCantidadLlenar
                 );
@@ -169,7 +170,6 @@ function atender() {
               }
               //Se le abatecio solo lo que quedaba disponible
               else {
-                console.log("Hay menos diesel que la que pide");
                 carroAtender.llenar(
                   estacionSimulacion.getCisternaDiesel.getNivel
                 );
@@ -191,8 +191,6 @@ function atender() {
                 estacionSimulacion.getCisternaGasolina.getNivel >=
                 carroAtender.getCantidadLlenar
               ) {
-                console.log("Hay mas gasolina de la que pide");
-
                 estacionSimulacion.getCisternaGasolina.bajarNivel(
                   carroAtender.getCantidadLlenar
                 );
@@ -203,8 +201,6 @@ function atender() {
                 carroAtender.llenar(
                   estacionSimulacion.getCisternaGasolina.getNivel
                 );
-                console.log("Hay menos gasolina que la que pide");
-
                 estacionSimulacion.getCisternaGasolina.bajarNivel(
                   estacionSimulacion.getCisternaGasolina.getNivel
                 );
@@ -218,7 +214,6 @@ function atender() {
           default:
         }
         if (seraAtendido) {
-          console.log("Atender un carro mas");
           //Mover el carro a atendiendo
           estacionSimulacion.bombas[i].setCarroAtendiendo = carroAtender;
           //La bomba ahora esta ocupada
@@ -239,6 +234,7 @@ function atender() {
       }
     }
   } else {
+    finalizado = true;
     console.log("No hay combustible");
   }
   actualizar();
@@ -250,12 +246,12 @@ function actualizar() {
     porcentajeDiesel: estacionSimulacion.getCisternaDiesel.getPorcentajeOcupado,
     porcentajeGasolina:
       estacionSimulacion.getCisternaGasolina.getPorcentajeOcupado,
+    finalizado,
   };
 
   let bombas = estacionSimulacion.obtenerActualizacionBombas();
 
   let data = { ...porcentajesCombustible, bombas };
-  // console.log("estacionSimulacion", estacionSimulacion);
   io.in("simulando").emit("actualizacion", data);
 }
 

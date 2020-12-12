@@ -103,6 +103,7 @@ let botones = document.getElementById("botones");
 let tiempo = 0,
   intervale = 0;
 let verificador = false;
+let continuar = false;
 
 resetear.disabled = "disabled";
 
@@ -111,14 +112,19 @@ init();
 /* iniciar, pausar, continuar, finalizar */
 
 function init() {
-  btnIniciar.addEventListener("click", function (e) {
-    let data = obtenerInformacion();
-    hypertimer.config({ rate: parseInt(data.velocidad_simulacion) });
-    socket.emit("iniciar", data);
-    gestionBombas(data);
-    iniciarCronometro();
-  });
-  resetear.addEventListener("click", resetearCronometro);
+  if (!continuar) {
+    btnIniciar.addEventListener("click", function (e) {
+      let data = obtenerInformacion();
+      hypertimer.config({ rate: parseInt(data.velocidad_simulacion) });
+      socket.emit("iniciar", data);
+      gestionBombas(data);
+      iniciarCronometro();
+    });
+    resetear.addEventListener("click", resetearCronometro);
+  } else {
+    continuar = false;
+    socket.emit("continuar", {});
+  }
 }
 
 function iniciarCronometro() {
@@ -134,7 +140,8 @@ function iniciarCronometro() {
     btnIniciar.innerHTML = ` 
        <b>Pausar</b>
      `;
-    console.log("continuar");
+    console.log("CONTINUAR");
+    continuar = true;
     resetear.disabled = false;
   } else {
     verificador = false;
