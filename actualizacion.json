@@ -22,7 +22,16 @@
         }
     ],
     "resumen":{
-        "datos":"data"
+        "atendidosCantidad": 50,
+        "noAtendidosCantidad": 0,
+        "atendidosCantidadDiesel": 50,
+        "noAtendidosCantidadGasolina": 0,
+        "atendidosCantidadGasolina": 50,
+        "noAtendidosCantidadDiesel": 0,
+        "porcentajeAtendidosDiesel": 20.5,
+        "porcentajeAtendidosGasolina": 79.5,
+        "ventaPromedioDiesel": 23.5,
+        "ventaPromedioGasolina": 21.3 
     },
     "finalizado":"false"
 }
