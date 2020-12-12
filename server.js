@@ -101,7 +101,6 @@ io.on("connection", function (socket) {
         mensaje: "Simulación finalizada.",
       });
       // Remover de la sala simulando para evitar enviarle actualizaciones
-      socket.leave("simulando");
     } else {
       socket.emit("respuesta-finalizar", {
         exito: false,
@@ -110,6 +109,7 @@ io.on("connection", function (socket) {
     }
   });
   socket.on("disconnect", function () {
+    socket.leave("simulando");
     simulando = 0;
     console.log("Desconectado");
   });

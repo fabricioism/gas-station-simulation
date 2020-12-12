@@ -58,29 +58,8 @@ class Estacion {
   }
 
   agregarCarro() {
-    let bombaMenorCantidadPorAtender = 0;
-    let menorCantidadPorAtender = this.bombas[0].getCantidadPorAtender;
-    let carroAsignado = false;
-    for (let i = 0; i < this.bombas.length; i++) {
-      if (this.bombas[i].getDisponible) {
-        // Agregar a la primer bomba disponible
-        this.bombas[i].agregarCarroPorAtender(new carro.Carro());
-        carroAsignado = true;
-        break;
-      } else {
-        // Si la bomba no esta disponible ir guardando cual tiene menor cola por si ninguna esta disponible
-        if (this.bombas[i].getCantidadPorAtender < menorCantidadPorAtender) {
-          bombaMenorCantidadPorAtender = i;
-          menorCantidadPorAtender = this.bombas[i].getCantidadPorAtender;
-        }
-      }
-    }
-    // Si ninguna bomba esta disponible se agrega a la que tiene la menor cola
-    if (!carroAsignado) {
-      this.bombas[bombaMenorCantidadPorAtender].agregarCarroPorAtender(
-        new carro.Carro()
-      );
-    }
+    let i = Math.floor(Math.random() * this.bombas.length);
+    this.bombas[i].agregarCarroPorAtender(new carro.Carro());
   }
 
   obtenerActualizacionBombas() {
