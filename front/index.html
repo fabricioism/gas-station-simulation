@@ -26,7 +26,7 @@
           <div class="row" style="padding: 2%">
             <div class="col-6">
               <h4>Almacenaje Diesel</h4>
-              <div class="progress" style="height: 20px;">
+              <div class="progress" style="height: 20px">
                 <div
                   id="porcentaje-diesel"
                   class="progress-bar progress-bar-striped bg-warning progress-bar-animated"
@@ -40,7 +40,7 @@
             </div>
             <div class="col-6">
               <h4>Almacenaje Gasolina</h4>
-              <div class="progress" style="height: 20px;">
+              <div class="progress" style="height: 20px">
                 <div
                   id="porcentaje-gasolina"
                   class="progress-bar progress-bar-striped bg-danger progress-bar-animated"
@@ -146,16 +146,37 @@
               <button type="button" id="btn-iniciar" class="btn btn-info">
                 <b>Iniciar</b>
               </button>
-              <button type="button" style="display: none;" id="pausar" class="btn btn-warning mt-2">
+              <button
+                type="button"
+                style="display: none"
+                id="pausar"
+                class="btn btn-warning mt-2"
+              >
                 <b>Pausar</b>
               </button>
-              <button type="button" style="display: none;" id="continuar" class="btn btn-success mt-2">
+              <button
+                type="button"
+                style="display: none"
+                id="continuar"
+                class="btn btn-success mt-2"
+              >
                 <b>Continuar</b>
               </button>
-              <button type="button" style="display: none;" id="finalizar" class="btn btn-danger mt-2">
+              <button
+                type="button"
+                style="display: none"
+                id="finalizar"
+                class="btn btn-danger mt-2"
+              >
                 <b>Finalizar</b>
               </button>
-              <input type="reset" style="display: none;" id="resetear" class="btn btn-info mt-2" value="Limpiar Datos">
+              <input
+                type="reset"
+                style="display: none"
+                id="resetear"
+                class="btn btn-info mt-2"
+                value="Limpiar Datos"
+              />
             </div>
           </form>
         </div>
@@ -203,6 +224,167 @@
                 </tbody>
               </table>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Inicial -->
+    <div class="modal fade" id="modal-variables-estado" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-dark border-bottom border-dark">
+            <h5 class="modal-title text-light">Variables de estado</h5>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div
+            class="modal-body bg-secondary border-bottom border-top border-dark"
+          >
+            <div class="alert alert-warning" role="alert">
+              Los valores por defecto son los que aparecen, si no desea realizar
+              cambios cierre esta ventana.
+            </div>
+            <h5 class="modal-title text-light">Capacidad del tanque</h5>
+            <div class="form-row">
+              <div class="col-6">
+                <label for="capacidad-max-tanque" class="text-light"
+                  >Capacidad máxima del tanque</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="capacidad-max-tanque"
+                  aria-describedby="capacidad-max-tanque-help"
+                  placeholder="65"
+                />
+                <small
+                  id="capacidad-max-tanque-help"
+                  class="form-text text-light"
+                  >Capacidad máxima del tanque de un auto.</small
+                >
+              </div>
+              <div class="col-6">
+                <label for="capacidad-min-tanque" class="text-light"
+                  >Capacidad mínima del tanque</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="capacidad-min-tanque"
+                  aria-describedby="capacidad-min-tanque-help"
+                  placeholder="45"
+                />
+                <small
+                  id="capacidad-min-tanque-help"
+                  class="form-text text-light"
+                  >Capacidad mínima del tanque de un auto.</small
+                >
+              </div>
+            </div>
+            <h5 class="modal-title text-light">Tiempos de preparación</h5>
+            <div class="form-row">
+              <div class="col-6">
+                <label for="tiempo-pre-llenado" class="text-light"
+                  >Tiempo pre llenado</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="tiempo-pre-llenado"
+                  aria-describedby="tiempo-pre-llenado-help"
+                  placeholder="0.5"
+                />
+                <small id="tiempo-pre-llenado-help" class="form-text text-light"
+                  >Tiempo en minutos que toma preparar el carro para empezar a
+                  llenar con la bomba.</small
+                >
+              </div>
+              <div class="col-6">
+                <label for="tiempo-pos-llenado" class="text-light"
+                  >Tiempo pos llenado</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="tiempo-pos-llenado"
+                  aria-describedby="tiempo-pos-llenado-help"
+                  placeholder="1"
+                />
+                <small id="tiempo-pos-llenado-help" class="form-text text-light"
+                  >Tiempo en minutos que toma preparar el carro luego de su
+                  llenado para que deje la estación.</small
+                >
+              </div>
+            </div>
+            <h5 class="modal-title text-light">Porcentajes</h5>
+            <div class="form-group">
+              <label for="porcentaje-max-ocupado" class="text-light"
+                >Porcentaje máximo ocupado</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="porcentaje-max-ocupado"
+                aria-describedby="porcentaje-max-ocupado-help"
+                placeholder="0.75"
+                min="0"
+                max="1"
+              />
+              <small
+                id="porcentaje-max-ocupado-help"
+                class="form-text text-light"
+                >Porcentaje máximo ocupado del tanque de un auto al llegar a la
+                estación. (0-1)</small
+              >
+            </div>
+            <div class="form-group">
+              <label for="porcentaje-autos-gasolina" class="text-light"
+                >Porcentaje de autos gasolina</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="porcentaje-autos-gasolina"
+                aria-describedby="porcentaje-autos-gasolina-help"
+                placeholder="0.80"
+                min="0"
+                max="1"
+              />
+              <small
+                id="porcentaje-autos-gasolina-help"
+                class="form-text text-light"
+                >Porcentaje de autos que usan gasolina, la diferencia usará
+                diesel. (0-1)</small
+              >
+            </div>
+            <h5 class="modal-title text-light">Tasas</h5>
+            <div class="form-group">
+              <label for="tasa-llegada" class="text-light"
+                >Tasa de llegada</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="tasa-llegada"
+                aria-describedby="tasa-llegada-help"
+                placeholder="5"
+              />
+              <small id="tasa-llegada-help" class="form-text text-light"
+                >Tiempo máximo en minutos que tarda en llegar un nuevo auto a la
+                estación. (por ejemplo, con valor por defecto 0-5min)</small
+              >
+            </div>
+          </div>
+          <div class="modal-footer bg-dark border-top border-dark">
+            <button
+              type="button"
+              class="btn btn-info"
+              id="btn-variables-estado"
+            >
+              Guardar
+            </button>
           </div>
         </div>
       </div>

@@ -4,14 +4,67 @@ const socket = io(`http://localhost:3000`);
 var hypertimer = hypertimer({ rate: 10 });
 
 const btnIniciar = document.getElementById("btn-iniciar");
+const btnVariablesEstado = document.getElementById("btn-variables-estado");
 const porcentajeDiesel = document.getElementById("porcentaje-diesel");
 const porcentajeGasolina = document.getElementById("porcentaje-gasolina");
-var datosEntrada = {}
+var datosEntrada = {};
+
+$(document).ready(function () {
+  btnVariablesEstado.addEventListener("click", function (e) {
+    btnVariablesEstado.disabled = true;
+    let capacidadMaxTanque = document.getElementById("capacidad-max-tanque");
+    let capacidadMinTanque = document.getElementById("capacidad-min-tanque");
+    let tiempoPreLlenado = document.getElementById("tiempo-pre-llenado");
+    let tiempoPosLlenado = document.getElementById("tiempo-pos-llenado");
+    let porcentajeMaxOcupado = document.getElementById(
+      "porcentaje-max-ocupado"
+    );
+    let porcentajeAutosGasolina = document.getElementById(
+      "porcentaje-autos-gasolina"
+    );
+    let tasaLlegada = document.getElementById("tasa-llegada");
+    let data = {
+      capacidadMaxTanque: capacidadMaxTanque.value
+        ? parseFloat(capacidadMaxTanque.value)
+        : 65,
+      capacidadMinTanque: capacidadMinTanque.value
+        ? parseFloat(capacidadMinTanque.value)
+        : 45,
+      tiempoPreLlenado: tiempoPreLlenado.value
+        ? parseFloat(tiempoPreLlenado.value)
+        : 0.5,
+      tiempoPosLlenado: tiempoPosLlenado.value
+        ? parseFloat(tiempoPosLlenado.value)
+        : 1,
+      porcentajeMaxOcupado: porcentajeMaxOcupado.value
+        ? parseFloat(porcentajeMaxOcupado.value)
+        : 0.75,
+      porcentajeGasolina: porcentajeAutosGasolina.value
+        ? parseFloat(porcentajeAutosGasolina.value)
+        : 0.8,
+      tasaLlegada: tasaLlegada.value ? parseFloat(tasaLlegada.value) : 5,
+    };
+    socket.emit("variables-estado", data);
+  });
+  $("#modal-variables-estado").modal("show");
+});
 // MANEJO DE RESPUESTAS SOCKETS
 /* socket.on("nombre-evento", function (data) {
  *   //manejo de respuesta a nombre-evento
  * });
  */
+socket.on("respuesta-variables-estado", function (data) {
+  if (data.exito) {
+    btnVariablesEstado.disabled = false;
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: `${data.mensaje}`,
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  }
+});
 socket.on("respuesta-iniciar", function (data) {
   if (data.exito) {
     Swal.fire({
@@ -25,7 +78,7 @@ socket.on("respuesta-iniciar", function (data) {
     iniciarCronometro();
   } else {
     contenedor_bombas.innerHTML = "";
-    contenedor_bombas.classList.add("preloader")
+    contenedor_bombas.classList.add("preloader");
     contenedor_bombas.innerHTML += `
       <div class="spinner-border text-danger" role="status">
         <span class="visually-hidden"></span>
@@ -51,7 +104,7 @@ socket.on("respuesta-pausar", function (data) {
     });
   } else {
     contenedor_bombas.innerHTML = "";
-    contenedor_bombas.classList.add("preloader")
+    contenedor_bombas.classList.add("preloader");
     contenedor_bombas.innerHTML += `
       <div class="spinner-border text-danger" role="status">
         <span class="visually-hidden"></span>
@@ -77,7 +130,7 @@ socket.on("respuesta-continuar", function (data) {
     });
   } else {
     contenedor_bombas.innerHTML = "";
-    contenedor_bombas.classList.add("preloader")
+    contenedor_bombas.classList.add("preloader");
     contenedor_bombas.innerHTML += `
       <div class="spinner-border text-danger" role="status">
         <span class="visually-hidden"></span>
@@ -103,7 +156,7 @@ socket.on("respuesta-finalizar", function (data) {
     });
   } else {
     contenedor_bombas.innerHTML = "";
-    contenedor_bombas.classList.add("preloader")
+    contenedor_bombas.classList.add("preloader");
     contenedor_bombas.innerHTML += `
       <div class="spinner-border text-danger" role="status">
         <span class="visually-hidden"></span>
@@ -121,7 +174,6 @@ socket.on("respuesta-finalizar", function (data) {
 socket.on("actualizacion", function (data) {
   actualizarPorcentajes(data);
   actualizarBombas(data);
-  console.log("Actualizacion recibida", data);
   // if(data.porcentajeGasolina === 0){
   //   Swal.fire({
   //     position: "center",
@@ -142,7 +194,7 @@ socket.on("actualizacion", function (data) {
   //   });
   // }
 
-  if((data.porcentajeGasolina && data.porcentajeDiesel) === 0){
+  if ((data.porcentajeGasolina && data.porcentajeDiesel) === 0) {
     // socket.emit("finalizar", {});
   }
 });
@@ -154,20 +206,17 @@ let temporizador = document.getElementById("temporizador");
 let finalizar = document.getElementById("finalizar");
 let pausar = document.getElementById("pausar");
 let continuar = document.getElementById("continuar");
-let resetear = document.getElementById("resetear")
+let resetear = document.getElementById("resetear");
 let botones = document.getElementById("botones");
 let tiempo = 0;
-
-
 
 init();
 
 /* iniciar, pausar, continuar, finalizar */
 
 function init() {
-  btnIniciar.addEventListener("click", function (e) { 
+  btnIniciar.addEventListener("click", function (e) {
     datosEntrada = obtenerInformacion();
-    console.log(datosEntrada)
     if (
       datosEntrada.cantidad_diesel < "400" ||
       datosEntrada.cantidad_diesel > "50000" ||
@@ -189,7 +238,7 @@ function init() {
   finalizar.addEventListener("click", finalizarCronometro);
   pausar.addEventListener("click", pausarCronometro);
   continuar.addEventListener("click", continuarCronometro);
-  resetear.addEventListener('click',resetearCronometro)
+  resetear.addEventListener("click", resetearCronometro);
 }
 
 function iniciarCronometro() {
@@ -231,10 +280,10 @@ function finalizarCronometro() {
   continuar.style.display = "none";
   pausar.style.display = "none";
   finalizar.style.display = "none";
-  resetear.style.display = "block"
+  resetear.style.display = "block";
 }
 
-function resetearCronometro(){
+function resetearCronometro() {
   document.getElementById("bombas").disabled = false;
   document.getElementById("diesel").disabled = false;
   document.getElementById("gasolina").disabled = false;
@@ -309,10 +358,10 @@ function actualizarPorcentajes(data) {
   nivelGasolina = Math.round(data.porcentajeGasolina);
   porcentajeDiesel.style.width = `${nivelDiesel}%`;
   porcentajeDiesel.setAttribute("aria-valuenow", `${nivelDiesel}`);
-  porcentajeDiesel.innerHTML = `<b>${nivelDiesel}%<b>`
+  porcentajeDiesel.innerHTML = `<b>${nivelDiesel}%<b>`;
   porcentajeGasolina.style.width = `${nivelGasolina}%`;
   porcentajeGasolina.setAttribute("aria-valuenow", `${nivelGasolina}`);
-  porcentajeGasolina.innerHTML = `<b>${nivelGasolina}%<b>`
+  porcentajeGasolina.innerHTML = `<b>${nivelGasolina}%<b>`;
 }
 
 function actualizarBombas(data) {
