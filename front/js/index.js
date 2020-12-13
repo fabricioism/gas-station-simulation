@@ -6,7 +6,7 @@ var hypertimer = hypertimer({ rate: 10 });
 const btnIniciar = document.getElementById("btn-iniciar");
 const porcentajeDiesel = document.getElementById("porcentaje-diesel");
 const porcentajeGasolina = document.getElementById("porcentaje-gasolina");
-
+const datosEntrada = obtenerInformacion();
 // MANEJO DE RESPUESTAS SOCKETS
 /* socket.on("nombre-evento", function (data) {
  *   //manejo de respuesta a nombre-evento
@@ -21,7 +21,15 @@ socket.on("respuesta-iniciar", function (data) {
       showConfirmButton: false,
       timer: 1000,
     });
+    gestionBombas(datosEntrada);
+    iniciarCronometro();
   } else {
+    contenedor_bombas.innerHTML = "";
+    contenedor_bombas.innerHTML += `
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    `;
     Swal.fire({
       position: "center",
       icon: "error",
@@ -41,6 +49,12 @@ socket.on("respuesta-pausar", function (data) {
       timer: 1000,
     });
   } else {
+    contenedor_bombas.innerHTML = "";
+    contenedor_bombas.innerHTML += `
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    `;
     Swal.fire({
       position: "center",
       icon: "error",
@@ -60,6 +74,12 @@ socket.on("respuesta-continuar", function (data) {
       timer: 1000,
     });
   } else {
+    contenedor_bombas.innerHTML = "";
+    contenedor_bombas.innerHTML += `
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    `;
     Swal.fire({
       position: "center",
       icon: "error",
@@ -79,6 +99,12 @@ socket.on("respuesta-finalizar", function (data) {
       timer: 1000,
     });
   } else {
+    contenedor_bombas.innerHTML = "";
+    contenedor_bombas.innerHTML += `
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+    `;
     Swal.fire({
       position: "center",
       icon: "error",
@@ -103,9 +129,8 @@ let pausar = document.getElementById("pausar");
 let continuar = document.getElementById("continuar");
 let resetear = document.getElementById("resetear")
 let botones = document.getElementById("botones");
-let tiempo = 0,
-  intervale = 0;
-let verificador = false;
+let tiempo = 0;
+
 
 
 init();
@@ -113,12 +138,20 @@ init();
 /* iniciar, pausar, continuar, finalizar */
 
 function init() {
-  btnIniciar.addEventListener("click", function (e) {
-    let data = obtenerInformacion();
-    hypertimer.config({ rate: parseInt(data.velocidad_simulacion) });
-    socket.emit("iniciar", data);
-    gestionBombas(data);
-    iniciarCronometro();
+  btnIniciar.addEventListener("click", function (e) { 
+    console.log(datosEntrada)
+    if(datosEntrada.cantidad_diesel < "400" || datosEntrada.cantidad_gasolina < "400"){
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: 'Ingrese valores validos',
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }else{
+      hypertimer.config({ rate: parseInt(datosEntrada.velocidad_simulacion) });
+      socket.emit("iniciar",datosEntrada);
+    }
   });
   finalizar.addEventListener("click", finalizarCronometro);
   pausar.addEventListener("click", pausarCronometro);
@@ -135,6 +168,11 @@ function iniciarCronometro() {
   btnIniciar.style.display = "none";
   pausar.style.display = "block";
   finalizar.style.display = "block";
+  document.getElementById("bombas").disabled = "disabled";
+  document.getElementById("diesel").disabled = "disabled";
+  document.getElementById("gasolina").disabled = "disabled";
+  document.getElementById("flujo").disabled = "disabled";
+  document.getElementById("velocidad").disabled = "disabled";
 }
 
 function continuarCronometro() {
@@ -188,11 +226,6 @@ function obtenerInformacion() {
     velocidad_simulacion: document.getElementById("velocidad").value,
   };
 
-  document.getElementById("bombas").disabled = "disabled";
-  document.getElementById("diesel").disabled = "disabled";
-  document.getElementById("gasolina").disabled = "disabled";
-  document.getElementById("flujo").disabled = "disabled";
-  document.getElementById("velocidad").disabled = "disabled";
   return Entradas;
 }
 
