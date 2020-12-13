@@ -98,15 +98,15 @@ socket.on("actualizacion", function (data) {
 
 // Gestion de la informacion
 let temporizador = document.getElementById("temporizador");
-let resetear = document.getElementById("resetear");
+let finalizar = document.getElementById("finalizar");
 let pausar = document.getElementById("pausar");
 let continuar = document.getElementById("continuar");
+let resetear = document.getElementById("resetear")
 let botones = document.getElementById("botones");
 let tiempo = 0,
   intervale = 0;
 let verificador = false;
 
-resetear.disabled = "disabled";
 
 init();
 
@@ -120,9 +120,10 @@ function init() {
     gestionBombas(data);
     iniciarCronometro();
   });
-  resetear.addEventListener("click", resetearCronometro);
+  finalizar.addEventListener("click", finalizarCronometro);
   pausar.addEventListener("click", pausarCronometro);
   continuar.addEventListener("click", continuarCronometro);
+  resetear.addEventListener('click',resetearCronometro)
 }
 
 function iniciarCronometro() {
@@ -131,9 +132,9 @@ function iniciarCronometro() {
     tiempo += 0.01;
     temporizador.innerHTML = `${tiempo.toFixed(2)}min`;
   }, 600);
-  resetear.disabled = false;
   btnIniciar.style.display = "none";
   pausar.style.display = "block";
+  finalizar.style.display = "block";
 }
 
 function continuarCronometro() {
@@ -153,17 +154,29 @@ function pausarCronometro() {
   socket.emit("pausar", {});
 }
 
-function resetearCronometro() {
+function finalizarCronometro() {
   hypertimer.clearInterval(intervalo);
-  resetear.disabled = "disabled";
+  socket.emit("finalizar", {});
+  continuar.style.display = "none";
+  pausar.style.display = "none";
+  finalizar.style.display = "none";
+  resetear.style.display = "block"
+}
+
+function resetearCronometro(){
   document.getElementById("bombas").disabled = false;
   document.getElementById("diesel").disabled = false;
   document.getElementById("gasolina").disabled = false;
   document.getElementById("flujo").disabled = false;
   document.getElementById("velocidad").disabled = false;
-  socket.emit("finalizar", {});
   btnIniciar.style.display = "block";
-  pausar.style.display = "none";
+  resetear.style.display = "none";
+  contenedor_bombas.innerHTML = "";
+  contenedor_bombas.innerHTML += `
+    <h3>INICIE LA SIMULACIÓN</h3>
+  `;
+  tiempo = 0;
+  temporizador.innerHTML = `${tiempo.toFixed(2)}min`;
 }
 
 function obtenerInformacion() {

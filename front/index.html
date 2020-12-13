@@ -19,7 +19,7 @@
       <div class="row fila">
         <div class="col-3 titulo">
           <h2 style="color: aliceblue; text-align: start; padding-top: 5px">
-            <b>Simulador Estacion de Combustible</b>
+            <b>Simulador Estación de Combustible</b>
           </h2>
         </div>
         <div class="col-7 barras">
@@ -71,28 +71,32 @@
             <hr />
             <div class="form-group">
               <label for="bombas"><b>Bombas Disponibles</b></label>
-              <input
-                type="number"
-                class="form-control"
-                min="2"
-                max="6"
-                placeholder="2"
-                id="bombas"
+              <select
+                class="form-select form-control"
+                aria-label="Default select example"
                 name="bombas"
-                value="2"
-              />
+                id="bombas"
+              >
+                <option selected value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="diesel"><b>Litros de Diesel en almacenaje</b></label>
               <input
                 type="number"
                 class="form-control"
-                min="100"
+                min="400"
                 max="3000"
-                placeholder="2"
+                placeholder="400"
                 id="diesel"
                 name="diesel"
-                value="100"
+                value="400"
               />
             </div>
             <div class="form-group">
@@ -102,12 +106,12 @@
               <input
                 type="number"
                 class="form-control"
-                min="100"
+                min="400"
                 max="3000"
-                placeholder="100"
+                placeholder="400"
                 name="gasolina"
                 id="gasolina"
-                value="100"
+                value="400"
               />
             </div>
             <div class="form-group">
@@ -148,9 +152,10 @@
               <button type="button" style="display: none;" id="continuar" class="btn btn-success mt-2">
                 <b>Continuar</b>
               </button>
-              <button type="button"  id="resetear" class="btn btn-danger mt-2">
+              <button type="button" style="display: none;" id="finalizar" class="btn btn-danger mt-2">
                 <b>Finalizar</b>
               </button>
+              <input type="reset" style="display: none;" id="resetear" class="btn btn-info mt-2" value="Limpiar Datos">
             </div>
           </form>
         </div>
@@ -159,7 +164,7 @@
           <div class="row">
             <div class="col-12 bombas">
               <div class="row" id="contenedor_bombas">
-                <h3>INICIE LA SIMULACION</h3>
+                <h3>INICIE LA SIMULACIÓN</h3>
                 <!---GESTION BOMBAS-->
               </div>
             </div>
