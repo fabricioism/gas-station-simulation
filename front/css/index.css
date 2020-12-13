@@ -106,3 +106,14 @@
     color: #444444;
     font-weight: bolder;
 }
+
+.preloader{
+    text-align: center;
+    padding-left: 50%;
+    padding-top: 18%;
+}
+
+.spinner-border{
+    height:70px;
+    width:70px;
+}

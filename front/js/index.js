@@ -6,7 +6,7 @@ var hypertimer = hypertimer({ rate: 10 });
 const btnIniciar = document.getElementById("btn-iniciar");
 const porcentajeDiesel = document.getElementById("porcentaje-diesel");
 const porcentajeGasolina = document.getElementById("porcentaje-gasolina");
-const datosEntrada = obtenerInformacion();
+var datosEntrada = {}
 // MANEJO DE RESPUESTAS SOCKETS
 /* socket.on("nombre-evento", function (data) {
  *   //manejo de respuesta a nombre-evento
@@ -25,9 +25,10 @@ socket.on("respuesta-iniciar", function (data) {
     iniciarCronometro();
   } else {
     contenedor_bombas.innerHTML = "";
+    contenedor_bombas.classList.add("preloader")
     contenedor_bombas.innerHTML += `
       <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
+        <span class="visually-hidden"></span>
       </div>
     `;
     Swal.fire({
@@ -50,9 +51,10 @@ socket.on("respuesta-pausar", function (data) {
     });
   } else {
     contenedor_bombas.innerHTML = "";
+    contenedor_bombas.classList.add("preloader")
     contenedor_bombas.innerHTML += `
       <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
+        <span class="visually-hidden"></span>
       </div>
     `;
     Swal.fire({
@@ -75,9 +77,10 @@ socket.on("respuesta-continuar", function (data) {
     });
   } else {
     contenedor_bombas.innerHTML = "";
+    contenedor_bombas.classList.add("preloader")
     contenedor_bombas.innerHTML += `
       <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
+        <span class="visually-hidden"></span>
       </div>
     `;
     Swal.fire({
@@ -100,6 +103,7 @@ socket.on("respuesta-finalizar", function (data) {
     });
   } else {
     contenedor_bombas.innerHTML = "";
+    contenedor_bombas.classList.add("preloader")
     contenedor_bombas.innerHTML += `
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden"></span>
@@ -118,6 +122,29 @@ socket.on("actualizacion", function (data) {
   actualizarPorcentajes(data);
   actualizarBombas(data);
   console.log("Actualizacion recibida", data);
+  // if(data.porcentajeGasolina === 0){
+  //   Swal.fire({
+  //     position: "center",
+  //     icon: "info",
+  //     title: `Se acabo la Gasolina`,
+  //     showConfirmButton: false,
+  //     timer: 1000,
+  //   });
+  // }
+
+  // if(data.porcentajeDiesel === 0){
+  //   Swal.fire({
+  //     position: "center",
+  //     icon: "info",
+  //     title: `Se acabo el Diesel`,
+  //     showConfirmButton: false,
+  //     timer: 1000,
+  //   });
+  // }
+
+  if((data.porcentajeGasolina && data.porcentajeDiesel) === 0){
+    // socket.emit("finalizar", {});
+  }
 });
 
 // FIN MANEJO DE RESPUESTAS SOCKETS
@@ -139,18 +166,24 @@ init();
 
 function init() {
   btnIniciar.addEventListener("click", function (e) { 
+    datosEntrada = obtenerInformacion();
     console.log(datosEntrada)
-    if(datosEntrada.cantidad_diesel < "400" || datosEntrada.cantidad_gasolina < "400"){
+    if (
+      datosEntrada.cantidad_diesel < "400" ||
+      datosEntrada.cantidad_diesel > "50000" ||
+      datosEntrada.cantidad_gasolina < "400" ||
+      datosEntrada.cantidad_gasolina > "50000"
+    ) {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: 'Ingrese valores validos',
+        title: "Ingrese valores validos",
         showConfirmButton: false,
         timer: 1000,
       });
-    }else{
+    } else {
       hypertimer.config({ rate: parseInt(datosEntrada.velocidad_simulacion) });
-      socket.emit("iniciar",datosEntrada);
+      socket.emit("iniciar", datosEntrada);
     }
   });
   finalizar.addEventListener("click", finalizarCronometro);
@@ -276,8 +309,10 @@ function actualizarPorcentajes(data) {
   nivelGasolina = Math.round(data.porcentajeGasolina);
   porcentajeDiesel.style.width = `${nivelDiesel}%`;
   porcentajeDiesel.setAttribute("aria-valuenow", `${nivelDiesel}`);
+  porcentajeDiesel.innerHTML = `<b>${nivelDiesel}%<b>`
   porcentajeGasolina.style.width = `${nivelGasolina}%`;
   porcentajeGasolina.setAttribute("aria-valuenow", `${nivelGasolina}`);
+  porcentajeGasolina.innerHTML = `<b>${nivelGasolina}%<b>`
 }
 
 function actualizarBombas(data) {
