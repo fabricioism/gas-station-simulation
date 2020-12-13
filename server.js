@@ -137,7 +137,6 @@ function iniciar(data) {
     data.cantidad_diesel,
     data.cantidad_gasolina
   );
-  estacionSimulacion.agregarCarro();
   timeoutAgregarCarro();
 }
 
@@ -284,8 +283,8 @@ function actualizar() {
   };
 
   let bombas = estacionSimulacion.obtenerActualizacionBombas();
-
-  let data = { ...porcentajesCombustible, bombas };
+  let resumen = estacionSimulacion.obtenerActualizacionResumen(bombas);
+  let data = { ...porcentajesCombustible, bombas, resumen };
   io.in("simulando").emit("actualizacion", data);
 }
 
