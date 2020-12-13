@@ -27,7 +27,7 @@ socket.on("respuesta-iniciar", function (data) {
     contenedor_bombas.innerHTML = "";
     contenedor_bombas.classList.add("preloader")
     contenedor_bombas.innerHTML += `
-      <div class="spinner-border text-primary" role="status">
+      <div class="spinner-border text-danger" role="status">
         <span class="visually-hidden"></span>
       </div>
     `;
@@ -53,7 +53,7 @@ socket.on("respuesta-pausar", function (data) {
     contenedor_bombas.innerHTML = "";
     contenedor_bombas.classList.add("preloader")
     contenedor_bombas.innerHTML += `
-      <div class="spinner-border text-primary" role="status">
+      <div class="spinner-border text-danger" role="status">
         <span class="visually-hidden"></span>
       </div>
     `;
@@ -79,7 +79,7 @@ socket.on("respuesta-continuar", function (data) {
     contenedor_bombas.innerHTML = "";
     contenedor_bombas.classList.add("preloader")
     contenedor_bombas.innerHTML += `
-      <div class="spinner-border text-primary" role="status">
+      <div class="spinner-border text-danger" role="status">
         <span class="visually-hidden"></span>
       </div>
     `;
@@ -105,7 +105,7 @@ socket.on("respuesta-finalizar", function (data) {
     contenedor_bombas.innerHTML = "";
     contenedor_bombas.classList.add("preloader")
     contenedor_bombas.innerHTML += `
-      <div class="spinner-border text-primary" role="status">
+      <div class="spinner-border text-danger" role="status">
         <span class="visually-hidden"></span>
       </div>
     `;
