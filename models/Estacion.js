@@ -64,7 +64,7 @@ class Estacion {
 
   obtenerActualizacionBombas() {
     let bombas = this.bombas;
-    let cargaUtil = [];
+    let cargaUtilBombas = [];
 
     for (const bomba of bombas) {
       let atendidosLitrosGasolina = 0,
@@ -116,7 +116,7 @@ class Estacion {
       atendidosLitrosGasolina = atendidosLitrosGasolina;
       atendidosLitrosDiesel = atendidosLitrosDiesel;
 
-      cargaUtil.push({
+      cargaUtilBombas.push({
         atendidosCantidad: atendidosCantidadGasolina + atendidosCantidadDiesel,
         atendidosLitros: atendidosLitrosGasolina + atendidosLitrosDiesel,
         atendidosLitrosGasolina,
@@ -124,9 +124,102 @@ class Estacion {
         atendidosLitrosDiesel,
         atendidosCantidadDiesel,
         porAtender: bomba.getCarrosPorAtender.length,
+        porAtenderGasolina: bomba.getCarrosPorAtender.filter(
+          (item) => item.getTipoCombustible == utils.gasolina
+        ).length,
+        porAtenderDiesel: bomba.getCarrosPorAtender.filter(
+          (item) => item.getTipoCombustible == utils.diesel
+        ).length,
       });
     }
-    return cargaUtil;
+
+    return cargaUtilBombas;
+  }
+
+  obtenerValor(bombas, llave) {
+    let valor = 0;
+
+    for (let i = 0; i < bombas.length; i++) {
+      const bomba = bombas[i];
+      valor += bomba[llave] ? bomba[llave] : 0;
+    }
+
+    return valor;
+  }
+
+  obtenerActualizacionResumen(bombas) {
+    let atendidosCantidad = this.obtenerValor(bombas, "atendidosCantidad");
+
+    let atendidosCantidadGasolina = this.obtenerValor(
+      bombas,
+      "atendidosCantidadGasolina"
+    );
+
+    let atendidosCantidadDiesel = this.obtenerValor(
+      bombas,
+      "atendidosCantidadDiesel"
+    );
+
+    let noAtendidosCantidad = this.obtenerValor(bombas, "porAtender");
+
+    let noAtendidosCantidadGasolina = this.obtenerValor(
+      bombas,
+      "porAtenderGasolina"
+    );
+
+    let noAtendidosCantidadDiesel = this.obtenerValor(
+      bombas,
+      "porAtenderDiesel"
+    );
+
+    let porcentajeAtendidosGasolina = isNaN(
+      (atendidosCantidadGasolina / atendidosCantidad) * 100
+    )
+      ? 0
+      : (atendidosCantidadGasolina / atendidosCantidad) * 100;
+
+    let porcentajeAtendidosDiesel = isNaN(
+      (atendidosCantidadDiesel / atendidosCantidad) * 100
+    )
+      ? 0
+      : (atendidosCantidadDiesel / atendidosCantidad) * 100;
+
+    let atendidosLitrosGasolina = this.obtenerValor(
+      bombas,
+      "atendidosLitrosGasolina"
+    );
+
+    let atendidosLitrosDiesel = this.obtenerValor(
+      bombas,
+      "atendidosLitrosDiesel"
+    );
+
+    let ventaPromedioDiesel = isNaN(
+      atendidosLitrosDiesel / atendidosCantidadDiesel
+    )
+      ? 0
+      : atendidosLitrosDiesel / atendidosCantidadDiesel;
+
+    let ventaPromedioGasolina = isNaN(
+      atendidosLitrosGasolina / atendidosCantidadGasolina
+    )
+      ? 0
+      : atendidosLitrosGasolina / atendidosCantidadGasolina;
+
+    return {
+      atendidosCantidad,
+      atendidosCantidadGasolina,
+      atendidosCantidadDiesel,
+      noAtendidosCantidad,
+      noAtendidosCantidadGasolina,
+      noAtendidosCantidadDiesel,
+      porcentajeAtendidosGasolina,
+      porcentajeAtendidosDiesel,
+      atendidosLitrosGasolina,
+      atendidosLitrosDiesel,
+      ventaPromedioDiesel,
+      ventaPromedioGasolina,
+    };
   }
 }
 
