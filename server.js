@@ -144,7 +144,6 @@ function timeoutAgregarCarro() {
   if (!pausado && !finalizado) {
     console.log("Carro agregado");
     let t = Math.round(Math.random() * utils.tasaLlegada * 60 * 1000);
-    console.log("timeoutAgregarCarro", typeof t, t);
     timeouts["llegadaCarros"] = timer.setTimeout(function () {
       estacionSimulacion.agregarCarro();
       timeoutAgregarCarro();
