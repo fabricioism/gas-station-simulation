@@ -238,7 +238,10 @@ function init() {
   finalizar.addEventListener("click", finalizarCronometro);
   pausar.addEventListener("click", pausarCronometro);
   continuar.addEventListener("click", continuarCronometro);
-  resetear.addEventListener("click", resetearCronometro);
+  resetear.addEventListener("click", function () {
+    resetearCronometro();
+    $("#modal-variables-estado").modal("show");
+  });
 }
 
 function iniciarCronometro() {

@@ -23,13 +23,13 @@ let timeouts = [];
 io.on("connection", function (socket) {
   socket.on("variables-estado", function (data) {
     console.log(data);
-    /*utils.capacidadMaxTanque = data.capacidadMaxTanque;
+    utils.capacidadMaxTanque = data.capacidadMaxTanque;
     utils.capacidadMinTanque = data.capacidadMinTanque;
     utils.tiempoPreLLenado = data.tiempoPreLlenado;
     utils.tiempoPosLlenado = data.tiempoPosLlenado;
     utils.porcentajeMaxOcupado = data.porcentajeMaxOcupado;
     utils.porcentajeGasolina = data.porcentajeGasolina;
-    utils.tasaLlegada = data.tasaLlegada;*/
+    utils.tasaLlegada = data.tasaLlegada;
     socket.emit("respuesta-variables-estado", {
       exito: true,
       mensaje: "Variables de estado guardadas.",
@@ -238,12 +238,6 @@ function atender() {
           //La bomba ahora esta ocupada
           estacionSimulacion.bombas[i].setDisponible = false;
           //Timeout para terminar llenado del carro
-          console.log("pre", utils.tiempoPreLLenado);
-          console.log("pos", utils.tiempoPosLlenado);
-          console.log(
-            "atencion",
-            estacionSimulacion.bombas[i].obtenerTiempoAtencion(carroAtender)
-          );
           let t =
             Math.round(
               utils.tiempoPreLLenado +
@@ -254,7 +248,6 @@ function atender() {
             ) *
             60 *
             1000;
-          console.log("atender", typeof t, t);
           timeouts[`bomba-${i}`] = timer.setTimeout(function () {
             estacionSimulacion.bombas[i].setDisponible = true;
             estacionSimulacion.bombas[i].agregarCarroAtendido(
