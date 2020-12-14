@@ -44,6 +44,7 @@ $(document).ready(function () {
         : 0.8,
       tasaLlegada: tasaLlegada.value ? parseFloat(tasaLlegada.value) : 5,
     };
+    console.log(data);
     socket.emit("variables-estado", data);
   });
 });
@@ -68,8 +69,7 @@ socket.on("respuesta-variables-estado", function (data) {
       position: "center",
       icon: "error",
       title: `${data.mensaje}`,
-      showConfirmButton: false,
-      timer: 1000,
+      showConfirmButton: true,
     });
   }
 });

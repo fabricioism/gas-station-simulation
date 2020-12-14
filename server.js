@@ -27,8 +27,8 @@ io.on("connection", function (socket) {
       data.capacidadMaxTanque < 0 ||
       data.capacidadMinTanque < 0 ||
       data.capacidadMinTanque > data.capacidadMaxTanque ||
-      data.tiempoPreLLenado < 0 ||
-      data.tiempoPosLLenado < 0 ||
+      data.tiempoPreLlenado < 0 ||
+      data.tiempoPosLlenado < 0 ||
       data.porcentajeMaxOcupado < 0 ||
       data.porcentajeMaxOcupado > 1 ||
       data.porcentajeGasolina < 0 ||
@@ -37,7 +37,8 @@ io.on("connection", function (socket) {
     ) {
       socket.emit("respuesta-variables-estado", {
         exito: false,
-        mensaje: "Ingrese valores válidos.",
+        mensaje:
+          "Ingrese valores válidos. \n Capacidades deben ser mayores a 0 con capacidad mínima < capacidad máxima. \n Tiempos y tasas deben ser mayores a 0. \n Porcentajes deben estar entre 0 y 1.",
       });
     } else {
       utils.capacidadMaxTanque = data.capacidadMaxTanque;
