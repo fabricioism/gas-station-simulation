@@ -171,31 +171,12 @@ socket.on("respuesta-finalizar", function (data) {
   }
 });
 socket.on("actualizacion", function (data) {
+  if (data.finalizado) {
+    console.log("finalizado");
+    // Cambiar estado a finalizado, mostrar boton limpiar datos, pausar cronometro
+  }
   actualizarPorcentajes(data);
   actualizarBombas(data);
-  // if(data.porcentajeGasolina === 0){
-  //   Swal.fire({
-  //     position: "center",
-  //     icon: "info",
-  //     title: `Se acabo la Gasolina`,
-  //     showConfirmButton: false,
-  //     timer: 1000,
-  //   });
-  // }
-
-  // if(data.porcentajeDiesel === 0){
-  //   Swal.fire({
-  //     position: "center",
-  //     icon: "info",
-  //     title: `Se acabo el Diesel`,
-  //     showConfirmButton: false,
-  //     timer: 1000,
-  //   });
-  // }
-
-  if ((data.porcentajeGasolina && data.porcentajeDiesel) === 0) {
-    // socket.emit("finalizar", {});
-  }
 });
 
 // FIN MANEJO DE RESPUESTAS SOCKETS
@@ -218,10 +199,8 @@ function init() {
   btnIniciar.addEventListener("click", function (e) {
     datosEntrada = obtenerInformacion();
     if (
-      datosEntrada.cantidad_diesel < "400" ||
-      datosEntrada.cantidad_diesel > "50000" ||
-      datosEntrada.cantidad_gasolina < "400" ||
-      datosEntrada.cantidad_gasolina > "50000"
+      parseFloat(datosEntrada.cantidad_diesel) < 0 ||
+      parseFloat(datosEntrada.cantidad_gasolina) < 0
     ) {
       Swal.fire({
         position: "center",
