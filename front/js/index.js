@@ -398,11 +398,11 @@ function actualizarBombas(data) {
     atendidosCantidad.innerHTML = bomba.atendidosCantidad;
     atendidosCantidadDiesel.innerHTML = bomba.atendidosCantidadDiesel;
     atendidosCantidadGasolina.innerHTML = bomba.atendidosCantidadGasolina;
-    atendidosLitros.innerHTML = bomba.atendidosLitros.toFixed(2) + " L";
+    atendidosLitros.innerHTML = `${bomba.atendidosLitros.toFixed(2)} L`;
     atendidosLitrosDiesel.innerHTML =
-      bomba.atendidosLitrosDiesel.toFixed(2) + " L";
+      `${bomba.atendidosLitrosDiesel.toFixed(2)} L`;
     atendidosLitrosGasolina.innerHTML =
-      bomba.atendidosLitrosGasolina.toFixed(2) + " L";
+      `${bomba.atendidosLitrosGasolina.toFixed(2)} L`;
   }
 }
 
@@ -441,7 +441,7 @@ function actualizarResumen(data) {
               </td>
             </tr>
             <tr>
-              <th class="cantidad-litros">Vehiculos No Atendidos</th>
+              <th class="cantidad-litros">Vehiculos en cola</th>
               <td class="respuestas">
                 ${data.resumen.noAtendidosCantidadDiesel}
               </td>
