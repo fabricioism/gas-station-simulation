@@ -126,7 +126,9 @@ io.on("connection", function (socket) {
       pausado = false;
       finalizado = true;
       // Finalizar la simulacion
-      // TODO
+      timeouts.forEach((timeout) => {
+        timer.clearTimeout(timeout);
+      });
       //Respuesta de vuelta al cliente
       socket.emit("respuesta-finalizar", {
         exito: true,
