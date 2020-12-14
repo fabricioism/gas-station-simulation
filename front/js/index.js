@@ -180,15 +180,7 @@ socket.on("respuesta-finalizar", function (data) {
   }
 });
 socket.on("actualizacion", function (data) {
-
-  if(data.porcentajeDiesel == 0 && data.porcentajeGasolina == 0){
-    hypertimer.clearInterval(intervalo);
-  }
-  if (data.finalizado) {
-    console.log("finalizado");
-    console.log("datos finales ",data);
-    // Cambiar estado a finalizado, mostrar boton limpiar datos, pausar cronometro
-    resumen.innerHTML = `
+  resumen.innerHTML = `
         <tbody>
         <tr>
           <th class="cantidad-litros">Vehiculos Atendidos</th>
@@ -224,6 +216,14 @@ socket.on("actualizacion", function (data) {
         </tr>
       </tbody>
     `;
+  if(data.porcentajeDiesel == 0 && data.porcentajeGasolina == 0){
+    hypertimer.clearInterval(intervalo);
+  }
+  if (data.finalizado) {
+    console.log("finalizado");
+    console.log("datos finales ",data);
+    // Cambiar estado a finalizado, mostrar boton limpiar datos, pausar cronometro
+    
     pausar.style.display = "none";
     finalizar.style.display = "none";
     resetear.style.display = "block";
