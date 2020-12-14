@@ -62,6 +62,15 @@ socket.on("respuesta-variables-estado", function (data) {
       showConfirmButton: false,
       timer: 1000,
     });
+  } else {
+    btnVariablesEstado.disabled = false;
+    Swal.fire({
+      position: "center",
+      icon: "error",
+      title: `${data.mensaje}`,
+      showConfirmButton: false,
+      timer: 1000,
+    });
   }
 });
 socket.on("respuesta-iniciar", function (data) {
