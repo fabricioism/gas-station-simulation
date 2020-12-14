@@ -180,56 +180,25 @@ socket.on("respuesta-finalizar", function (data) {
   }
 });
 socket.on("actualizacion", function (data) {
-  resumen.innerHTML = `
-        <tbody>
-        <tr>
-          <th class="cantidad-litros">Vehiculos Atendidos</th>
-          <td class="respuestas">${data.resumen.atendidosCantidad}</td>
-          <th class="cantidad-litros">Vehiculos Atendidos(Diesel)</th>
-          <td class="respuestas">${data.resumen.atendidosCantidadDiesel}</td>
-          <th class="cantidad-litros">Vehiculos Atendidos(Gasolina)</th>
-          <td class="respuestas">${data.resumen.atendidosCantidadGasolina}</td>
-        </tr>
-        <tr>
-          <th class="cantidad-litros">Litros Diesel Vendidos</th>
-          <td class="respuestas">${data.resumen.atendidosLitrosDiesel.toFixed(2)}L</td>
-          <th class="cantidad-litros">Litros Gasolina Vendidos</th>
-          <td class="respuestas">${data.resumen.atendidosLitrosGasolina.toFixed(2)}L</td>
-          <th class="cantidad-litros">Vehiculos No Atendidos</th>
-          <td class="respuestas">${data.resumen.noAtendidosCantidad}</td>
-        </tr>
-        <tr>
-          <th class="cantidad-litros">Vehiculos No Atendidos(Diesel)</th>
-          <td class="respuestas">${data.resumen.noAtendidosCantidadDiesel}</td>
-          <th class="cantidad-litros">Vehiculos No Atendidos(Gasolina)</th>
-          <td class="respuestas">${data.resumen.noAtendidosCantidadGasolina}</td>
-          <th class="cantidad-litros">Porcentaje Vehiculos(Diesel)</th>
-          <td class="respuestas">${data.resumen.porcentajeAtendidosDiesel.toFixed(2)}%</td>
-        </tr>
-        <tr>
-          <th class="cantidad-litros">Porcentaje Vehiculos(Gasolina)</th>
-          <td class="respuestas">${data.resumen.porcentajeAtendidosGasolina.toFixed(2)}%</td>
-          <th class="cantidad-litros">Venta Promedio Diesel</th>
-          <td class="respuestas">${data.resumen.ventaPromedioDiesel.toFixed(2)}</td>
-          <th class="cantidad-litros">Venta Promedio Gasolina</th>
-          <td class="respuestas">${data.resumen.ventaPromedioGasolina.toFixed(2)}</td>
-        </tr>
-      </tbody>
-    `;
-  if(data.porcentajeDiesel == 0 && data.porcentajeGasolina == 0){
-    hypertimer.clearInterval(intervalo);
-  }
   if (data.finalizado) {
+    hypertimer.clearInterval(intervalo);
     console.log("finalizado");
-    console.log("datos finales ",data);
+    console.log("datos finales ", data);
     // Cambiar estado a finalizado, mostrar boton limpiar datos, pausar cronometro
-    
     pausar.style.display = "none";
     finalizar.style.display = "none";
     resetear.style.display = "block";
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Finalizado",
+      showConfirmButton: false,
+      timer: 1000,
+    });
   }
   actualizarPorcentajes(data);
   actualizarBombas(data);
+  actualizarResumen(data);
 });
 
 // FIN MANEJO DE RESPUESTAS SOCKETS
@@ -334,7 +303,14 @@ function resetearCronometro() {
   `;
   tiempo = 0;
   temporizador.innerHTML = `${tiempo.toFixed(2)}min`;
-  resumen.innerHTML = '';
+  porcentajeDiesel.style.width = "100%";
+  porcentajeGasolina.style.width = "100%";
+  porcentajeDiesel.innerHTML = "";
+  porcentajeGasolina.innerHTML = "";
+  resumen.innerHTML = `
+    <tr>
+      <th class="cantidad-litros">Resumen</th>
+    </tr>`;
 }
 
 function obtenerInformacion() {
@@ -376,12 +352,12 @@ function gestionBombas(data) {
               </td>
             </tr>
             <tr>
-              <td id="atendidos-litros-${i}" class="cantidad-litros">0 litros</td>
+              <td id="atendidos-litros-${i}" class="cantidad-litros">0 L</td>
               <td id="atendidos-litros-diesel-${i}" class="cantidad-litros" style="color: #ffca2b">
-                0 litros
+                0 L
               </td>
               <td id="atendidos-litros-gasolina-${i}" class="cantidad-litros" style="color: #dc3545">
-                0 litros
+                0 L
               </td>
             </tr>
           </tbody>
@@ -422,10 +398,89 @@ function actualizarBombas(data) {
     atendidosCantidad.innerHTML = bomba.atendidosCantidad;
     atendidosCantidadDiesel.innerHTML = bomba.atendidosCantidadDiesel;
     atendidosCantidadGasolina.innerHTML = bomba.atendidosCantidadGasolina;
-    atendidosLitros.innerHTML = bomba.atendidosLitros.toFixed(2) + " litros";
+    atendidosLitros.innerHTML = bomba.atendidosLitros.toFixed(2) + " L";
     atendidosLitrosDiesel.innerHTML =
-      bomba.atendidosLitrosDiesel.toFixed(2) + " litros";
+      bomba.atendidosLitrosDiesel.toFixed(2) + " L";
     atendidosLitrosGasolina.innerHTML =
-      bomba.atendidosLitrosGasolina.toFixed(2) + " litros";
+      bomba.atendidosLitrosGasolina.toFixed(2) + " L";
   }
+}
+
+function actualizarResumen(data) {
+  console.log(data);
+  resumen.innerHTML = `
+          <tbody>
+            <tr>
+              <th class="cantidad-litros">Resumen</th>
+              <th><span class="text-warning">Diesel</span></th>
+              <th><span class="text-danger">Gasolina</span></th>
+              <th>Total</th>
+            </tr>
+            <tr>
+              <th class="cantidad-litros">Vehiculos Atendidos</th>
+              <td class="respuestas">
+                ${data.resumen.atendidosCantidadDiesel}
+              </td>
+              <td class="respuestas">
+                ${data.resumen.atendidosCantidadGasolina}
+              </td>
+              <td class="respuestas">
+                ${data.resumen.atendidosCantidad}
+              </td>
+            </tr>
+            <tr>
+              <th class="cantidad-litros">Litros Vendidos</th>
+              <td class="respuestas">
+                ${data.resumen.atendidosLitrosDiesel.toFixed(2)} L
+              </td>
+              <td class="respuestas">
+                ${data.resumen.atendidosLitrosGasolina.toFixed(2)} L
+              </td>
+              <td class="respuestas">
+                ${data.resumen.atendidosLitros.toFixed(2)} L
+              </td>
+            </tr>
+            <tr>
+              <th class="cantidad-litros">Vehiculos No Atendidos</th>
+              <td class="respuestas">
+                ${data.resumen.noAtendidosCantidadDiesel}
+              </td>
+              <td class="respuestas">
+                ${data.resumen.noAtendidosCantidadDiesel}
+              </td>
+              <td class="respuestas">
+                ${data.resumen.noAtendidosCantidad}
+              </td>
+            </tr>
+            <tr>
+              <th class="cantidad-litros">Porcentaje Vehiculos</th>
+              <td class="respuestas">
+                ${data.resumen.porcentajeAtendidosDiesel.toFixed(2)}%
+              </td>
+              <td class="respuestas">
+                ${data.resumen.porcentajeAtendidosGasolina.toFixed(2)}%
+              </td>
+              <td class="respuestas">
+                ${
+                  data.resumen.porcentajeAtendidosDiesel === 0 &&
+                  data.resumen.porcentajeAtendidosGasolina === 0
+                    ? "0.00"
+                    : "100.00"
+                }%
+              </td>
+            </tr>
+            <tr>
+              <th class="cantidad-litros">Venta Promedio</th>
+              <td class="respuestas">
+                ${data.resumen.ventaPromedioDiesel.toFixed(2)} L
+              </td>
+              <td class="respuestas">
+                ${data.resumen.ventaPromedioGasolina.toFixed(2)} L
+              </td>
+              <td class="respuestas">
+                ${data.resumen.ventaPromedio.toFixed(2)} L
+              </td>
+            </tr>
+          </tbody>
+        `;
 }

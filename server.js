@@ -279,6 +279,7 @@ function atender() {
     }
   } else {
     finalizado = true;
+    simulando = false;
     console.log("No hay combustible");
   }
   actualizar();

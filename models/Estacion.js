@@ -194,6 +194,8 @@ class Estacion {
       "atendidosLitrosDiesel"
     );
 
+    let atendidosLitros = atendidosLitrosDiesel + atendidosLitrosGasolina;
+
     let ventaPromedioDiesel = isNaN(
       atendidosLitrosDiesel / atendidosCantidadDiesel
     )
@@ -206,6 +208,9 @@ class Estacion {
       ? 0
       : atendidosLitrosGasolina / atendidosCantidadGasolina;
 
+    let ventaPromedio = isNaN(atendidosLitros / atendidosCantidad)
+      ? 0
+      : atendidosLitros / atendidosCantidad;
     return {
       atendidosCantidad,
       atendidosCantidadGasolina,
@@ -215,10 +220,12 @@ class Estacion {
       noAtendidosCantidadDiesel,
       porcentajeAtendidosGasolina,
       porcentajeAtendidosDiesel,
+      atendidosLitros,
       atendidosLitrosGasolina,
       atendidosLitrosDiesel,
       ventaPromedioDiesel,
       ventaPromedioGasolina,
+      ventaPromedio,
     };
   }
 }

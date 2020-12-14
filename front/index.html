@@ -175,7 +175,13 @@
                 class="btn btn-info mt-2"
                 value="Limpiar Datos"
               />
-              <button type="button" class="btn btn-primary mt-2" id="configurar" data-toggle="modal" data-target="#modal-variables-estado">
+              <button
+                type="button"
+                class="btn btn-primary mt-2"
+                id="configurar"
+                data-toggle="modal"
+                data-target="#modal-variables-estado"
+              >
                 Configurar variables de estado
               </button>
             </div>
@@ -191,9 +197,14 @@
               </div>
             </div>
             <div class="col-12 resumen" style="background-color: #f2f4f4">
-              <h3>RESUMEN</h3>
-              <table class="table table-borderless" id="resumen" style="width: 80%;margin: 0 auto;">
-                
+              <table
+                class="table table-borderless"
+                id="resumen"
+                style="width: 95%; margin: 30px auto"
+              >
+                <tr>
+                  <th class="cantidad-litros">Resumen</th>
+                </tr>
               </table>
             </div>
           </div>
@@ -205,23 +216,21 @@
     <div class="modal fade" id="modal-variables-estado" role="dialog">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <div class="modal-header bg-dark border-bottom border-dark">
-            <h5 class="modal-title text-light">Variables de estado</h5>
+          <div class="modal-header">
+            <h5 class="modal-title">Variables de estado</h5>
             <button type="button" class="close" data-dismiss="modal">
               &times;
             </button>
           </div>
-          <div
-            class="modal-body bg-secondary border-bottom border-top border-dark"
-          >
-            <div class="alert alert-warning" role="alert">
+          <div class="modal-body">
+            <div class="alert alert-primary" role="alert">
               Los valores por defecto son los que aparecen, si no desea realizar
               cambios cierre esta ventana.
             </div>
-            <h5 class="modal-title text-light">Capacidad del tanque</h5>
+            <h5 class="modal-title">Capacidad del tanque</h5>
             <div class="form-row">
               <div class="col-6">
-                <label for="capacidad-max-tanque" class="text-light"
+                <label for="capacidad-max-tanque" class=""
                   >Capacidad máxima del tanque</label
                 >
                 <input
@@ -234,12 +243,12 @@
                 />
                 <small
                   id="capacidad-max-tanque-help"
-                  class="form-text text-light"
+                  class="form-text text-muted"
                   >Capacidad máxima del tanque de un auto.</small
                 >
               </div>
               <div class="col-6">
-                <label for="capacidad-min-tanque" class="text-light"
+                <label for="capacidad-min-tanque" class=""
                   >Capacidad mínima del tanque</label
                 >
                 <input
@@ -252,15 +261,15 @@
                 />
                 <small
                   id="capacidad-min-tanque-help"
-                  class="form-text text-light"
+                  class="form-text text-muted"
                   >Capacidad mínima del tanque de un auto.</small
                 >
               </div>
             </div>
-            <h5 class="modal-title text-light">Tiempos de preparación</h5>
+            <h5 class="modal-title">Tiempos de preparación</h5>
             <div class="form-row">
               <div class="col-6">
-                <label for="tiempo-pre-llenado" class="text-light"
+                <label for="tiempo-pre-llenado" class=""
                   >Tiempo pre llenado</label
                 >
                 <input
@@ -271,13 +280,13 @@
                   placeholder="0.5"
                   min="0"
                 />
-                <small id="tiempo-pre-llenado-help" class="form-text text-light"
+                <small id="tiempo-pre-llenado-help" class="form-text text-muted"
                   >Tiempo en minutos que toma preparar el carro para empezar a
                   llenar con la bomba.</small
                 >
               </div>
               <div class="col-6">
-                <label for="tiempo-pos-llenado" class="text-light"
+                <label for="tiempo-pos-llenado" class=""
                   >Tiempo pos llenado</label
                 >
                 <input
@@ -288,15 +297,15 @@
                   placeholder="1"
                   min="0"
                 />
-                <small id="tiempo-pos-llenado-help" class="form-text text-light"
+                <small id="tiempo-pos-llenado-help" class="form-text text-muted"
                   >Tiempo en minutos que toma preparar el carro luego de su
                   llenado para que deje la estación.</small
                 >
               </div>
             </div>
-            <h5 class="modal-title text-light">Porcentajes</h5>
+            <h5 class="modal-title">Porcentajes</h5>
             <div class="form-group">
-              <label for="porcentaje-max-ocupado" class="text-light"
+              <label for="porcentaje-max-ocupado" class=""
                 >Porcentaje máximo ocupado</label
               >
               <input
@@ -310,13 +319,13 @@
               />
               <small
                 id="porcentaje-max-ocupado-help"
-                class="form-text text-light"
+                class="form-text text-muted"
                 >Porcentaje máximo ocupado del tanque de un auto al llegar a la
                 estación. (0-1)</small
               >
             </div>
             <div class="form-group">
-              <label for="porcentaje-autos-gasolina" class="text-light"
+              <label for="porcentaje-autos-gasolina" class=""
                 >Porcentaje de autos gasolina</label
               >
               <input
@@ -330,16 +339,14 @@
               />
               <small
                 id="porcentaje-autos-gasolina-help"
-                class="form-text text-light"
+                class="form-text text-muted"
                 >Porcentaje de autos que usan gasolina, la diferencia usará
                 diesel. (0-1)</small
               >
             </div>
-            <h5 class="modal-title text-light">Tasas</h5>
+            <h5 class="modal-title">Tasas</h5>
             <div class="form-group">
-              <label for="tasa-llegada" class="text-light"
-                >Tasa de llegada</label
-              >
+              <label for="tasa-llegada" class="">Tasa de llegada</label>
               <input
                 type="number"
                 class="form-control"
@@ -348,13 +355,13 @@
                 placeholder="5"
                 min="0"
               />
-              <small id="tasa-llegada-help" class="form-text text-light"
+              <small id="tasa-llegada-help" class="form-text text-muted"
                 >Tiempo máximo en minutos que tarda en llegar un nuevo auto a la
                 estación. (por ejemplo, con valor por defecto 0-5min)</small
               >
             </div>
           </div>
-          <div class="modal-footer bg-dark border-top border-dark">
+          <div class="modal-footer">
             <button
               type="button"
               class="btn btn-info"
