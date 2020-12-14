@@ -46,7 +46,6 @@ $(document).ready(function () {
     };
     socket.emit("variables-estado", data);
   });
-  $("#modal-variables-estado").modal("show");
 });
 // MANEJO DE RESPUESTAS SOCKETS
 /* socket.on("nombre-evento", function (data) {
@@ -207,6 +206,7 @@ let finalizar = document.getElementById("finalizar");
 let pausar = document.getElementById("pausar");
 let continuar = document.getElementById("continuar");
 let resetear = document.getElementById("resetear");
+let configuracion = document.getElementById("configurar");
 let botones = document.getElementById("botones");
 let tiempo = 0;
 
@@ -240,7 +240,6 @@ function init() {
   continuar.addEventListener("click", continuarCronometro);
   resetear.addEventListener("click", function () {
     resetearCronometro();
-    $("#modal-variables-estado").modal("show");
   });
 }
 
@@ -253,6 +252,7 @@ function iniciarCronometro() {
   btnIniciar.style.display = "none";
   pausar.style.display = "block";
   finalizar.style.display = "block";
+  configuracion.style.display = "none";
   document.getElementById("bombas").disabled = "disabled";
   document.getElementById("diesel").disabled = "disabled";
   document.getElementById("gasolina").disabled = "disabled";
@@ -294,6 +294,7 @@ function resetearCronometro() {
   document.getElementById("velocidad").disabled = false;
   btnIniciar.style.display = "block";
   resetear.style.display = "none";
+  configuracion.style.display = "block";
   contenedor_bombas.innerHTML = "";
   contenedor_bombas.innerHTML += `
     <h3>INICIE LA SIMULACIÓN</h3>
