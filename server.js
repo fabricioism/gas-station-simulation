@@ -23,17 +23,35 @@ let timeouts = [];
 io.on("connection", function (socket) {
   socket.on("variables-estado", function (data) {
     console.log(data);
-    utils.capacidadMaxTanque = data.capacidadMaxTanque;
-    utils.capacidadMinTanque = data.capacidadMinTanque;
-    utils.tiempoPreLLenado = data.tiempoPreLlenado;
-    utils.tiempoPosLlenado = data.tiempoPosLlenado;
-    utils.porcentajeMaxOcupado = data.porcentajeMaxOcupado;
-    utils.porcentajeGasolina = data.porcentajeGasolina;
-    utils.tasaLlegada = data.tasaLlegada;
-    socket.emit("respuesta-variables-estado", {
-      exito: true,
-      mensaje: "Variables de estado guardadas.",
-    });
+    if (
+      data.capacidadMaxTanque < 0 ||
+      data.capacidadMinTanque < 0 ||
+      data.capacidadMinTanque > data.capacidadMaxTanque ||
+      data.tiempoPreLLenado < 0 ||
+      data.tiempoPosLLenado < 0 ||
+      data.porcentajeMaxOcupado < 0 ||
+      data.porcentajeMaxOcupado > 1 ||
+      data.porcentajeGasolina < 0 ||
+      data.porcentajeGasolina > 1 ||
+      data.tasaLlegada < 0
+    ) {
+      socket.emit("respuesta-variables-estado", {
+        exito: false,
+        mensaje: "Ingrese valores válidos.",
+      });
+    } else {
+      utils.capacidadMaxTanque = data.capacidadMaxTanque;
+      utils.capacidadMinTanque = data.capacidadMinTanque;
+      utils.tiempoPreLLenado = data.tiempoPreLlenado;
+      utils.tiempoPosLlenado = data.tiempoPosLlenado;
+      utils.porcentajeMaxOcupado = data.porcentajeMaxOcupado;
+      utils.porcentajeGasolina = data.porcentajeGasolina;
+      utils.tasaLlegada = data.tasaLlegada;
+      socket.emit("respuesta-variables-estado", {
+        exito: true,
+        mensaje: "Variables de estado guardadas.",
+      });
+    }
   });
   socket.on("iniciar", function (data) {
     console.log("Iniciando");
