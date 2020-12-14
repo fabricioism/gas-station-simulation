@@ -180,9 +180,53 @@ socket.on("respuesta-finalizar", function (data) {
   }
 });
 socket.on("actualizacion", function (data) {
+
+  if(data.porcentajeDiesel == 0 && data.porcentajeGasolina == 0){
+    hypertimer.clearInterval(intervalo);
+  }
   if (data.finalizado) {
     console.log("finalizado");
+    console.log("datos finales ",data);
     // Cambiar estado a finalizado, mostrar boton limpiar datos, pausar cronometro
+    resumen.innerHTML = `
+        <tbody>
+        <tr>
+          <th class="cantidad-litros">Vehiculos Atendidos</th>
+          <td class="respuestas">${data.resumen.atendidosCantidad}</td>
+          <th class="cantidad-litros">Vehiculos Atendidos(Diesel)</th>
+          <td class="respuestas">${data.resumen.atendidosCantidadDiesel}</td>
+          <th class="cantidad-litros">Vehiculos Atendidos(Gasolina)</th>
+          <td class="respuestas">${data.resumen.atendidosCantidadGasolina}</td>
+        </tr>
+        <tr>
+          <th class="cantidad-litros">Litros Diesel Vendidos</th>
+          <td class="respuestas">${data.resumen.atendidosLitrosDiesel.toFixed(2)}L</td>
+          <th class="cantidad-litros">Litros Gasolina Vendidos</th>
+          <td class="respuestas">${data.resumen.atendidosLitrosGasolina.toFixed(2)}L</td>
+          <th class="cantidad-litros">Vehiculos No Atendidos</th>
+          <td class="respuestas">${data.resumen.noAtendidosCantidad}</td>
+        </tr>
+        <tr>
+          <th class="cantidad-litros">Vehiculos No Atendidos(Diesel)</th>
+          <td class="respuestas">${data.resumen.noAtendidosCantidadDiesel}</td>
+          <th class="cantidad-litros">Vehiculos No Atendidos(Gasolina)</th>
+          <td class="respuestas">${data.resumen.noAtendidosCantidadGasolina}</td>
+          <th class="cantidad-litros">Porcentaje Vehiculos(Diesel)</th>
+          <td class="respuestas">${data.resumen.porcentajeAtendidosDiesel.toFixed(2)}%</td>
+        </tr>
+        <tr>
+          <th class="cantidad-litros">Porcentaje Vehiculos(Gasolina)</th>
+          <td class="respuestas">${data.resumen.porcentajeAtendidosGasolina.toFixed(2)}%</td>
+          <th class="cantidad-litros">Venta Promedio Diesel</th>
+          <td class="respuestas">${data.resumen.ventaPromedioDiesel.toFixed(2)}</td>
+          <th class="cantidad-litros">Venta Promedio Gasolina</th>
+          <td class="respuestas">${data.resumen.ventaPromedioGasolina.toFixed(2)}</td>
+        </tr>
+      </tbody>
+    `;
+    pausar.style.display = "none";
+    finalizar.style.display = "none";
+    resetear.style.display = "block";
   }
   actualizarPorcentajes(data);
   actualizarBombas(data);
@@ -197,6 +241,7 @@ let pausar = document.getElementById("pausar");
 let continuar = document.getElementById("continuar");
 let resetear = document.getElementById("resetear");
 let configuracion = document.getElementById("configurar");
+let resumen = document.getElementById("resumen");
 let botones = document.getElementById("botones");
 let tiempo = 0;
 
@@ -289,6 +334,7 @@ function resetearCronometro() {
   `;
   tiempo = 0;
   temporizador.innerHTML = `${tiempo.toFixed(2)}min`;
+  resumen.innerHTML = '';
 }
 
 function obtenerInformacion() {

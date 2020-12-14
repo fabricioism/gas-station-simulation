@@ -91,12 +91,11 @@
               <input
                 type="number"
                 class="form-control"
-                min="400"
-                max="50000"
-                placeholder="400"
+                min="0"
+                placeholder="litros diesel"
                 id="diesel"
                 name="diesel"
-                value="400"
+                value="0"
               />
             </div>
             <div class="form-group">
@@ -106,12 +105,11 @@
               <input
                 type="number"
                 class="form-control"
-                min="400"
-                max="50000"
-                placeholder="400"
+                min="0"
+                placeholder="litros gasolina"
                 name="gasolina"
                 id="gasolina"
-                value="400"
+                value="0"
               />
             </div>
             <div class="form-group">
@@ -194,37 +192,8 @@
             </div>
             <div class="col-12 resumen" style="background-color: #f2f4f4">
               <h3>RESUMEN</h3>
-              <table class="table table-borderless">
-                <thead>
-                  <tr>
-                    <th scope="col" class="titulo-tabla">Autos atendidos</th>
-                    <th scope="col" class="titulo-tabla">Autos no atendidos</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th class="cantidad-litros">200</th>
-                    <td class="cantidad-litros">0</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table class="table table-borderless">
-                <thead>
-                  <tr>
-                    <th scope="col" class="titulo-tabla">
-                      Ventas promedio de Diese(Litros)
-                    </th>
-                    <th scope="col" class="titulo-tabla">
-                      Venta promedio de Gasolina(Litros)
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th class="cantidad-litros">125</th>
-                    <td class="cantidad-litros">487</td>
-                  </tr>
-                </tbody>
+              <table class="table table-borderless" id="resumen" style="width: 80%;margin: 0 auto;">
+                
               </table>
             </div>
           </div>

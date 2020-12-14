@@ -89,14 +89,19 @@
     font-size: 25px;
 }
 
-.cantidad-autos{
-    font-size: 40px;
-    font-weight: bolder;
+.respuestas{
+    font-size: 14px;
+    color: #138496;
 }
 
 .cantidad-litros{
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bolder;
+}
+
+.cantidad-autos{
+    font-size: 35px;
+    font-weight: bold;
 }
 
 #contenedor_bombas h3{
