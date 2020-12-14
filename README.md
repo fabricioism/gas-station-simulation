@@ -1,6 +1,6 @@
-# gas-station-simulation-backend
+# gas-station-simulation
 
-This project works as a backend service for a simulation about gas stations behavior.
+This project works as a simulation about gas stations behavior.
 
 ### Beginning 🚀
 
