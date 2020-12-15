@@ -9,8 +9,8 @@ Aquí podrás encontrar lo necesario para poder entender el funcionamiento de es
    - [Clonando el repositorio](#clonando-el-repositorio)
    - [Instalando los paquetes necesarios](#instalando-los-paquetes-necesarios)
    - [Ejecutando el proyecto](#ejecutando-el-proyecto)
-2. [Manual de usuario](#manual-de-usuario)
-3. [Manual técnico](#manual-técnico)
+2. [Manual técnico](#manual-técnico)
+3. [Manual de usuario](#manual-de-usuario)
 
 ## Documentación técnica
 
