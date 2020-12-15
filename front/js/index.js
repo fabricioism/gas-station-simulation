@@ -18,32 +18,16 @@ $(document).ready(function () {
     let capacidadMinTanque = document.getElementById("capacidad-min-tanque");
     let tiempoPreLlenado = document.getElementById("tiempo-pre-llenado");
     let tiempoPosLlenado = document.getElementById("tiempo-pos-llenado");
-    let porcentajeMaxOcupado = document.getElementById(
-      "porcentaje-max-ocupado"
-    );
-    let porcentajeAutosGasolina = document.getElementById(
-      "porcentaje-autos-gasolina"
-    );
+    let porcentajeMaxOcupado = document.getElementById("porcentaje-max-ocupado");
+    let porcentajeAutosGasolina = document.getElementById("porcentaje-autos-gasolina");
     let tasaLlegada = document.getElementById("tasa-llegada");
     let data = {
-      capacidadMaxTanque: capacidadMaxTanque.value
-        ? parseFloat(capacidadMaxTanque.value)
-        : 65,
-      capacidadMinTanque: capacidadMinTanque.value
-        ? parseFloat(capacidadMinTanque.value)
-        : 45,
-      tiempoPreLlenado: tiempoPreLlenado.value
-        ? parseFloat(tiempoPreLlenado.value)
-        : 0.5,
-      tiempoPosLlenado: tiempoPosLlenado.value
-        ? parseFloat(tiempoPosLlenado.value)
-        : 1,
-      porcentajeMaxOcupado: porcentajeMaxOcupado.value
-        ? parseFloat(porcentajeMaxOcupado.value)
-        : 0.75,
-      porcentajeGasolina: porcentajeAutosGasolina.value
-        ? parseFloat(porcentajeAutosGasolina.value)
-        : 0.8,
+      capacidadMaxTanque: capacidadMaxTanque.value ? parseFloat(capacidadMaxTanque.value) : 65,
+      capacidadMinTanque: capacidadMinTanque.value ? parseFloat(capacidadMinTanque.value) : 45,
+      tiempoPreLlenado: tiempoPreLlenado.value ? parseFloat(tiempoPreLlenado.value) : 0.5,
+      tiempoPosLlenado: tiempoPosLlenado.value ? parseFloat(tiempoPosLlenado.value) : 1,
+      porcentajeMaxOcupado: porcentajeMaxOcupado.value ? parseFloat(porcentajeMaxOcupado.value) : 0.75,
+      porcentajeGasolina: porcentajeAutosGasolina.value ? parseFloat(porcentajeAutosGasolina.value) : 0.8,
       tasaLlegada: tasaLlegada.value ? parseFloat(tasaLlegada.value) : 5,
     };
     socket.emit("variables-estado", data);
@@ -57,22 +41,14 @@ $(document).ready(function () {
 socket.on("respuesta-obtener-variables-estado", function (data) {
   if (data.exito) {
     btnVariablesEstado.disabled = false;
-    document.getElementById("capacidad-max-tanque").placeholder =
-      data.variablesEstado.capacidadMaxTanque;
-    document.getElementById("capacidad-min-tanque").placeholder =
-      data.variablesEstado.capacidadMinTanque;
-    document.getElementById("porcentaje-max-ocupado").placeholder =
-      data.variablesEstado.porcentajeMaxOcupado;
-    document.getElementById("porcentaje-gasolina").placeholder =
-      data.variablesEstado.porcentajeGasolina;
-    document.getElementById("tiempo-pre-llenado").placeholder =
-      data.variablesEstado.tiempoPreLlenado;
-    document.getElementById("tiempo-pos-llenado").placeholder =
-      data.variablesEstado.tiempoPosLlenado;
-    document.getElementById("tasa-llegada").placeholder =
-      data.variablesEstado.tasaLlegada;
-    document.getElementById("tasa-llegada-span").placeholder =
-      data.variablesEstado.tasaLlegada;
+    document.getElementById("capacidad-max-tanque").placeholder = data.variablesEstado.capacidadMaxTanque;
+    document.getElementById("capacidad-min-tanque").placeholder = data.variablesEstado.capacidadMinTanque;
+    document.getElementById("porcentaje-max-ocupado").placeholder = data.variablesEstado.porcentajeMaxOcupado;
+    document.getElementById("porcentaje-gasolina").placeholder = data.variablesEstado.porcentajeGasolina;
+    document.getElementById("tiempo-pre-llenado").placeholder = data.variablesEstado.tiempoPreLlenado;
+    document.getElementById("tiempo-pos-llenado").placeholder = data.variablesEstado.tiempoPosLlenado;
+    document.getElementById("tasa-llegada").placeholder = data.variablesEstado.tasaLlegada;
+    document.getElementById("tasa-llegada-span").placeholder = data.variablesEstado.tasaLlegada;
   }
 });
 socket.on("respuesta-variables-estado", function (data) {
@@ -245,10 +221,7 @@ init();
 function init() {
   btnIniciar.addEventListener("click", function (e) {
     datosEntrada = obtenerInformacion();
-    if (
-      parseFloat(datosEntrada.cantidad_diesel) < 0 ||
-      parseFloat(datosEntrada.cantidad_gasolina) < 0
-    ) {
+    if (parseFloat(datosEntrada.cantidad_diesel) < 0 || parseFloat(datosEntrada.cantidad_gasolina) < 0) {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -339,11 +312,11 @@ function resetearCronometro() {
 
 function obtenerInformacion() {
   let Entradas = {
-    cantidad_bombas: document.getElementById("bombas").value,
-    cantidad_diesel: document.getElementById("diesel").value,
-    cantidad_gasolina: document.getElementById("gasolina").value,
-    flujo_bombas: document.getElementById("flujo").value,
-    velocidad_simulacion: document.getElementById("velocidad").value,
+    cantidad_bombas: parseInt(document.getElementById("bombas").value),
+    cantidad_diesel: parseFloat(document.getElementById("diesel").value),
+    cantidad_gasolina: parseFloat(document.getElementById("gasolina").value),
+    flujo_bombas: parseInt(document.getElementById("flujo").value),
+    velocidad_simulacion: parseInt(document.getElementById("velocidad").value),
   };
 
   return Entradas;
@@ -406,22 +379,14 @@ function actualizarBombas(data) {
   for (let i = 0; i < data.bombas.length; i++) {
     let bomba = data.bombas[i];
     let atendidosCantidad = document.getElementById(`atendidos-cantidad-${i}`);
-    let atendidosCantidadDiesel = document.getElementById(
-      `atendidos-cantidad-diesel-${i}`
-    );
-    let atendidosCantidadGasolina = document.getElementById(
-      `atendidos-cantidad-gasolina-${i}`
-    );
+    let atendidosCantidadDiesel = document.getElementById(`atendidos-cantidad-diesel-${i}`);
+    let atendidosCantidadGasolina = document.getElementById(`atendidos-cantidad-gasolina-${i}`);
     let atendidosLitros = document.getElementById(`atendidos-litros-${i}`);
-    let atendidosLitrosDiesel = document.getElementById(
-      `atendidos-litros-diesel-${i}`
-    );
-    let atendidosLitrosGasolina = document.getElementById(
-      `atendidos-litros-gasolina-${i}`
-    );
+    let atendidosLitrosDiesel = document.getElementById(`atendidos-litros-diesel-${i}`);
+    let atendidosLitrosGasolina = document.getElementById(`atendidos-litros-gasolina-${i}`);
     let al = parseFloat(bomba.atendidosLitros);
     let ald = parseFloat(bomba.atendidosLitrosDiesel);
-    let alg = parseFloat(bomba.atendidosLitrosGasolina)
+    let alg = parseFloat(bomba.atendidosLitrosGasolina);
     atendidosCantidad.innerHTML = bomba.atendidosCantidad;
     atendidosCantidadDiesel.innerHTML = bomba.atendidosCantidadDiesel;
     atendidosCantidadGasolina.innerHTML = bomba.atendidosCantidadGasolina;
@@ -432,7 +397,6 @@ function actualizarBombas(data) {
 }
 
 function actualizarResumen(data) {
-
   let ald = parseFloat(data.resumen.atendidosLitrosDiesel);
   let alg = parseFloat(data.resumen.atendidosLitrosGasolina);
   let al = parseFloat(data.resumen.atendidosLitros);
@@ -494,12 +458,7 @@ function actualizarResumen(data) {
                 ${pag.toFixed(2)}%
               </td>
               <td class="respuestas">
-                ${
-                  data.resumen.porcentajeAtendidosDiesel === 0 &&
-                  data.resumen.porcentajeAtendidosGasolina === 0
-                    ? "0.00"
-                    : "100.00"
-                }%
+                ${data.resumen.porcentajeAtendidosDiesel === 0 && data.resumen.porcentajeAtendidosGasolina === 0 ? "0.00" : "100.00"}%
               </td>
             </tr>
             <tr>

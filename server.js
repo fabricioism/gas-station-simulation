@@ -55,12 +55,13 @@ io.on("connection", function (socket) {
     }
   });
   socket.on("iniciar", function (data) {
-    console.log("Iniciando");
+    console.log("INICIAR LLAMADO");
     if (!simulando) {
       timer.config({ rate: data.velocidad_simulacion }); //Configurando la tasa de velocidad de la simulación
       //Agregar a la sala simulando para enviarle actualizaciones
       socket.join("simulando");
       simulando = true;
+      if (!timer.running) timer.continue();
       // Iniciar simulacion, solo permitir una simulacion para evitar problemas con sockets
       iniciar(data);
       //Respuesta de vuelta al cliente
@@ -78,10 +79,9 @@ io.on("connection", function (socket) {
     actualizar();
   });
   socket.on("pausar", function (data) {
-    console.log("PAUSANDO");
+    console.log("PAUSAR LLAMADO");
     if (!pausado || simulando) {
       pausado = true;
-      console.log("PAUSADO", pausado);
       // Pausar la simulacion
       // TODO
       timer.pause();
@@ -98,7 +98,7 @@ io.on("connection", function (socket) {
     }
   });
   socket.on("continuar", function (data) {
-    console.log("CONTINUANDO");
+    console.log("CONTINUAR LLAMADO");
     if (pausado) {
       pausado = false;
       simulando = true;
@@ -119,21 +119,20 @@ io.on("connection", function (socket) {
     }
   });
   socket.on("finalizar", function (data) {
-    console.log("Finalizando");
+    console.log("FINALIZAR LLAMADO");
     if (simulando) {
+      if (timer.running) timer.pause();
       simulando = false;
       pausado = false;
       finalizado = true;
       // Finalizar la simulacion
-      timeouts.forEach((timeout) => {
-        timer.clearTimeout(timeout);
-      });
+      timer.clear();
+      if (!timer.running) timer.continue();
       //Respuesta de vuelta al cliente
       socket.emit("respuesta-finalizar", {
         exito: true,
         mensaje: "Simulación finalizada.",
       });
-      // Remover de la sala simulando para evitar enviarle actualizaciones
     } else {
       socket.emit("respuesta-finalizar", {
         exito: false,
@@ -143,8 +142,12 @@ io.on("connection", function (socket) {
   });
   socket.on("disconnect", function () {
     socket.leave("simulando");
-    simulando = 0;
-    console.log("Desconectado");
+    simulando = false;
+    pausado = false;
+    finalizado = true;
+    // Detener todos los timeouts
+    timer.clear();
+    console.log("DESCONECTAR LLAMADO");
   });
 });
 
@@ -157,7 +160,6 @@ function iniciar(data) {
 
 function timeoutAgregarCarro() {
   if (!pausado && !finalizado) {
-    console.log("Carro agregado");
     let t = Math.round(Math.random() * utils.obtenerTasaLlegada() * 60 * 1000);
     timeouts["llegadaCarros"] = timer.setTimeout(function () {
       estacionSimulacion.agregarCarro();
@@ -242,10 +244,8 @@ function atender() {
   } else {
     finalizado = true;
     simulando = false;
-    timeouts.forEach((timeout) => {
-      timer.clearTimeout(timeout);
-    });
-    console.log("No hay combustible");
+    timer.clear();
+    console.log("FINALIZAR NO HAY COMBUSTIBLE");
   }
   actualizar();
 }
