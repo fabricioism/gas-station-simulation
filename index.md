@@ -76,6 +76,8 @@ Con el comando anterior el servidor local inicia su ejecución y en el puerto `3
 
 Se cargará el simulador y desde ese momento ya podrás hacer uso de el.
 
+## Manual de usuario
+
 ### Equipo de desarrollo
 
 - **Fabricio Murilo** - [fabricioism](https://github.com/fabricioism)
