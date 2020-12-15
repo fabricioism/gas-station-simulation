@@ -21,8 +21,14 @@ let estacionSimulacion;
 let timeouts = [];
 
 io.on("connection", function (socket) {
+  socket.on("obtener-variables-estado", function (data) {
+    socket.emit("respuesta-obtener-variables-estado", {
+      exito: true,
+      mensaje: "Variables de estado guardadas.",
+      variablesEstado: utils.obtenerDatos(),
+    });
+  });
   socket.on("variables-estado", function (data) {
-    console.log(data);
     if (
       data.capacidadMaxTanque < 0 ||
       data.capacidadMinTanque < 0 ||
@@ -41,13 +47,7 @@ io.on("connection", function (socket) {
           "Ingrese valores válidos. \n Capacidades deben ser mayores a 0 con capacidad mínima < capacidad máxima. \n Tiempos y tasas deben ser mayores a 0. \n Porcentajes deben estar entre 0 y 1.",
       });
     } else {
-      utils.capacidadMaxTanque = data.capacidadMaxTanque;
-      utils.capacidadMinTanque = data.capacidadMinTanque;
-      utils.tiempoPreLLenado = data.tiempoPreLlenado;
-      utils.tiempoPosLlenado = data.tiempoPosLlenado;
-      utils.porcentajeMaxOcupado = data.porcentajeMaxOcupado;
-      utils.porcentajeGasolina = data.porcentajeGasolina;
-      utils.tasaLlegada = data.tasaLlegada;
+      utils.actualizarDatos(data);
       socket.emit("respuesta-variables-estado", {
         exito: true,
         mensaje: "Variables de estado guardadas.",

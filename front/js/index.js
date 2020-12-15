@@ -10,6 +10,8 @@ const porcentajeGasolina = document.getElementById("porcentaje-gasolina");
 var datosEntrada = {};
 
 $(document).ready(function () {
+  socket.emit("obtener-variables-estado", {});
+  btnVariablesEstado.disabled = true;
   btnVariablesEstado.addEventListener("click", function (e) {
     btnVariablesEstado.disabled = true;
     let capacidadMaxTanque = document.getElementById("capacidad-max-tanque");
@@ -53,6 +55,27 @@ $(document).ready(function () {
  *   //manejo de respuesta a nombre-evento
  * });
  */
+socket.on("respuesta-obtener-variables-estado", function (data) {
+  if (data.exito) {
+    btnVariablesEstado.disabled = false;
+    document.getElementById("capacidad-max-tanque").placeholder =
+      data.variablesEstado.capacidadMaxTanque;
+    document.getElementById("capacidad-min-tanque").placeholder =
+      data.variablesEstado.capacidadMinTanque;
+    document.getElementById("porcentaje-max-ocupado").placeholder =
+      data.variablesEstado.porcentajeMaxOcupado;
+    document.getElementById("porcentaje-gasolina").placeholder =
+      data.variablesEstado.porcentajeGasolina;
+    document.getElementById("tiempo-pre-llenado").placeholder =
+      data.variablesEstado.tiempoPreLlenado;
+    document.getElementById("tiempo-pos-llenado").placeholder =
+      data.variablesEstado.tiempoPosLlenado;
+    document.getElementById("tasa-llegada").placeholder =
+      data.variablesEstado.tasaLlegada;
+    document.getElementById("tasa-llegada-span").placeholder =
+      data.variablesEstado.tasaLlegada;
+  }
+});
 socket.on("respuesta-variables-estado", function (data) {
   if (data.exito) {
     btnVariablesEstado.disabled = false;
