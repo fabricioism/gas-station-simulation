@@ -72,7 +72,7 @@ Ya todo está listo para la ejecución del simulador. En la terminal ejecuta el 
 node server.js
 ```
 
-Con el comando anterior el servidor local inicia su ejecución en el puerto `3000`, abre tu navegador y en la barra de direcciones copia la siguiente URL: `http://localhost:3000/`
+Con el comando anterior el servidor local inicia su ejecución y en el puerto `3000` se ejecuta el simulador. Abre tu navegador y en la barra de direcciones copia la siguiente URL: `http://localhost:3000/`
 
 Se cargará el simulador y desde ese momento ya podrás hacer uso de el.
 
