@@ -10,6 +10,7 @@ Aquí podrás encontrar lo necesario para poder entender el funcionamiento de es
    - [Instalando los paquetes necesarios](#instalando-los-paquetes-necesarios)
    - [Ejecutando el proyecto](#ejecutando-el-proyecto)
 2. [Manual de usuario](#manual-de-usuario)
+3. [Manual técnico](#manual-técnico)
 
 ## Documentación técnica
 
@@ -77,6 +78,8 @@ Con el comando anterior el servidor local inicia su ejecución y en el puerto `3
 Se cargará el simulador y desde ese momento ya podrás hacer uso de el.
 
 ## Manual de usuario
+
+## Manual técnico
 
 ### Equipo de desarrollo
 
