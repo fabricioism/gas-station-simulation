@@ -261,7 +261,7 @@ function atender() {
           //Timeout para terminar llenado del carro
           let t =
             Math.round(
-              utils.tiempoPreLLenado +
+              utils.tiempoPreLlenado +
                 estacionSimulacion.bombas[i].obtenerTiempoAtencion(
                   carroAtender
                 ) +

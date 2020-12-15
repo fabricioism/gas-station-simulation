@@ -11,7 +11,7 @@ var capacidadMaxTanque = null;
 var capacidadMinTanque = null;
 var porcentajeMaxOcupado = null;
 var porcentajeGasolina = null;
-var tiempoPreLLenado = null;
+var tiempoPreLlenado = null;
 var tiempoPosLlenado = null;
 var tasaLlegada = null;
 // Fin Variables de estado
@@ -37,8 +37,8 @@ function obtenerPorcentajeGasolina() {
 }
 
 function obtenerTiempoPreLlenado() {
-  if (tiempoPreLLenado == null) cargarDatos();
-  return tiempoPreLLenado;
+  if (tiempoPreLlenado == null) cargarDatos();
+  return tiempoPreLlenado;
 }
 
 function obtenerTiempoPosLlenado() {
@@ -58,9 +58,14 @@ function cargarDatos() {
   capacidadMinTanque = variablesEstado.capacidadMinTanque;
   porcentajeMaxOcupado = variablesEstado.porcentajeMaxOcupado;
   porcentajeGasolina = variablesEstado.porcentajeGasolina;
-  tiempoPreLLenado = variablesEstado.tiempoPreLLenado;
+  tiempoPreLlenado = variablesEstado.tiempoPreLlenado;
   tiempoPosLlenado = variablesEstado.tiempoPosLlenado;
   tasaLlegada = variablesEstado.tasaLlegada;
+  console.log(
+    "capacidadMaxTanque",
+    typeof capacidadMaxTanque,
+    capacidadMaxTanque
+  );
 }
 
 function guardarDatos() {
@@ -69,7 +74,7 @@ function guardarDatos() {
     capacidadMinTanque,
     porcentajeMaxOcupado,
     porcentajeGasolina,
-    tiempoPreLLenado,
+    tiempoPreLlenado,
     tiempoPosLlenado,
     tasaLlegada,
   };
@@ -84,7 +89,7 @@ function actualizarDatos(data) {
   capacidadMinTanque = data.capacidadMinTanque;
   porcentajeMaxOcupado = data.porcentajeMaxOcupado;
   porcentajeGasolina = data.porcentajeGasolina;
-  tiempoPreLLenado = data.tiempoPreLLenado;
+  tiempoPreLlenado = data.tiempoPreLlenado;
   tiempoPosLlenado = data.tiempoPosLlenado;
   tasaLlegada = data.tasaLlegada;
   guardarDatos();
@@ -97,7 +102,7 @@ function obtenerDatos() {
     capacidadMinTanque,
     porcentajeMaxOcupado,
     porcentajeGasolina,
-    tiempoPreLLenado,
+    tiempoPreLlenado,
     tiempoPosLlenado,
     tasaLlegada,
   };
@@ -111,7 +116,7 @@ module.exports.capacidadMaxTanque = obtenerCapacidadMaxTanque();
 module.exports.capacidadMinTanque = obtenerCapacidadMinTanque();
 module.exports.porcentajeMaxOcupado = obtenerPorcentajeMaxOcupado();
 module.exports.porcentajeGasolina = obtenerPorcentajeGasolina();
-module.exports.tiempoPreLLenado = obtenerTiempoPreLlenado();
+module.exports.tiempoPreLlenado = obtenerTiempoPreLlenado();
 module.exports.tiempoPosLlenado = obtenerTiempoPosLlenado();
 module.exports.tasaLlegada = obtenerTasaLlegada();
 module.exports.actualizarDatos = actualizarDatos;
