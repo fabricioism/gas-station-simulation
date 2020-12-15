@@ -46,7 +46,6 @@ $(document).ready(function () {
         : 0.8,
       tasaLlegada: tasaLlegada.value ? parseFloat(tasaLlegada.value) : 5,
     };
-    console.log(data);
     socket.emit("variables-estado", data);
   });
 });
@@ -208,7 +207,6 @@ socket.on("actualizacion", function (data) {
     if (finalizar.style.display != "none") {
       hypertimer.clearInterval(intervalo);
       console.log("finalizado");
-      console.log("datos finales ", data);
       // Cambiar estado a finalizado, mostrar boton limpiar datos, pausar cronometro
       pausar.style.display = "none";
       finalizar.style.display = "none";
@@ -421,25 +419,32 @@ function actualizarBombas(data) {
     let atendidosLitrosGasolina = document.getElementById(
       `atendidos-litros-gasolina-${i}`
     );
+    let al = parseFloat(bomba.atendidosLitros);
+    let ald = parseFloat(bomba.atendidosLitrosDiesel);
+    let alg = parseFloat(bomba.atendidosLitrosGasolina)
     atendidosCantidad.innerHTML = bomba.atendidosCantidad;
     atendidosCantidadDiesel.innerHTML = bomba.atendidosCantidadDiesel;
     atendidosCantidadGasolina.innerHTML = bomba.atendidosCantidadGasolina;
-    atendidosLitros.innerHTML = `${bomba.atendidosLitros.toFixed(2)} L`;
-    atendidosLitrosDiesel.innerHTML = `${bomba.atendidosLitrosDiesel.toFixed(
-      2
-    )} L`;
-    atendidosLitrosGasolina.innerHTML = `${bomba.atendidosLitrosGasolina.toFixed(
-      2
-    )} L`;
+    atendidosLitros.innerHTML = `${al.toFixed(2)} L`;
+    atendidosLitrosDiesel.innerHTML = `${ald.toFixed(2)} L`;
+    atendidosLitrosGasolina.innerHTML = `${alg.toFixed(2)} L`;
   }
 }
 
 function actualizarResumen(data) {
-  console.log(data);
+
+  let ald = parseFloat(data.resumen.atendidosLitrosDiesel);
+  let alg = parseFloat(data.resumen.atendidosLitrosGasolina);
+  let al = parseFloat(data.resumen.atendidosLitros);
+  let pad = parseFloat(data.resumen.porcentajeAtendidosDiesel);
+  let pag = parseFloat(data.resumen.porcentajeAtendidosGasolina);
+  let vpd = parseFloat(data.resumen.ventaPromedioDiesel);
+  let vpg = parseFloat(data.resumen.ventaPromedioGasolina);
+  let vp = parseFloat(data.resumen.ventaPromedio);
   resumen.innerHTML = `
           <tbody>
             <tr>
-              <th class="cantidad-litros">Resumen</th>
+              <th class="titulo-resumen">Resumen</th>
               <th><span class="text-warning">Diesel</span></th>
               <th><span class="text-danger">Gasolina</span></th>
               <th>Total</th>
@@ -459,13 +464,13 @@ function actualizarResumen(data) {
             <tr>
               <th class="cantidad-litros">Litros Vendidos</th>
               <td class="respuestas">
-                ${data.resumen.atendidosLitrosDiesel.toFixed(2)} L
+                ${ald.toFixed(2)} L
               </td>
               <td class="respuestas">
-                ${data.resumen.atendidosLitrosGasolina.toFixed(2)} L
+                ${alg.toFixed(2)} L
               </td>
               <td class="respuestas">
-                ${data.resumen.atendidosLitros.toFixed(2)} L
+                ${al.toFixed(2)} L
               </td>
             </tr>
             <tr>
@@ -483,10 +488,10 @@ function actualizarResumen(data) {
             <tr>
               <th class="cantidad-litros">Porcentaje Vehiculos</th>
               <td class="respuestas">
-                ${data.resumen.porcentajeAtendidosDiesel.toFixed(2)}%
+                ${pad.toFixed(2)}%
               </td>
               <td class="respuestas">
-                ${data.resumen.porcentajeAtendidosGasolina.toFixed(2)}%
+                ${pag.toFixed(2)}%
               </td>
               <td class="respuestas">
                 ${
@@ -500,13 +505,13 @@ function actualizarResumen(data) {
             <tr>
               <th class="cantidad-litros">Venta Promedio</th>
               <td class="respuestas">
-                ${data.resumen.ventaPromedioDiesel.toFixed(2)} L
+                ${vpd.toFixed(2)} L
               </td>
               <td class="respuestas">
-                ${data.resumen.ventaPromedioGasolina.toFixed(2)} L
+                ${vpg.toFixed(2)} L
               </td>
               <td class="respuestas">
-                ${data.resumen.ventaPromedio.toFixed(2)} L
+                ${vp.toFixed(2)} L
               </td>
             </tr>
           </tbody>

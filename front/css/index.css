@@ -35,6 +35,8 @@
 
 .resumen {
   height: 35vh;
+  max-height: 35vh;
+  overflow-y: scroll;
   /* border: 1px solid black; */
 }
 
@@ -95,6 +97,7 @@ input {
 
 .respuestas {
   font-size: 14px;
+  font-weight: bolder;
   color: #138496;
 }
 
@@ -131,4 +134,42 @@ input {
   font-size: 15px;
   font-weight: bolder;
   padding-left: 0 !important;
+}
+
+.titulo-resumen{
+  text-align: 18px;
+}
+/* 
+@media (min-width: 576px) { 
+  .titulo h2 b{
+    font-size: 15px;
+  }
+ }
+
+
+@media (min-width: 768px) {
+  .titulo h2 b{
+    font-size: 20px;
+  }
+ } */
+
+
+@media (min-width: 992px) { 
+  .titulo h2 b{
+    font-size: 20px;
+  }
+
+  .titulo-tabla{
+    font-size: 19px;
+  }
+  .cantidad-autos{
+    font-size: 19px;
+  }
+  .cantidad-litros{
+    font-size: 14px;
+  }
+  .titulo-barra{
+    font-size: 20px;
+    font-weight: bold;
+  }
 }
