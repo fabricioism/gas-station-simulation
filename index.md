@@ -1,27 +1,14 @@
-## Manual de usuario
+## Documentación
 
-You can use the [editor on GitHub](https://github.com/fabricioism/gas-station-simulation/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Aquí podrás encontrar lo necesario para poder entender el funcionamiento de este proyecto desde la instalación hasta su uso. Sigue leyendo para poder comprenderlo todo.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Contenido 📘
 
-### Markdown
+1. [Documentación técnica](#documentación-técnica)
+    + [Requisitos del sistema](#requisitos-del-sistema)
+    + [Clonando el repositorio](#clonando-el-repositorio)
+2. [Manual de usuario](#manual-de-usuario)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
 
 [Link](url) and ![Image](src)
 ```
