@@ -87,9 +87,21 @@ La interacción cliente-servidor se genera de múltiples maneras, como puede ser
 
 #### Obtención de variables de estado
 
-![Diagrama 1 - Obtención de variables de estado al cliente](images/diagrama1.png)
+![Diagrama 1 - Obtención de variables de estado](images/diagrama1.png)
 
-Al cargar el cliente del simulador y acceder a la URL `http://localhost:3000/` esta será la primera interacción entre el cliente y el servidor, necesaria para mostrar los valores actuales de las variables de estado, que solo son modificables previo a iniciar la simulación
+Al cargar el cliente del simulador y acceder a la URL `http://localhost:3000/` el cliente enviara una solicitud para obtener las variables de estado (según el último valor que se almaceno). El servidor devolverá las variables de estado que estaban almacenadas.
+
+#### Modificación de variables de estado
+
+![Diagrama 2 - Modificación de variables de estado](images/diagrama2.png)
+
+Previo a iniciar la simulación el usuario puede elegir modificar las variables de estado (capacidad máxima y mínima del tanque de un auto, tiempo que toma preparar el auto previo y pos llenado, porcentaje máximo del tanque que puede traer ocupado un auto, porcentaje de autos que usan gasolina como combustible y la tasa de llegada a la estación). El servidor devolverá una respuesta exitosa luego de verificar que los valores ingresados se encuentren en los rangos correctos, de lo contrario enviará una respuesta no exitosa.
+
+#### Inicio de una simulación
+
+![Diagrama 3 - Inicio de una simulación](images/diagrama3.png)
+
+Cuando el usuario inicia la simulación se envían los datos de entrada al servidor para poder empezar a simular la estación de combustible. El servidor envía una respuesta de éxito en caso de que se haya logrado iniciar la simulación. Solo se puede ejecutar una simulación a la vez, no pueden existir múltiples clientes simulando al mismo tiempo, si se trata de iniciar cuando ya existe otro cliente simulando se devolverá una respuesta no exitosa.
 
 ### Equipo de desarrollo
 
