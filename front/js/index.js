@@ -86,6 +86,7 @@ socket.on("respuesta-variables-estado", function (data) {
       showConfirmButton: false,
       timer: 1000,
     });
+    $("#modal-variables-estado").modal("hide");
   } else {
     btnVariablesEstado.disabled = false;
     Swal.fire({
