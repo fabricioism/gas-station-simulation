@@ -11,7 +11,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="css/index.css" />
-    <link rel="icon" href="img/icon.png" />
+    <link rel="icon" href="img/favicon.ico" />
   </head>
   <body>
     <!--Contenedor de navbar-->
@@ -71,12 +71,7 @@
             <hr />
             <div class="form-group">
               <label for="bombas"><b>Bombas Disponibles</b></label>
-              <select
-                class="form-select form-control"
-                aria-label="Default select example"
-                name="bombas"
-                id="bombas"
-              >
+              <select class="form-select form-control" aria-label="Default select example" name="bombas" id="bombas">
                 <option selected value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -88,38 +83,15 @@
             </div>
             <div class="form-group">
               <label for="diesel"><b>Litros de Diesel en almacenaje</b></label>
-              <input
-                type="number"
-                class="form-control"
-                min="0"
-                placeholder="litros diesel"
-                id="diesel"
-                name="diesel"
-                value="0"
-              />
+              <input type="number" class="form-control" min="0" placeholder="litros diesel" id="diesel" name="diesel" value="0" />
             </div>
             <div class="form-group">
-              <label for="gasolina"
-                ><b>Litros de Gasolina en almacenaje</b></label
-              >
-              <input
-                type="number"
-                class="form-control"
-                min="0"
-                placeholder="litros gasolina"
-                name="gasolina"
-                id="gasolina"
-                value="0"
-              />
+              <label for="gasolina"><b>Litros de Gasolina en almacenaje</b></label>
+              <input type="number" class="form-control" min="0" placeholder="litros gasolina" name="gasolina" id="gasolina" value="0" />
             </div>
             <div class="form-group">
               <label for="flujo"><b>Flujo de las Bombas</b></label>
-              <select
-                class="form-select form-control"
-                aria-label="Default select example"
-                name="flujo"
-                id="flujo"
-              >
+              <select class="form-select form-control" aria-label="Default select example" name="flujo" id="flujo">
                 <option selected value="50">50L/min</option>
                 <option value="80">80L/min</option>
                 <option value="140">140L/min</option>
@@ -128,12 +100,7 @@
             </div>
             <div class="form-group">
               <label for="velocidad"><b>Velocidad de la simulación</b></label>
-              <select
-                class="form-select form-control"
-                aria-label="Default select example"
-                name="velocidad"
-                id="velocidad"
-              >
+              <select class="form-select form-control" aria-label="Default select example" name="velocidad" id="velocidad">
                 <option selected value="10">x10</option>
                 <option value="25">x25</option>
                 <option value="50">x50</option>
@@ -144,44 +111,17 @@
               <button type="button" id="btn-iniciar" class="btn btn-info">
                 <b>Iniciar</b>
               </button>
-              <button
-                type="button"
-                style="display: none"
-                id="pausar"
-                class="btn btn-warning mt-2"
-              >
+              <button type="button" style="display: none" id="pausar" class="btn btn-warning mt-2">
                 <b>Pausar</b>
               </button>
-              <button
-                type="button"
-                style="display: none"
-                id="continuar"
-                class="btn btn-success mt-2"
-              >
+              <button type="button" style="display: none" id="continuar" class="btn btn-success mt-2">
                 <b>Continuar</b>
               </button>
-              <button
-                type="button"
-                style="display: none"
-                id="finalizar"
-                class="btn btn-danger mt-2"
-              >
+              <button type="button" style="display: none" id="finalizar" class="btn btn-danger mt-2">
                 <b>Finalizar</b>
               </button>
-              <input
-                type="reset"
-                style="display: none"
-                id="resetear"
-                class="btn btn-info mt-2"
-                value="Limpiar Datos"
-              />
-              <button
-                type="button"
-                class="btn btn-primary mt-2"
-                id="configurar"
-                data-toggle="modal"
-                data-target="#modal-variables-estado"
-              >
+              <input type="reset" style="display: none" id="resetear" class="btn btn-info mt-2" value="Limpiar Datos" />
+              <button type="button" class="btn btn-primary mt-2" id="configurar" data-toggle="modal" data-target="#modal-variables-estado">
                 Configurar variables de estado
               </button>
             </div>
@@ -197,11 +137,7 @@
               </div>
             </div>
             <div class="col-12 resumen" style="background-color: #f2f4f4">
-              <table
-                class="table table-borderless"
-                id="resumen"
-                style="width: 95%; margin: 30px auto"
-              >
+              <table class="table table-borderless" id="resumen" style="width: 95%; margin: 30px auto">
                 <tr>
                   <th class="titulo-resumen">Resumen</th>
                 </tr>
@@ -218,96 +154,43 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Variables de estado</h5>
-            <button type="button" class="close" data-dismiss="modal">
-              &times;
-            </button>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-            <div class="alert alert-primary" role="alert">
-              Los valores por defecto son los que aparecen, si no desea realizar
-              cambios cierre esta ventana.
-            </div>
+            <div class="alert alert-primary" role="alert">Los valores por defecto son los que aparecen, si no desea realizar cambios cierre esta ventana.</div>
             <h5 class="modal-title">Capacidad del tanque</h5>
             <div class="form-row">
               <div class="col-6">
-                <label for="capacidad-max-tanque" class=""
-                  >Capacidad máxima del tanque</label
-                >
-                <input
-                  type="number"
-                  class="form-control"
-                  id="capacidad-max-tanque"
-                  aria-describedby="capacidad-max-tanque-help"
-                  placeholder="65"
-                  min="0"
-                />
-                <small
-                  id="capacidad-max-tanque-help"
-                  class="form-text text-muted"
-                  >Capacidad máxima del tanque de un auto.</small
-                >
+                <label for="capacidad-max-tanque" class="">Capacidad máxima del tanque</label>
+                <input type="number" class="form-control" id="capacidad-max-tanque" aria-describedby="capacidad-max-tanque-help" placeholder="65" min="0" />
+                <small id="capacidad-max-tanque-help" class="form-text text-muted">Capacidad máxima del tanque de un auto.</small>
               </div>
               <div class="col-6">
-                <label for="capacidad-min-tanque" class=""
-                  >Capacidad mínima del tanque</label
-                >
-                <input
-                  type="number"
-                  class="form-control"
-                  id="capacidad-min-tanque"
-                  aria-describedby="capacidad-min-tanque-help"
-                  placeholder="45"
-                  min="0"
-                />
-                <small
-                  id="capacidad-min-tanque-help"
-                  class="form-text text-muted"
-                  >Capacidad mínima del tanque de un auto.</small
-                >
+                <label for="capacidad-min-tanque" class="">Capacidad mínima del tanque</label>
+                <input type="number" class="form-control" id="capacidad-min-tanque" aria-describedby="capacidad-min-tanque-help" placeholder="45" min="0" />
+                <small id="capacidad-min-tanque-help" class="form-text text-muted">Capacidad mínima del tanque de un auto.</small>
               </div>
             </div>
             <h5 class="modal-title">Tiempos de preparación</h5>
             <div class="form-row">
               <div class="col-6">
-                <label for="tiempo-pre-llenado" class=""
-                  >Tiempo pre llenado</label
-                >
-                <input
-                  type="number"
-                  class="form-control"
-                  id="tiempo-pre-llenado"
-                  aria-describedby="tiempo-pre-llenado-help"
-                  placeholder="0.5"
-                  min="0"
-                />
+                <label for="tiempo-pre-llenado" class="">Tiempo pre llenado</label>
+                <input type="number" class="form-control" id="tiempo-pre-llenado" aria-describedby="tiempo-pre-llenado-help" placeholder="0.5" min="0" />
                 <small id="tiempo-pre-llenado-help" class="form-text text-muted"
-                  >Tiempo en minutos que toma preparar el carro para empezar a
-                  llenar con la bomba.</small
+                  >Tiempo en minutos que toma preparar el carro para empezar a llenar con la bomba.</small
                 >
               </div>
               <div class="col-6">
-                <label for="tiempo-pos-llenado" class=""
-                  >Tiempo pos llenado</label
-                >
-                <input
-                  type="number"
-                  class="form-control"
-                  id="tiempo-pos-llenado"
-                  aria-describedby="tiempo-pos-llenado-help"
-                  placeholder="1"
-                  min="0"
-                />
+                <label for="tiempo-pos-llenado" class="">Tiempo pos llenado</label>
+                <input type="number" class="form-control" id="tiempo-pos-llenado" aria-describedby="tiempo-pos-llenado-help" placeholder="1" min="0" />
                 <small id="tiempo-pos-llenado-help" class="form-text text-muted"
-                  >Tiempo en minutos que toma preparar el carro luego de su
-                  llenado para que deje la estación.</small
+                  >Tiempo en minutos que toma preparar el carro luego de su llenado para que deje la estación.</small
                 >
               </div>
             </div>
             <h5 class="modal-title">Porcentajes</h5>
             <div class="form-group">
-              <label for="porcentaje-max-ocupado" class=""
-                >Porcentaje máximo ocupado</label
-              >
+              <label for="porcentaje-max-ocupado" class="">Porcentaje máximo ocupado</label>
               <input
                 type="number"
                 class="form-control"
@@ -317,17 +200,12 @@
                 min="0"
                 max="1"
               />
-              <small
-                id="porcentaje-max-ocupado-help"
-                class="form-text text-muted"
-                >Porcentaje máximo ocupado del tanque de un auto al llegar a la
-                estación. (0-1)</small
+              <small id="porcentaje-max-ocupado-help" class="form-text text-muted"
+                >Porcentaje máximo ocupado del tanque de un auto al llegar a la estación. (0-1)</small
               >
             </div>
             <div class="form-group">
-              <label for="porcentaje-autos-gasolina" class=""
-                >Porcentaje de autos gasolina</label
-              >
+              <label for="porcentaje-autos-gasolina" class="">Porcentaje de autos gasolina</label>
               <input
                 type="number"
                 class="form-control"
@@ -337,38 +215,23 @@
                 min="0"
                 max="1"
               />
-              <small
-                id="porcentaje-autos-gasolina-help"
-                class="form-text text-muted"
-                >Porcentaje de autos que usan gasolina, la diferencia usará
-                diesel. (0-1)</small
+              <small id="porcentaje-autos-gasolina-help" class="form-text text-muted"
+                >Porcentaje de autos que usan gasolina, la diferencia usará diesel. (0-1)</small
               >
             </div>
             <h5 class="modal-title">Tasas</h5>
             <div class="form-group">
               <label for="tasa-llegada" class="">Tasa de llegada</label>
-              <input
-                type="number"
-                class="form-control"
-                id="tasa-llegada"
-                aria-describedby="tasa-llegada-help"
-                placeholder="5"
-                min="0"
-              />
+              <input type="number" class="form-control" id="tasa-llegada" aria-describedby="tasa-llegada-help" placeholder="5" min="0" />
               <small id="tasa-llegada-help" class="form-text text-muted"
-                >Tiempo máximo en minutos que tarda en llegar un nuevo auto a la
-                estación. (por ejemplo, con valor por defecto 0-<span id="tasa-llegada-span">5</span>min)</small
+                >Tiempo máximo en minutos que tarda en llegar un nuevo auto a la estación. (por ejemplo, con valor por defecto 0-<span id="tasa-llegada-span"
+                  >5</span
+                >min)</small
               >
             </div>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-info"
-              id="btn-variables-estado"
-            >
-              Guardar
-            </button>
+            <button type="button" class="btn btn-info" id="btn-variables-estado">Guardar</button>
           </div>
         </div>
       </div>
