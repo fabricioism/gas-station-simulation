@@ -79,6 +79,15 @@ Se cargará el simulador y desde ese momento ya podrás hacer uso de el.
 
 ## Manual técnico
 
+### Herramientas utilizadas
+
+1. Javascript (cliente y servidor)
+2. HTML (cliente)
+3. CSS (cliente)
+4. Bootstrap (cliente) leer más [aquí](https://getbootstrap.com/).
+5. Socket<span>.I</span>O (comunicación cliente-servidor) leer más [aquí](https://socket.io/).
+6. Hypertimer (simulación del tiempo) leer más [aquí](https://www.npmjs.com/package/hypertimer).
+
 ### Interacción cliente-servidor
 
 La interacción cliente-servidor se genera de múltiples maneras, como puede ser la obtención de los datos iniciales, cambio de variables de estado, inicio, pausa, continuar, finalizar y las actualizaciones que debe recibir el cliente. En los siguientes esquemas se detalla de forma visual de estas interacciones.
@@ -115,15 +124,6 @@ La actualización contiene la información necesaria para mostrar los niveles de
 ![Diagrama 7 - Finalización de una simulación](images/diagrama7.png)
 
 El usuario es capaz de finalizar una simulación que se esté ejecutando luego de haberla iniciado y sin importar si esta pausada o no, se envía la solicitud al servidor para finalizar la simulación, el servidor finaliza todo en caso de que haya una simulación iniciada y envía una respuesta de éxito, caso contrario se envía una respuesta no exitosa.
-
-### Herramientas utilizadas
-
-1. Javascript (cliente y servidor)
-2. HTML (cliente)
-3. CSS (cliente)
-4. Bootstrap (cliente) leer más [aquí](https://getbootstrap.com/).
-5. Socket<span>.I</span>O (comunicación cliente-servidor) leer más [aquí](https://socket.io/).
-6. Hypertimer (simulación del tiempo) leer más [aquí](https://www.npmjs.com/package/hypertimer).
 
 ## Manual de usuario
 
