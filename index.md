@@ -85,6 +85,12 @@ Se cargará el simulador y desde ese momento ya podrás hacer uso de el.
 
 La interacción cliente-servidor se genera de múltiples maneras, como puede ser la obtención de los datos iniciales, cambio de variables de estado, inicio, pausa, continuar, finalizar y las actualizaciones que debe recibir el cliente. En los siguientes esquemas se detalla de forma visual estas interacciones.
 
+#### Obtención de variables de estado
+
+![Diagrama 1 - Obtención de variables de estado al cliente](images/diagrama1.png)
+
+Al cargar el cliente del simulador y acceder a la URL `http://localhost:3000/` esta será la primera interacción entre el cliente y el servidor, necesaria para mostrar los valores actuales de las variables de estado, que solo son modificables previo a iniciar la simulación
+
 ### Equipo de desarrollo
 
 - **Fabricio Murilo** - [fabricioism](https://github.com/fabricioism)
