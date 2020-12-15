@@ -77,8 +77,6 @@ Con el comando anterior el servidor local inicia su ejecución y en el puerto `3
 
 Se cargará el simulador y desde ese momento ya podrás hacer uso de el.
 
-## Manual de usuario
-
 ## Manual técnico
 
 ### Interacción cliente-servidor
@@ -126,6 +124,8 @@ El usuario es capaz de finalizar una simulación que se esté ejecutando luego d
 4. Bootstrap (cliente) leer más [aquí](https://getbootstrap.com/).
 5. Socket<span>.I</span>O (comunicación cliente-servidor) leer más [aquí](https://socket.io/).
 6. Hypertimer (simulación del tiempo) leer más [aquí](https://www.npmjs.com/package/hypertimer).
+
+## Manual de usuario
 
 ### Equipo de desarrollo
 
