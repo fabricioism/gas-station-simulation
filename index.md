@@ -141,6 +141,8 @@ El usuario es capaz de finalizar una simulación que se esté ejecutando luego d
 5. Socket<span>.I</span>O (comunicación cliente-servidor) leer más [aquí](https://socket.io/).
 6. Hypertimer (simulación del tiempo) leer más [aquí](https://www.npmjs.com/package/hypertimer).
 
+## Manual de usuario
+
 ### Equipo de desarrollo
 
 - **Fabricio Murilo** - [fabricioism](https://github.com/fabricioism)
