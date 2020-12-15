@@ -77,6 +77,22 @@ Con el comando anterior el servidor local inicia su ejecución y en el puerto `3
 
 Se cargará el simulador y desde ese momento ya podrás hacer uso de el.
 
+## Manual de usuario
+
+### Iniciando el servidor de Node
+
+Este simulador es una aplicación web asi que requiere de un servidor que provea del alojamiento del sitio. Además es necesario para realizar todas las operaciones.
+
+Con tu editor de texto favorito (En nuestro caso [VSC](https://code.visualstudio.com/)) abre en tu espacio de trabajo la ubicación del simulador que previamente clonaste.
+
+### Ingresando al simulador
+
+Dado que este es un simulador que se ejecuta en una aplicación web basta con abrir tu navegador para poder usarlo.
+
+Abre una pestaña, copia y pega la siguiente URL: `http://localhost:3000/
+
+![Diagrama 3 - Inicio de una simulación](images/manual1.png)
+
 ## Manual técnico
 
 ### Herramientas utilizadas
