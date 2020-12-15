@@ -81,6 +81,10 @@ Se cargará el simulador y desde ese momento ya podrás hacer uso de el.
 
 ## Manual técnico
 
+### Interacción cliente-servidor
+
+La interacción cliente-servidor se genera de múltiples maneras, como puede ser la obtención de los datos iniciales, cambio de variables de estado, inicio, pausa, continuar, finalizar y las actualizaciones que debe recibir el cliente. En los siguientes esquemas se detalla de forma visual estas interacciones.
+
 ### Equipo de desarrollo
 
 - **Fabricio Murilo** - [fabricioism](https://github.com/fabricioism)
