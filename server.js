@@ -93,8 +93,7 @@ io.on("connection", function (socket) {
     } else {
       socket.emit("respuesta-pausar", {
         exito: false,
-        mensaje:
-          "Parece que ya se pausó o no se está simulando en este momento.",
+        mensaje: "Parece que ya se pausó o no se está simulando en este momento.",
       });
     }
   });
@@ -152,19 +151,14 @@ io.on("connection", function (socket) {
 function iniciar(data) {
   pausado = false;
   finalizado = false;
-  estacionSimulacion = new estacion.Estacion(
-    data.cantidad_bombas,
-    data.flujo_bombas,
-    data.cantidad_diesel,
-    data.cantidad_gasolina
-  );
+  estacionSimulacion = new estacion.Estacion(data.cantidad_bombas, data.flujo_bombas, data.cantidad_diesel, data.cantidad_gasolina);
   timeoutAgregarCarro();
 }
 
 function timeoutAgregarCarro() {
   if (!pausado && !finalizado) {
     console.log("Carro agregado");
-    let t = Math.round(Math.random() * utils.tasaLlegada * 60 * 1000);
+    let t = Math.round(Math.random() * utils.obtenerTasaLlegada() * 60 * 1000);
     timeouts["llegadaCarros"] = timer.setTimeout(function () {
       estacionSimulacion.agregarCarro();
       timeoutAgregarCarro();
@@ -176,21 +170,13 @@ function timeoutAgregarCarro() {
 /** Funcion que se encarga de atender la llegada de un auto a la bomba, dentro de ella se hacen las actualizaciones */
 function atender() {
   //Revisar si aun hay combustible en la estacion, aunque sea solo de un tipo
-  if (
-    estacionSimulacion.getCisternaDiesel.getNivel > 0 ||
-    estacionSimulacion.getCisternaGasolina.getNivel > 0
-  ) {
+  if (estacionSimulacion.getCisternaDiesel.getNivel > 0 || estacionSimulacion.getCisternaGasolina.getNivel > 0) {
     //Recorrer todas las bombas
     for (let i = 0; i < estacionSimulacion.bombas.length; i++) {
       //Revisar las que tengan carros por atender y esten disponibles para poner a atender
-      if (
-        estacionSimulacion.bombas[i].getDisponible &&
-        estacionSimulacion.bombas[i].getCantidadPorAtender > 0
-      ) {
+      if (estacionSimulacion.bombas[i].getDisponible && estacionSimulacion.bombas[i].getCantidadPorAtender > 0) {
         //Obtener el siguiente carro a atender de la bomba
-        let carroAtender = estacionSimulacion.bombas[
-          i
-        ].obtenerCarroPorAtender();
+        let carroAtender = estacionSimulacion.bombas[i].obtenerCarroPorAtender();
         let seraAtendido = false;
         //Revisar si hay combustible del tipo que desea
         switch (carroAtender.getTipoCombustible) {
@@ -199,23 +185,14 @@ function atender() {
             if (estacionSimulacion.getCisternaDiesel.getNivel > 0) {
               seraAtendido = true;
               //Se le abastecerá todo lo solicitado al carro
-              if (
-                estacionSimulacion.getCisternaDiesel.getNivel >=
-                carroAtender.getCantidadLlenar
-              ) {
-                estacionSimulacion.getCisternaDiesel.bajarNivel(
-                  carroAtender.getCantidadLlenar
-                );
+              if (estacionSimulacion.getCisternaDiesel.getNivel >= carroAtender.getCantidadLlenar) {
+                estacionSimulacion.getCisternaDiesel.bajarNivel(carroAtender.getCantidadLlenar);
                 carroAtender.llenar(carroAtender.getCantidadLlenar);
               }
               //Se le abatecio solo lo que quedaba disponible
               else {
-                carroAtender.llenar(
-                  estacionSimulacion.getCisternaDiesel.getNivel
-                );
-                estacionSimulacion.getCisternaDiesel.bajarNivel(
-                  estacionSimulacion.getCisternaDiesel.getNivel
-                );
+                carroAtender.llenar(estacionSimulacion.getCisternaDiesel.getNivel);
+                estacionSimulacion.getCisternaDiesel.bajarNivel(estacionSimulacion.getCisternaDiesel.getNivel);
               }
             }
             //El carro es diesel y no hay diesel, reducir i para que al aumento del for vuelva a revisar la misma bomba
@@ -227,23 +204,14 @@ function atender() {
             if (estacionSimulacion.getCisternaGasolina.getNivel > 0) {
               seraAtendido = true;
               //Se le abatecio todo lo solicitado al carro
-              if (
-                estacionSimulacion.getCisternaGasolina.getNivel >=
-                carroAtender.getCantidadLlenar
-              ) {
-                estacionSimulacion.getCisternaGasolina.bajarNivel(
-                  carroAtender.getCantidadLlenar
-                );
+              if (estacionSimulacion.getCisternaGasolina.getNivel >= carroAtender.getCantidadLlenar) {
+                estacionSimulacion.getCisternaGasolina.bajarNivel(carroAtender.getCantidadLlenar);
                 carroAtender.llenar(carroAtender.getCantidadLlenar);
               }
               //Se le abatecio solo lo que quedaba disponible
               else {
-                carroAtender.llenar(
-                  estacionSimulacion.getCisternaGasolina.getNivel
-                );
-                estacionSimulacion.getCisternaGasolina.bajarNivel(
-                  estacionSimulacion.getCisternaGasolina.getNivel
-                );
+                carroAtender.llenar(estacionSimulacion.getCisternaGasolina.getNivel);
+                estacionSimulacion.getCisternaGasolina.bajarNivel(estacionSimulacion.getCisternaGasolina.getNivel);
               }
             }
             //El carro es gasolina y no hay gasolina, reducir i para que al aumento del for vuelva a revisar la misma bomba
@@ -260,20 +228,12 @@ function atender() {
           estacionSimulacion.bombas[i].setDisponible = false;
           //Timeout para terminar llenado del carro
           let t =
-            Math.round(
-              utils.tiempoPreLlenado +
-                estacionSimulacion.bombas[i].obtenerTiempoAtencion(
-                  carroAtender
-                ) +
-                utils.tiempoPosLlenado
-            ) *
+            Math.round(utils.obtenerTiempoPreLlenado() + estacionSimulacion.bombas[i].obtenerTiempoAtencion(carroAtender) + utils.obtenerTiempoPosLlenado()) *
             60 *
             1000;
           timeouts[`bomba-${i}`] = timer.setTimeout(function () {
             estacionSimulacion.bombas[i].setDisponible = true;
-            estacionSimulacion.bombas[i].agregarCarroAtendido(
-              estacionSimulacion.bombas[i].getCarroAtendiendo
-            );
+            estacionSimulacion.bombas[i].agregarCarroAtendido(estacionSimulacion.bombas[i].getCarroAtendiendo);
             atender();
           }, t);
         }
@@ -282,6 +242,9 @@ function atender() {
   } else {
     finalizado = true;
     simulando = false;
+    timeouts.forEach((timeout) => {
+      timer.clearTimeout(timeout);
+    });
     console.log("No hay combustible");
   }
   actualizar();
@@ -291,8 +254,7 @@ function actualizar() {
   //Objeto el cual se enviará en cada actualización
   let porcentajesCombustible = {
     porcentajeDiesel: estacionSimulacion.getCisternaDiesel.getPorcentajeOcupado,
-    porcentajeGasolina:
-      estacionSimulacion.getCisternaGasolina.getPorcentajeOcupado,
+    porcentajeGasolina: estacionSimulacion.getCisternaGasolina.getPorcentajeOcupado,
     finalizado,
   };
 

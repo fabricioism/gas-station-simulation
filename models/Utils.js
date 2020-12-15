@@ -61,11 +61,6 @@ function cargarDatos() {
   tiempoPreLlenado = variablesEstado.tiempoPreLlenado;
   tiempoPosLlenado = variablesEstado.tiempoPosLlenado;
   tasaLlegada = variablesEstado.tasaLlegada;
-  console.log(
-    "capacidadMaxTanque",
-    typeof capacidadMaxTanque,
-    capacidadMaxTanque
-  );
 }
 
 function guardarDatos() {
@@ -78,10 +73,7 @@ function guardarDatos() {
     tiempoPosLlenado,
     tasaLlegada,
   };
-  fs.writeFileSync(
-    "models/variables-estado.json",
-    JSON.stringify(variablesEstadoJSON)
-  );
+  fs.writeFileSync("models/variables-estado.json", JSON.stringify(variablesEstadoJSON));
 }
 
 function actualizarDatos(data) {
@@ -112,12 +104,12 @@ function obtenerDatos() {
 module.exports.diesel = diesel;
 module.exports.gasolina = gasolina;
 module.exports.tasaSimulacion = tasaSimulacion;
-module.exports.capacidadMaxTanque = obtenerCapacidadMaxTanque();
-module.exports.capacidadMinTanque = obtenerCapacidadMinTanque();
-module.exports.porcentajeMaxOcupado = obtenerPorcentajeMaxOcupado();
-module.exports.porcentajeGasolina = obtenerPorcentajeGasolina();
-module.exports.tiempoPreLlenado = obtenerTiempoPreLlenado();
-module.exports.tiempoPosLlenado = obtenerTiempoPosLlenado();
-module.exports.tasaLlegada = obtenerTasaLlegada();
+module.exports.obtenerCapacidadMaxTanque = obtenerCapacidadMaxTanque;
+module.exports.obtenerCapacidadMinTanque = obtenerCapacidadMinTanque;
+module.exports.obtenerPorcentajeMaxOcupado = obtenerPorcentajeMaxOcupado;
+module.exports.obtenerPorcentajeGasolina = obtenerPorcentajeGasolina;
+module.exports.obtenerTiempoPreLlenado = obtenerTiempoPreLlenado;
+module.exports.obtenerTiempoPosLlenado = obtenerTiempoPosLlenado;
+module.exports.obtenerTasaLlegada = obtenerTasaLlegada;
 module.exports.actualizarDatos = actualizarDatos;
 module.exports.obtenerDatos = obtenerDatos;
