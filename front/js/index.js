@@ -181,20 +181,22 @@ socket.on("respuesta-finalizar", function (data) {
 });
 socket.on("actualizacion", function (data) {
   if (data.finalizado) {
-    hypertimer.clearInterval(intervalo);
-    console.log("finalizado");
-    console.log("datos finales ", data);
-    // Cambiar estado a finalizado, mostrar boton limpiar datos, pausar cronometro
-    pausar.style.display = "none";
-    finalizar.style.display = "none";
-    resetear.style.display = "block";
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Finalizado",
-      showConfirmButton: false,
-      timer: 1000,
-    });
+    if (finalizar.style.display != "none") {
+      hypertimer.clearInterval(intervalo);
+      console.log("finalizado");
+      console.log("datos finales ", data);
+      // Cambiar estado a finalizado, mostrar boton limpiar datos, pausar cronometro
+      pausar.style.display = "none";
+      finalizar.style.display = "none";
+      resetear.style.display = "block";
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Finalizado",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }
   }
   actualizarPorcentajes(data);
   actualizarBombas(data);
@@ -399,10 +401,12 @@ function actualizarBombas(data) {
     atendidosCantidadDiesel.innerHTML = bomba.atendidosCantidadDiesel;
     atendidosCantidadGasolina.innerHTML = bomba.atendidosCantidadGasolina;
     atendidosLitros.innerHTML = `${bomba.atendidosLitros.toFixed(2)} L`;
-    atendidosLitrosDiesel.innerHTML =
-      `${bomba.atendidosLitrosDiesel.toFixed(2)} L`;
-    atendidosLitrosGasolina.innerHTML =
-      `${bomba.atendidosLitrosGasolina.toFixed(2)} L`;
+    atendidosLitrosDiesel.innerHTML = `${bomba.atendidosLitrosDiesel.toFixed(
+      2
+    )} L`;
+    atendidosLitrosGasolina.innerHTML = `${bomba.atendidosLitrosGasolina.toFixed(
+      2
+    )} L`;
   }
 }
 
@@ -446,7 +450,7 @@ function actualizarResumen(data) {
                 ${data.resumen.noAtendidosCantidadDiesel}
               </td>
               <td class="respuestas">
-                ${data.resumen.noAtendidosCantidadDiesel}
+                ${data.resumen.noAtendidosCantidadGasolina}
               </td>
               <td class="respuestas">
                 ${data.resumen.noAtendidosCantidad}

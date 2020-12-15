@@ -148,6 +148,17 @@ class Estacion {
   }
 
   obtenerActualizacionResumen(bombas) {
+    let noAtendidosCantidadGasolina = parseInt(
+      this.obtenerValor(bombas, "porAtenderGasolina")
+    );
+
+    let noAtendidosCantidadDiesel = parseInt(
+      this.obtenerValor(bombas, "porAtenderDiesel")
+    );
+
+    let noAtendidosCantidad =
+      noAtendidosCantidadGasolina + noAtendidosCantidadDiesel;
+
     let atendidosCantidad = this.obtenerValor(bombas, "atendidosCantidad");
 
     let atendidosCantidadGasolina = this.obtenerValor(
@@ -158,18 +169,6 @@ class Estacion {
     let atendidosCantidadDiesel = this.obtenerValor(
       bombas,
       "atendidosCantidadDiesel"
-    );
-
-    let noAtendidosCantidad = this.obtenerValor(bombas, "porAtender");
-
-    let noAtendidosCantidadGasolina = this.obtenerValor(
-      bombas,
-      "porAtenderGasolina"
-    );
-
-    let noAtendidosCantidadDiesel = this.obtenerValor(
-      bombas,
-      "porAtenderDiesel"
     );
 
     let porcentajeAtendidosGasolina = isNaN(
