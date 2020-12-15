@@ -102,6 +102,12 @@ Al cargar el cliente del simulador y acceder a la URL `http://localhost:3000/` e
 
 Previo a iniciar la simulación el usuario puede elegir modificar las variables de estado (capacidad máxima y mínima del tanque de un auto, tiempo que toma preparar el auto previo y pos llenado, porcentaje máximo del tanque que puede traer ocupado un auto, porcentaje de autos que usan gasolina como combustible y la tasa de llegada a la estación). El servidor devolverá una respuesta exitosa luego de verificar que los valores ingresados se encuentren en los rangos correctos, de lo contrario enviará una respuesta no exitosa.
 
+#### Iniciar la simulación
+
+![Diagrama 3 - Inicio de una simulación](images/diagrama3.png)
+
+Al iniciar la simulación se envían los datos de entrada al servidor para proceder a inicializar la simulación. El servidor devolverá una respuesta al cliente que será exitosa si se logró iniciar la simulación sin problema, en caso de que ya exista un cliente simulando no se podrá iniciar y se enviara una respuesta no exitosa al cliente.
+
 #### Durante la simulación
 
 ![Diagrama 4 - Pausa de una simulación](images/diagrama4.png)
