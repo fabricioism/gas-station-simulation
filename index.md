@@ -83,7 +83,15 @@ Se cargará el simulador y desde ese momento ya podrás hacer uso de el.
 
 Este simulador es una aplicación web asi que requiere de un servidor que provea del alojamiento del sitio. Además es necesario para realizar todas las operaciones.
 
-Con tu editor de texto favorito (En nuestro caso [VSC](https://code.visualstudio.com/)) abre en tu espacio de trabajo la ubicación del simulador que previamente clonaste.
+Con tu editor de texto favorito (En nuestro caso [VSC](https://code.visualstudio.com/)) abre en tu espacio de trabajo la ubicación del simulador que previamente clonaste. Copia y pega el siguiente comando en la terminal:
+
+```
+node server.js
+```
+
+![Imagen 1 - Corriendo els servidor](images/manual1.png)
+
+Hecho lo anterior el servidor inicia su ejecución y por medio del puerto `3000`.
 
 ### Ingresando al simulador
 
@@ -91,7 +99,42 @@ Dado que este es un simulador que se ejecuta en una aplicación web basta con ab
 
 Abre una pestaña, copia y pega la siguiente URL: `http://localhost:3000/
 
-![Diagrama 3 - Inicio de una simulación](images/manual1.png)
+![Imagen 2 - Ingresando al simulador](images/manual2.png)
+
+Cargando lo siguiente:
+![Imagen 3 - Mostrando el simulador](images/manual3.png)
+
+### Datos de entrada
+
+Este simulador requiere que se provean de ciertos datos de entrada que son usados dentro en la simulación. A continuación describimos estos campos.
+
+| Dato de entrada                  | Descripción                                                                                                                                                                       |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bombas disponibles               | Número de bombas de servicio disponibles para su uso por los clientes                                                                                                             |
+| Litros de diesel en almacenaje   | Cantidad en litros de diesel disponibles para vender                                                                                                                              |
+| Litros de gasolina en almacenaje | Cantidad en litros de gasolina disponibles para vender                                                                                                                            |
+| Flujo de las bombas              | Caudal de combustible que puede proveer una bomba a un auto                                                                                                                       |
+| Velocidad de la simulación       | Este número multiplica nuestra unidad de tiempo por el que selecciones. Por ejemplo: Si escogió `x10` al transcurrir un minuto este equivale a 10 minutos dentro de la simulación |
+
+### Configurar variables de estado
+
+Debajo del cuadro de ingreso de datos puedes presionar en `Configurar variables de estado`
+
+![Imagen 4 - Configurar variables de estado](images/manual4.png)
+
+![Imagen 5 - Configurando variables de estado](images/manual5.png)
+
+En esta ventana emergente puedes cambiar las variables de estado que inciden en la simulación. A continuación su detalle:
+
+| Variable                     | Detalle                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Capacidad máxima del tanque  | El valor máximo de capacidad en litros que pueden tener los tanques de los autos                                                                                                                                                                                                                                                                                                                              |
+| Capacidad mínima del tanque  | El valor mínimo de combustible en litros que pueden tener los tanques de los autos                                                                                                                                                                                                                                                                                                                            |
+| Tiempo pre-llenado           | Cantidad en minutos que puede tardar un auto desde su llegada a la estación hasta empezar a llenarse de combustible                                                                                                                                                                                                                                                                                           |
+| Tiempo pos-llenado           | Cantidad en minutos que puede tardar un auto desde que fue llenado hasta irse de la estación                                                                                                                                                                                                                                                                                                                  |
+| Porcentaje máximo ocupado    | Este número representa el porcentaje máximo ocupado del tanque de combustible que pueden tener los autos. Este debe estar en el intervalo `[0,1]`. Por ejemplo, `0.75` significa que todo auto que llegue a la estación tiene a lo más un `75%` de su tanque lleno                                                                                                                                            |
+| Porcentaje de autos gasolina | Este número representa el porcentaje de autos tipo gasolina que existe en el parque vehicular y puede llegar a la estación. Este valor está en el intervalo de `[0,1]`. Por ejemplo, `0.80` significa que el `80%` del parque vehicular consume `Gasolina`. (El porcentaje de autos tipo diesel se encuentra de la diferencia de porcentaje entre autos tipo gasolina. En este ejemplo sería `0.2`, el `20%`) |
+| Tasa de llegada              | Tiempo en minutos al que llegan nuevos autos a la estación. Por ejemplo, `5` representa que en intervalo de `(0-5) minutos` siempre llega un nuevo auto a la estación                                                                                                                                                                                                                                         |
 
 ## Manual técnico
 
