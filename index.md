@@ -149,7 +149,7 @@ Con tu editor de texto favorito (En nuestro caso [VSC](https://code.visualstudio
 node server.js
 ```
 
-![Imagen 1 - Corriendo el servidor](images/manual1.png)
+![Imagen 1 - Corriendo el servidor](images/manual1.PNG)
 
 Hecho lo anterior el servidor inicia su ejecución y por medio del puerto `3000`.
 
@@ -157,12 +157,12 @@ Hecho lo anterior el servidor inicia su ejecución y por medio del puerto `3000`
 
 Dado que este es un simulador que se ejecuta en una aplicación web basta con abrir tu navegador para poder usarlo.
 
-Abre una pestaña, copia y pega la siguiente URL: `http://localhost:3000/
+Abre una pestaña, copia y pega la siguiente URL: `http://localhost:3000/`
 
-![Imagen 2 - Ingresando al simulador](images/manual2.png)
+![Imagen 2 - Ingresando al simulador](images/manual2.PNG)
 
 Cargando lo siguiente:
-![Imagen 3 - Mostrando el simulador](images/manual3.png)
+![Imagen 3 - Mostrando el simulador](images/manual3.PNG)
 
 ### Datos de entrada
 
@@ -182,7 +182,7 @@ Debajo del cuadro de ingreso de datos puedes presionar en `Configurar variables 
 
 ![Imagen 4 - Configurar variables de estado](images/manual4.png)
 
-![Imagen 5 - Configurando variables de estado](images/manual5.png)
+![Imagen 5 - Configurando variables de estado](images/manual5.PNG)
 
 En esta ventana emergente puedes cambiar las variables de estado que inciden en la simulación. A continuación su detalle:
 
