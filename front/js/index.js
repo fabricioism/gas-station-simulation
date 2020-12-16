@@ -414,7 +414,7 @@ function actualizarResumen(data) {
               <th>Total</th>
             </tr>
             <tr>
-              <th class="cantidad-litros">Vehiculos Atendidos</th>
+              <th class="cantidad-litros">Vehículos Atendidos</th>
               <td class="respuestas">
                 ${data.resumen.atendidosCantidadDiesel}
               </td>
@@ -438,7 +438,7 @@ function actualizarResumen(data) {
               </td>
             </tr>
             <tr>
-              <th class="cantidad-litros">Vehiculos en cola</th>
+              <th class="cantidad-litros">Vehículos en cola</th>
               <td class="respuestas">
                 ${data.resumen.noAtendidosCantidadDiesel}
               </td>
@@ -450,7 +450,7 @@ function actualizarResumen(data) {
               </td>
             </tr>
             <tr>
-              <th class="cantidad-litros">Porcentaje Vehiculos</th>
+              <th class="cantidad-litros">Porcentaje Vehículos</th>
               <td class="respuestas">
                 ${pad.toFixed(2)}%
               </td>
