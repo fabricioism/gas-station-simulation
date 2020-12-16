@@ -17,6 +17,8 @@ Aquí podrás encontrar lo necesario para poder entender el funcionamiento de es
    - [Ingresando al simulador](#ingresando-al-simulador)
    - [Datos de entrada](#datos-de-entrada)
    - [Configurar variables de estado](#configurar-variables-de-estado)
+   - [Iniciando la simulación](#iniciando-la-simulación)
+   - [Salidas de la simulación](#salidas-de-la-simulación)
 
 ## Prerequisitos
 
@@ -197,6 +199,42 @@ En esta ventana emergente puedes cambiar las variables de estado que inciden en 
 | Tasa de llegada              | Tiempo en minutos al que llegan nuevos autos a la estación. Por ejemplo, `5` representa que en intervalo de `(0-5) minutos` siempre llega un nuevo auto a la estación                                                                                                                                                                                                                                         |
 
 Guarda esta configuración y todas las simulaciones que hagas tomarán en cuenta esas variables de estado. Si las quieres cambiar nuevamente repite el proceso anterior.
+
+### Iniciando la simulación
+
+Habiendo hecho lo anterior estamos listos para empezar a simular. Haz clic en el boton `Iniciar` que se encuentra en la parte inferior izquierda.
+
+![Imagen 5 - Iniciando la simulación](images/manual4.png)
+
+En ese momento la simulación comenzará.
+![Imagen 6 - Simulando](images/manual6.PNG)
+
+La simulación finalizará una vez la finalices haciendo clic en el boton `Finalizar` o los niveles de combustible lleguen a cero. Asimismo puedes parar la simulación y continuar cuando quieras.
+
+### Salidas de la simulación
+
+Junto a la entrada de datos puedes ver un _dashboard_ en donde se muestran varios datos. A continuación su descripción:
+
+#### Bombas
+
+Aquí podrás ver un cuadro con datos por cada bomba que exista en la simulación. Esos datos representan lo siguiente:
+
+| Atendidos | Diesel | Gasolina | Descripción                                                                                                                   |
+| --------- | ------ | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| x + y     | x      | y        | Cantidad de autos ya atendidos durante la simulación por tipo de combustible. El primer valor es la suma de las dos restantes |
+| w + z     | w      | z        | Cantidad de litros vendidas durante la simulación por tipo de combustible. El primer valor es la suma de las dos restantes    |
+
+#### Resumen
+
+En este podrás encontrar un resumen de los datos que se muestran para las bombas, además otros que se pueden inferir de los datos de salida existentes, a continuación su descripción:
+
+|                      | Diesel | Gasolina | Total | Descripción                                                                 |
+| -------------------- | ------ | -------- | ----- | --------------------------------------------------------------------------- |
+| Vehículos atendidos  | n      | m        | n + m | Cantidad de autos atendidos durante la simulación                           |
+| Litros vendidos      | p      | q        | p + q | Cantidad de litros vendidos de combustible                                  |
+| Vehículos en cola    | r      | s        | r + s | Cantidad de autos pendientes por recibir el servicio                        |
+| Porcentaje vehículos | t      | u        | t + u | Porcentaje de autos atendidos durante la simulación por tipo de combustible |
+| Venta promedio       | v      | w        | y     | Venta promedio en litros de combustible por tipo durante la simulación      |
 
 ### Equipo de desarrollo
 
