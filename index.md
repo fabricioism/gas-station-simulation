@@ -4,15 +4,21 @@ Aquí podrás encontrar lo necesario para poder entender el funcionamiento de es
 
 ## Contenido 📘
 
-1. [Documentación técnica](#documentación-técnica)
+1. [Prerrequisitos](#prerequisitos)
    - [Requisitos del sistema](#requisitos-del-sistema)
    - [Clonando el repositorio](#clonando-el-repositorio)
    - [Instalando los paquetes necesarios](#instalando-los-paquetes-necesarios)
    - [Ejecutando el proyecto](#ejecutando-el-proyecto)
 2. [Manual técnico](#manual-técnico)
+   - [Herramientas utilizadas](#herramientas-utilizadas)
+   - [Interacción cliente-servidor](#interacción-cliente-servidor)
 3. [Manual de usuario](#manual-de-usuario)
+   - [Iniciando el servidor de Node](#iniciando-el-servidor-de-node)
+   - [Ingresando al simulador](#ingresando-al-simulador)
+   - [Datos de entrada](#datos-de-entrada)
+   - [Configurar variables de estado](#configurar-variables-de-estado)
 
-## Documentación técnica
+## Prerequisitos
 
 Aquí podrás ver todo lo referente a las instrucciones necesarias para clonar y ejecutar este proyecto en tu computadora.
 
@@ -77,6 +83,60 @@ Con el comando anterior el servidor local inicia su ejecución y en el puerto `3
 
 Se cargará el simulador y desde ese momento ya podrás hacer uso de el.
 
+## Manual técnico
+
+### Herramientas utilizadas
+
+1. Javascript (cliente y servidor)
+2. HTML (cliente)
+3. CSS (cliente)
+4. Bootstrap (cliente) leer más [aquí](https://getbootstrap.com/).
+5. Socket<span>.I</span>O (comunicación cliente-servidor) leer más [aquí](https://socket.io/).
+6. Hypertimer (simulación del tiempo) leer más [aquí](https://www.npmjs.com/package/hypertimer).
+
+### Interacción cliente-servidor
+
+La interacción cliente-servidor se genera de múltiples maneras, como puede ser la obtención de los datos iniciales, cambio de variables de estado, inicio, pausa, continuar, finalizar y las actualizaciones que debe recibir el cliente. En los siguientes esquemas se detalla de forma visual de estas interacciones.
+
+#### Variables de estado
+
+![Diagrama 1 - Obtención de variables de estado](images/diagrama1.png)
+
+Al cargar el cliente del simulador y acceder a la URL `http://localhost:3000/` el cliente enviará una solicitud para obtener las variables de estado (según el último valor que se almaceno). El servidor devolverá las variables de estado que estaban almacenadas.
+
+![Diagrama 2 - Modificación de variables de estado](images/diagrama2.png)
+
+Previo a iniciar la simulación el usuario puede elegir modificar las variables de estado (capacidad máxima y mínima del tanque de un auto, tiempo que toma preparar el auto previo y pos llenado, porcentaje máximo del tanque que puede traer ocupado un auto, porcentaje de autos que usan gasolina como combustible y la tasa de llegada a la estación). El servidor devolverá una respuesta exitosa luego de verificar que los valores ingresados se encuentren en los rangos correctos, de lo contrario enviará una respuesta no exitosa.
+
+#### Iniciar la simulación
+
+![Diagrama 3 - Inicio de una simulación](images/diagrama3.png)
+
+Al iniciar la simulación se envían los datos de entrada al servidor para proceder a inicializar la simulación. El servidor devolverá una respuesta al cliente que será exitosa si se logró iniciar la simulación sin problema, en caso de que ya exista un cliente simulando no se podrá iniciar y se enviara una respuesta no exitosa al cliente.
+
+#### Durante la simulación
+
+![Diagrama 4 - Pausa de una simulación](images/diagrama4.png)
+
+El usuario puede pausar la simulación en cualquier momento, cuando decide hacerlo se envía la solicitud de pausa al servidor, el servidor devolverá una respuesta exitosa en caso de que la simulación se esté ejecutando y aun no haya finalizado, caso contrario devolverá una respuesta no exitosa.
+
+![Diagrama 5 - Continuación de una simulación](images/diagrama5.png)
+
+Luego de haber pausado una simulación el usuario puede elegir continuar con ella, en este caso se enviará una solicitud de continuar al servidor, el servidor devolverá una respuesta exitosa en caso de que la simulación este pausada y aun no haya finalizado, caso contrario devolverá una respuesta no exitosa.
+
+![Diagrama 6 - Actualización de una simulación](images/diagrama6.png)
+
+El servidor se encarga de enviar actualizaciones al cliente al suceso de dos eventos, los cuales son:
+
+1. Ingreso de un vehículo a la estación.
+2. Un vehículo sale de la estación luego de ser atendido o si no hay combustible del tipo que solicitaba.
+
+La actualización contiene la información necesaria para mostrar los niveles de almacenaje de cada tipo de combustible, los datos a mostrar de cada bomba de la estación, el resumen de toda la estación y además un estado de finalizado en caso de que la estación se quede sin combustible. En caso de que la estación se quede sin combustible para suplir la simulación se detendrá.
+
+![Diagrama 7 - Finalización de una simulación](images/diagrama7.png)
+
+El usuario es capaz de finalizar una simulación que se esté ejecutando luego de haberla iniciado y sin importar si esta pausada o no, se envía la solicitud al servidor para finalizar la simulación, el servidor finaliza todo en caso de que haya una simulación iniciada y envía una respuesta de éxito, caso contrario se envía una respuesta no exitosa.
+
 ## Manual de usuario
 
 ### Iniciando el servidor de Node
@@ -136,61 +196,7 @@ En esta ventana emergente puedes cambiar las variables de estado que inciden en 
 | Porcentaje de autos gasolina | Este número representa el porcentaje de autos tipo gasolina que existe en el parque vehicular y puede llegar a la estación. Este valor está en el intervalo de `[0,1]`. Por ejemplo, `0.80` significa que el `80%` del parque vehicular consume `Gasolina`. (El porcentaje de autos tipo diesel se encuentra de la diferencia de porcentaje entre autos tipo gasolina. En este ejemplo sería `0.2`, el `20%`) |
 | Tasa de llegada              | Tiempo en minutos al que llegan nuevos autos a la estación. Por ejemplo, `5` representa que en intervalo de `(0-5) minutos` siempre llega un nuevo auto a la estación                                                                                                                                                                                                                                         |
 
-## Manual técnico
-
-### Herramientas utilizadas
-
-1. Javascript (cliente y servidor)
-2. HTML (cliente)
-3. CSS (cliente)
-4. Bootstrap (cliente) leer más [aquí](https://getbootstrap.com/).
-5. Socket<span>.I</span>O (comunicación cliente-servidor) leer más [aquí](https://socket.io/).
-6. Hypertimer (simulación del tiempo) leer más [aquí](https://www.npmjs.com/package/hypertimer).
-
-### Interacción cliente-servidor
-
-La interacción cliente-servidor se genera de múltiples maneras, como puede ser la obtención de los datos iniciales, cambio de variables de estado, inicio, pausa, continuar, finalizar y las actualizaciones que debe recibir el cliente. En los siguientes esquemas se detalla de forma visual de estas interacciones.
-
-#### Variables de estado
-
-![Diagrama 1 - Obtención de variables de estado](images/diagrama1.png)
-
-Al cargar el cliente del simulador y acceder a la URL `http://localhost:3000/` el cliente enviará una solicitud para obtener las variables de estado (según el último valor que se almaceno). El servidor devolverá las variables de estado que estaban almacenadas.
-
-![Diagrama 2 - Modificación de variables de estado](images/diagrama2.png)
-
-Previo a iniciar la simulación el usuario puede elegir modificar las variables de estado (capacidad máxima y mínima del tanque de un auto, tiempo que toma preparar el auto previo y pos llenado, porcentaje máximo del tanque que puede traer ocupado un auto, porcentaje de autos que usan gasolina como combustible y la tasa de llegada a la estación). El servidor devolverá una respuesta exitosa luego de verificar que los valores ingresados se encuentren en los rangos correctos, de lo contrario enviará una respuesta no exitosa.
-
-#### Iniciar la simulación
-
-![Diagrama 3 - Inicio de una simulación](images/diagrama3.png)
-
-Al iniciar la simulación se envían los datos de entrada al servidor para proceder a inicializar la simulación. El servidor devolverá una respuesta al cliente que será exitosa si se logró iniciar la simulación sin problema, en caso de que ya exista un cliente simulando no se podrá iniciar y se enviara una respuesta no exitosa al cliente.
-
-#### Durante la simulación
-
-![Diagrama 4 - Pausa de una simulación](images/diagrama4.png)
-
-El usuario puede pausar la simulación en cualquier momento, cuando decide hacerlo se envía la solicitud de pausa al servidor, el servidor devolverá una respuesta exitosa en caso de que la simulación se esté ejecutando y aun no haya finalizado, caso contrario devolverá una respuesta no exitosa.
-
-![Diagrama 5 - Continuación de una simulación](images/diagrama5.png)
-
-Luego de haber pausado una simulación el usuario puede elegir continuar con ella, en este caso se enviará una solicitud de continuar al servidor, el servidor devolverá una respuesta exitosa en caso de que la simulación este pausada y aun no haya finalizado, caso contrario devolverá una respuesta no exitosa.
-
-![Diagrama 6 - Actualización de una simulación](images/diagrama6.png)
-
-El servidor se encarga de enviar actualizaciones al cliente al suceso de dos eventos, los cuales son:
-
-1. Ingreso de un vehículo a la estación.
-2. Un vehículo sale de la estación luego de ser atendido o si no hay combustible del tipo que solicitaba.
-
-La actualización contiene la información necesaria para mostrar los niveles de almacenaje de cada tipo de combustible, los datos a mostrar de cada bomba de la estación, el resumen de toda la estación y además un estado de finalizado en caso de que la estación se quede sin combustible. En caso de que la estación se quede sin combustible para suplir la simulación se detendrá.
-
-![Diagrama 7 - Finalización de una simulación](images/diagrama7.png)
-
-El usuario es capaz de finalizar una simulación que se esté ejecutando luego de haberla iniciado y sin importar si esta pausada o no, se envía la solicitud al servidor para finalizar la simulación, el servidor finaliza todo en caso de que haya una simulación iniciada y envía una respuesta de éxito, caso contrario se envía una respuesta no exitosa.
-
-## Manual de usuario
+Guarda esta configuración y todas las simulaciones que hagas tomarán en cuenta esas variables de estado. Si las quieres cambiar nuevamente repite el proceso anterior.
 
 ### Equipo de desarrollo
 
