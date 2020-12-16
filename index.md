@@ -89,7 +89,7 @@ Con tu editor de texto favorito (En nuestro caso [VSC](https://code.visualstudio
 node server.js
 ```
 
-![Imagen 1 - Corriendo els servidor](images/manual1.png)
+![Imagen 1 - Corriendo el servidor](images/manual1.png)
 
 Hecho lo anterior el servidor inicia su ejecución y por medio del puerto `3000`.
 
