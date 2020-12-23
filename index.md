@@ -240,4 +240,4 @@ En este podrás encontrar un resumen de los datos que se muestran para las bomba
 
 - **Fabricio Murilo** - [fabricioism](https://github.com/fabricioism)
 - **Josue Silva** - [JosueSilvaA](https://github.com/JosueSilvaA)
-- **Nelson Díaz** - [NDz23](https://github.com/NDz23)
+- **Nelson Díaz** - [NnDz23](https://github.com/NnDz23)
